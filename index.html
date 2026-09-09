@@ -818,6 +818,163 @@
             background: #f0f0f0;
             margin: 0 20px;
         }
+
+        /* ===== PK Page ===== */
+        .pk-page {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100%;
+            max-width: 430px;
+            height: 100vh;
+            background: #fff;
+            z-index: 400;
+            overflow-y: auto;
+        }
+
+        .pk-page.active {
+            display: block;
+        }
+
+        .pk-nav {
+            display: flex;
+            align-items: center;
+            padding: 12px 16px;
+            border-bottom: 1px solid #f0f0f0;
+            position: sticky;
+            top: 0;
+            background: #fff;
+            z-index: 10;
+        }
+
+        .pk-back {
+            width: 36px;
+            height: 36px;
+            border: none;
+            background: none;
+            font-size: 22px;
+            cursor: pointer;
+            color: #333;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .pk-nav-title {
+            flex: 1;
+            text-align: center;
+            font-size: 17px;
+            font-weight: 700;
+            color: #1a1a1a;
+            margin-right: 36px;
+        }
+
+        .pk-modes {
+            padding: 24px 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .pk-mode-card {
+            display: flex;
+            align-items: center;
+            padding: 18px 20px;
+            border: 2.5px solid #e8e8e8;
+            border-radius: 16px;
+            cursor: pointer;
+            transition: all 0.2s;
+            gap: 16px;
+        }
+
+        .pk-mode-card.selected {
+            border-color: #f56a3a;
+            box-shadow: 0 0 0 1px #f56a3a;
+        }
+
+        .pk-mode-card.disabled {
+            opacity: 0.5;
+            cursor: default;
+        }
+
+        .pk-mode-icon {
+            width: 52px;
+            height: 52px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            flex-shrink: 0;
+        }
+
+        .pk-mode-icon.blue {
+            background: linear-gradient(135deg, #4facfe, #00f2fe);
+        }
+
+        .pk-mode-icon.orange {
+            background: linear-gradient(135deg, #f5a623, #f7c948);
+        }
+
+        .pk-mode-icon.gray {
+            background: #e0e0e0;
+        }
+
+        .pk-mode-icon svg {
+            width: 26px;
+            height: 26px;
+        }
+
+        .pk-mode-info {
+            flex: 1;
+        }
+
+        .pk-mode-name {
+            font-size: 17px;
+            font-weight: 700;
+            color: #1a1a1a;
+        }
+
+        .pk-mode-desc {
+            font-size: 13px;
+            color: #999;
+            margin-top: 3px;
+        }
+
+        .pk-bonus {
+            text-align: center;
+            padding: 20px;
+            font-size: 14px;
+            color: #666;
+        }
+
+        .pk-bonus span {
+            color: #f5a623;
+            font-weight: 700;
+        }
+
+        .pk-start-btn {
+            display: block;
+            margin: 0 20px 30px;
+            padding: 18px;
+            background: linear-gradient(135deg, #f56a3a, #f07a4a);
+            color: #fff;
+            border: none;
+            border-radius: 50px;
+            font-size: 20px;
+            font-weight: 700;
+            cursor: pointer;
+            text-align: center;
+            width: calc(100% - 40px);
+            box-shadow: 0 4px 20px rgba(245, 106, 58, 0.35);
+            letter-spacing: 2px;
+        }
+
+        .pk-start-btn:active {
+            transform: scale(0.97);
+        }
     </style>
 </head>
 <body>
@@ -1100,12 +1257,69 @@
         </div>
     </div>
 
+    <!-- PK Page -->
+    <div class="pk-page" id="pk-page">
+        <div class="pk-nav">
+            <button class="pk-back" onclick="closePK()">&#8249;</button>
+            <div class="pk-nav-title">1分钟跳绳 &#128260; PK</div>
+        </div>
+        <div class="pk-modes">
+            <div class="pk-mode-card selected" data-mode="1v1" onclick="selectPKMode(this)">
+                <div class="pk-mode-icon blue">
+                    <svg viewBox="0 0 24 24" fill="#fff"><path d="M13 2L4.09 12.63c-.39.47-.06 1.17.55 1.17H11v8l8.91-10.63c.39-.47.06-1.17-.55-1.17H13V2z"/></svg>
+                </div>
+                <div class="pk-mode-info">
+                    <div class="pk-mode-name">快速1v1</div>
+                    <div class="pk-mode-desc">匹配同水准对手</div>
+                </div>
+            </div>
+            <div class="pk-mode-card" data-mode="group" onclick="selectPKMode(this)">
+                <div class="pk-mode-icon orange">
+                    <svg viewBox="0 0 24 24" fill="#fff"><circle cx="8" cy="8" r="2.5"/><circle cx="16" cy="8" r="2.5"/><circle cx="8" cy="16" r="2.5"/><circle cx="16" cy="16" r="2.5"/></svg>
+                </div>
+                <div class="pk-mode-info">
+                    <div class="pk-mode-name">小组赛</div>
+                    <div class="pk-mode-desc">4人同场竞技</div>
+                </div>
+            </div>
+            <div class="pk-mode-card disabled" data-mode="classmate">
+                <div class="pk-mode-icon gray">
+                    <svg viewBox="0 0 24 24" fill="#999"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg>
+                </div>
+                <div class="pk-mode-info">
+                    <div class="pk-mode-name">挑战同学</div>
+                    <div class="pk-mode-desc">挑战同学的纪录</div>
+                </div>
+            </div>
+            <div class="pk-mode-card disabled" data-mode="friend">
+                <div class="pk-mode-icon gray">
+                    <svg viewBox="0 0 24 24" fill="#999"><path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z"/></svg>
+                </div>
+                <div class="pk-mode-info">
+                    <div class="pk-mode-name">挑战好友</div>
+                    <div class="pk-mode-desc">挑战好友的纪录</div>
+                </div>
+            </div>
+            <div class="pk-mode-card disabled" data-mode="teammate">
+                <div class="pk-mode-icon gray">
+                    <svg viewBox="0 0 24 24" fill="#999"><path d="M18 11c0-1.1-.9-2-2-2h-1V7c0-1.1-.9-2-2-2H9c-1.1 0-2 .9-2 2v2H6c-1.1 0-2 .9-2 2v6c0 1.1.9 2 2 2h10c1.1 0 2-.9 2-2v-6zM9 7h6v2H9V7zm7 10H6v-6h10v6z"/></svg>
+                </div>
+                <div class="pk-mode-info">
+                    <div class="pk-mode-name">挑战队友</div>
+                    <div class="pk-mode-desc">挑战运动小队记录</div>
+                </div>
+            </div>
+        </div>
+        <div class="pk-bonus">今日首胜：<span>经验+20</span></div>
+        <button class="pk-start-btn" onclick="alert('开始PK！')">开始PK</button>
+    </div>
+
     <!-- 1分钟跳绳 Detail Page -->
     <div class="detail-page" id="detail-rope">
         <div class="detail-nav">
             <button class="detail-close" onclick="closeDetail()">✕</button>
             <div class="detail-actions">
-                <button class="detail-action-btn pk">PK</button>
+                <button class="detail-action-btn pk" onclick="openPK()">PK</button>
                 <button class="detail-action-btn">
                     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                         <path d="M4 12v8a2 2 0 002 2h12a2 2 0 002-2v-8"/>
@@ -1289,6 +1503,24 @@
         function closeDetail() {
             document.getElementById('detail-rope').classList.remove('active');
             tabBar.style.display = 'flex';
+        }
+
+        // Open PK page
+        function openPK() {
+            document.getElementById('pk-page').classList.add('active');
+            document.getElementById('pk-page').scrollTop = 0;
+        }
+
+        // Close PK page
+        function closePK() {
+            document.getElementById('pk-page').classList.remove('active');
+        }
+
+        // Select PK mode
+        function selectPKMode(card) {
+            if (card.classList.contains('disabled')) return;
+            document.querySelectorAll('.pk-mode-card').forEach(c => c.classList.remove('selected'));
+            card.classList.add('selected');
         }
 
         // Toggle rules/scoring collapse
