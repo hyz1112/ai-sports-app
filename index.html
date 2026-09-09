@@ -1,0 +1,1311 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>AI运动</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif;
+            background: #f0f2f5;
+            max-width: 430px;
+            margin: 0 auto;
+            min-height: 100vh;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        /* ===== Header ===== */
+        .header {
+            background: #fff;
+            padding: 16px 20px 12px;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header h1 {
+            font-size: 28px;
+            font-weight: 800;
+            color: #1a1a1a;
+            display: inline-block;
+            position: relative;
+        }
+
+        .header h1::after {
+            content: '';
+            position: absolute;
+            bottom: -6px;
+            left: 0;
+            width: 36px;
+            height: 4px;
+            background: #f56a3a;
+            border-radius: 2px;
+        }
+
+        /* ===== Page Content ===== */
+        .page {
+            display: none;
+            padding-bottom: 90px;
+        }
+
+        .page.active {
+            display: block;
+        }
+
+        /* ===== Section Card ===== */
+        .section-card {
+            background: #fff;
+            border-radius: 16px;
+            margin: 12px 12px 0;
+            padding: 20px 16px 16px;
+        }
+
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 4px;
+        }
+
+        .section-subtitle {
+            font-size: 14px;
+            color: #f56a3a;
+            font-weight: 600;
+        }
+
+        .section-more {
+            font-size: 14px;
+            color: #bbb;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 2px;
+        }
+
+        .section-more::after {
+            content: '›';
+            font-size: 18px;
+            line-height: 1;
+        }
+
+        .section-title {
+            font-size: 22px;
+            font-weight: 800;
+            color: #1a1a1a;
+            margin-bottom: 16px;
+        }
+
+        /* ===== Exercise Grid ===== */
+        .exercise-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+        }
+
+        .exercise-card {
+            cursor: pointer;
+            transition: transform 0.15s;
+        }
+
+        .exercise-card:active {
+            transform: scale(0.96);
+        }
+
+        .exercise-img {
+            width: 100%;
+            aspect-ratio: 4 / 3;
+            border-radius: 12px;
+            overflow: hidden;
+            position: relative;
+            background: #e8f4fd;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .exercise-img.blue {
+            background: linear-gradient(135deg, #e0f0ff 0%, #d6ecfa 100%);
+        }
+
+        .exercise-img.pink {
+            background: linear-gradient(135deg, #fde8ec 0%, #fce4ec 100%);
+        }
+
+        .exercise-img .emoji-icon {
+            font-size: 64px;
+            line-height: 1;
+        }
+
+        .badge {
+            position: absolute;
+            top: 8px;
+            left: 8px;
+            background: #f56a3a;
+            color: #fff;
+            font-size: 11px;
+            padding: 3px 8px;
+            border-radius: 10px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 3px;
+        }
+
+        .badge::before {
+            content: '';
+            font-size: 12px;
+        }
+
+        .exercise-name {
+            font-size: 15px;
+            font-weight: 700;
+            color: #1a1a1a;
+            margin-top: 8px;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .exercise-meta {
+            font-size: 12px;
+            color: #999;
+            margin-top: 2px;
+        }
+
+        /* ===== Bottom Tab Bar ===== */
+        .tab-bar {
+            position: fixed;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100%;
+            max-width: 430px;
+            background: #fff;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            padding: 8px 0;
+            padding-bottom: calc(8px + env(safe-area-inset-bottom));
+            border-top: 1px solid #f0f0f0;
+            z-index: 200;
+        }
+
+        .tab-item {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 3px;
+            cursor: pointer;
+            padding: 4px 0;
+            position: relative;
+            transition: all 0.2s;
+        }
+
+        .tab-item .tab-icon {
+            font-size: 24px;
+            line-height: 1;
+            color: #c0c0c0;
+            transition: color 0.2s;
+        }
+
+        .tab-item .tab-label {
+            font-size: 11px;
+            color: #c0c0c0;
+            font-weight: 500;
+            transition: color 0.2s;
+        }
+
+        .tab-item.active .tab-icon {
+            color: #f56a3a;
+        }
+
+        .tab-item.active .tab-label {
+            color: #f56a3a;
+            font-weight: 700;
+        }
+
+        .tab-item.active::before {
+            content: '';
+            position: absolute;
+            top: -8px;
+            width: 40px;
+            height: 40px;
+            background: #fff3ee;
+            border-radius: 50%;
+            z-index: -1;
+        }
+
+        /* ===== Plan Page ===== */
+        .plan-empty {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 80px 40px;
+            text-align: center;
+        }
+
+        .plan-empty .empty-icon {
+            font-size: 80px;
+            margin-bottom: 16px;
+        }
+
+        .plan-empty h3 {
+            font-size: 18px;
+            color: #333;
+            margin-bottom: 8px;
+        }
+
+        .plan-empty p {
+            font-size: 14px;
+            color: #999;
+        }
+
+        /* ===== Profile Page ===== */
+        .profile-header-card {
+            background: #fff;
+            border-radius: 16px;
+            margin: 12px;
+            padding: 24px 20px;
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .avatar {
+            width: 64px;
+            height: 64px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #f56a3a, #ff9a6c);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 28px;
+            color: #fff;
+            font-weight: 700;
+        }
+
+        .profile-info h3 {
+            font-size: 18px;
+            font-weight: 700;
+            color: #1a1a1a;
+        }
+
+        .profile-info p {
+            font-size: 13px;
+            color: #999;
+            margin-top: 4px;
+        }
+
+        .profile-stats {
+            display: flex;
+            gap: 0;
+            margin: 12px;
+            background: #fff;
+            border-radius: 16px;
+            overflow: hidden;
+        }
+
+        .stat-item {
+            flex: 1;
+            text-align: center;
+            padding: 16px 8px;
+        }
+
+        .stat-item:not(:last-child) {
+            border-right: 1px solid #f0f0f0;
+        }
+
+        .stat-value {
+            font-size: 22px;
+            font-weight: 800;
+            color: #1a1a1a;
+        }
+
+        .stat-label {
+            font-size: 12px;
+            color: #999;
+            margin-top: 4px;
+        }
+
+        .profile-menu {
+            margin: 12px;
+            background: #fff;
+            border-radius: 16px;
+            overflow: hidden;
+        }
+
+        .menu-item {
+            display: flex;
+            align-items: center;
+            padding: 16px 20px;
+            cursor: pointer;
+            transition: background 0.15s;
+        }
+
+        .menu-item:active {
+            background: #f8f8f8;
+        }
+
+        .menu-item:not(:last-child) {
+            border-bottom: 1px solid #f5f5f5;
+        }
+
+        .menu-item .menu-icon {
+            font-size: 20px;
+            margin-right: 12px;
+            width: 28px;
+            text-align: center;
+        }
+
+        .menu-item .menu-text {
+            flex: 1;
+            font-size: 15px;
+            color: #333;
+        }
+
+        .menu-item .menu-arrow {
+            color: #ccc;
+            font-size: 18px;
+        }
+
+        /* ===== SVG Illustrations ===== */
+        .illustration {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .illustration svg {
+            width: 80%;
+            height: 80%;
+        }
+
+        /* ===== Detail Page ===== */
+        .detail-page {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100%;
+            max-width: 430px;
+            height: 100vh;
+            background: #fff;
+            z-index: 300;
+            overflow-y: auto;
+            padding-bottom: 40px;
+        }
+
+        .detail-page.active {
+            display: block;
+        }
+
+        .detail-nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 16px;
+            position: sticky;
+            top: 0;
+            background: #fff;
+            z-index: 10;
+        }
+
+        .detail-close {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: #f5f5f5;
+            border: none;
+            font-size: 20px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #333;
+        }
+
+        .detail-actions {
+            display: flex;
+            gap: 10px;
+        }
+
+        .detail-action-btn {
+            width: 40px;
+            height: 40px;
+            border-radius: 12px;
+            background: #f5f5f5;
+            border: none;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            font-weight: 700;
+            color: #333;
+        }
+
+        .detail-action-btn.pk {
+            font-style: italic;
+            font-weight: 800;
+            font-size: 16px;
+        }
+
+        .detail-title-area {
+            padding: 4px 20px 16px;
+        }
+
+        .detail-title {
+            font-size: 26px;
+            font-weight: 800;
+            color: #1a1a1a;
+            margin-bottom: 8px;
+        }
+
+        .detail-subtitle {
+            font-size: 14px;
+            color: #999;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .detail-subtitle svg {
+            width: 18px;
+            height: 18px;
+        }
+
+        /* Video Area */
+        .detail-video {
+            margin: 0 12px;
+            border-radius: 16px;
+            overflow: hidden;
+            background: #000;
+            aspect-ratio: 16 / 10;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .detail-video .video-placeholder {
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(180deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+
+        .video-timer {
+            position: absolute;
+            top: 12px;
+            left: 12px;
+            background: rgba(0,0,0,0.6);
+            color: #fff;
+            padding: 4px 10px;
+            border-radius: 6px;
+            font-size: 14px;
+            font-weight: 700;
+        }
+
+        .video-count {
+            position: absolute;
+            top: 12px;
+            right: 12px;
+            background: rgba(0,0,0,0.6);
+            color: #fff;
+            padding: 4px 12px;
+            border-radius: 6px;
+            font-size: 14px;
+            font-weight: 700;
+        }
+
+        .play-btn {
+            width: 56px;
+            height: 56px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.25);
+            border: none;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            backdrop-filter: blur(4px);
+        }
+
+        .play-btn::after {
+            content: '';
+            width: 0;
+            height: 0;
+            border-style: solid;
+            border-width: 12px 0 12px 22px;
+            border-color: transparent transparent transparent #fff;
+            margin-left: 4px;
+        }
+
+        /* Video person silhouette */
+        .video-person {
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 120px;
+            height: 200px;
+        }
+
+        /* Detail Sections */
+        .detail-section {
+            padding: 20px 20px 0;
+        }
+
+        .detail-section-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 16px 0;
+            border-bottom: 1px solid #f0f0f0;
+        }
+
+        .detail-section-row .label {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 16px;
+            font-weight: 700;
+            color: #1a1a1a;
+        }
+
+        .detail-section-row .label .icon {
+            font-size: 22px;
+        }
+
+        .detail-section-row .value {
+            font-size: 15px;
+            color: #999;
+        }
+
+        /* Start Button */
+        .start-btn {
+            display: block;
+            margin: 24px 20px;
+            padding: 18px;
+            background: linear-gradient(135deg, #f56a3a, #f07a4a);
+            color: #fff;
+            border: none;
+            border-radius: 50px;
+            font-size: 20px;
+            font-weight: 700;
+            cursor: pointer;
+            text-align: center;
+            box-shadow: 0 4px 20px rgba(245, 106, 58, 0.35);
+            transition: transform 0.15s;
+        }
+
+        .start-btn:active {
+            transform: scale(0.97);
+        }
+
+        /* Detail Content Sections */
+        .detail-content-section {
+            padding: 20px 20px 0;
+        }
+
+        .detail-content-section h3 {
+            font-size: 18px;
+            font-weight: 700;
+            color: #1a1a1a;
+            margin-bottom: 12px;
+        }
+
+        .detail-content-section p {
+            font-size: 15px;
+            color: #666;
+            line-height: 1.6;
+        }
+
+        .detail-content-section ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .detail-content-section ul li {
+            font-size: 15px;
+            color: #666;
+            line-height: 1.8;
+            padding-left: 16px;
+            position: relative;
+        }
+
+        .detail-content-section ul li::before {
+            content: '·';
+            position: absolute;
+            left: 0;
+            color: #999;
+            font-weight: 700;
+        }
+
+        /* Collapsible */
+        .collapse-toggle {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            margin: 16px auto;
+            padding: 8px 20px;
+            background: #f5f5f5;
+            border: none;
+            border-radius: 20px;
+            font-size: 14px;
+            color: #666;
+            cursor: pointer;
+        }
+
+        .collapse-toggle .arrow {
+            transition: transform 0.3s;
+            font-size: 12px;
+        }
+
+        .collapse-toggle.expanded .arrow {
+            transform: rotate(180deg);
+        }
+
+        .collapse-content {
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+        }
+
+        .collapse-content.collapsed {
+            max-height: 0 !important;
+        }
+
+        /* Rating Bar */
+        .rating-bar-container {
+            margin-top: 16px;
+            padding-bottom: 8px;
+        }
+
+        .rating-values {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 8px;
+            padding: 0 4px;
+        }
+
+        .rating-values span {
+            font-size: 14px;
+            color: #999;
+        }
+
+        .rating-bar {
+            height: 10px;
+            border-radius: 5px;
+            background: linear-gradient(to right, #f5c4b0 0%, #f5a08a 25%, #f5806a 50%, #f56a3a 75%, #e55530 100%);
+            position: relative;
+        }
+
+        .rating-bar .tick {
+            position: absolute;
+            top: -4px;
+            width: 2px;
+            height: 18px;
+            background: rgba(255,255,255,0.7);
+        }
+
+        .rating-labels {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 10px;
+            padding: 0 4px;
+        }
+
+        .rating-labels span {
+            font-size: 18px;
+            font-weight: 800;
+            color: #1a1a1a;
+        }
+
+        /* Training思路 */
+        .training-approach {
+            margin-top: 12px;
+            padding: 16px;
+            background: #fafafa;
+            border-radius: 12px;
+        }
+
+        .training-approach h4 {
+            font-size: 14px;
+            font-weight: 700;
+            color: #f56a3a;
+            margin-bottom: 8px;
+        }
+
+        .training-approach p {
+            font-size: 13px;
+            color: #888;
+            line-height: 1.6;
+        }
+
+        /* My Record */
+        .my-record {
+            display: flex;
+            align-items: center;
+            padding: 16px 0;
+            border-top: 1px solid #f0f0f0;
+            gap: 12px;
+        }
+
+        .record-icon {
+            width: 44px;
+            height: 44px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 22px;
+        }
+
+        .record-icon.training {
+            background: #f56a3a;
+        }
+
+        .record-icon.medal {
+            background: linear-gradient(135deg, #f5d03a, #f0a030);
+        }
+
+        .record-info {
+            flex: 1;
+        }
+
+        .record-info .record-title {
+            font-size: 16px;
+            font-weight: 700;
+            color: #1a1a1a;
+        }
+
+        .record-info .record-sub {
+            font-size: 13px;
+            color: #999;
+            margin-top: 2px;
+        }
+
+        .record-value {
+            font-size: 15px;
+            color: #999;
+        }
+
+        .record-value strong {
+            color: #1a1a1a;
+            font-size: 18px;
+        }
+
+        .divider {
+            height: 1px;
+            background: #f0f0f0;
+            margin: 0 20px;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header -->
+    <div class="header">
+        <h1>AI运动</h1>
+    </div>
+
+    <!-- 首页 Page -->
+    <div class="page active" id="page-home">
+        <!-- 计数打卡 Section -->
+        <div class="section-card">
+            <div class="section-header">
+                <span class="section-subtitle">计数打卡</span>
+                <span class="section-more">更多</span>
+            </div>
+            <div class="section-title">解锁1分钟运动新纪录</div>
+            <div class="exercise-grid">
+                <!-- 1分钟跳绳 -->
+                <div class="exercise-card">
+                    <div class="exercise-img blue">
+                        <div class="illustration">
+                            <svg viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <circle cx="60" cy="30" r="12" fill="#f56a3a"/>
+                                <rect x="55" y="42" width="10" height="30" rx="5" fill="#f56a3a"/>
+                                <rect x="48" y="72" width="8" height="25" rx="4" fill="#f5a03a"/>
+                                <rect x="64" y="72" width="8" height="25" rx="4" fill="#f5a03a"/>
+                                <path d="M30 50 Q60 90 90 50" stroke="#f56a3a" stroke-width="3" fill="none" stroke-linecap="round"/>
+                                <line x1="45" y1="50" x2="30" y2="65" stroke="#f56a3a" stroke-width="3" stroke-linecap="round"/>
+                                <line x1="75" y1="50" x2="90" y2="65" stroke="#f56a3a" stroke-width="3" stroke-linecap="round"/>
+                            </svg>
+                        </div>
+                    </div>
+                    <div class="exercise-name">1分钟跳绳 🔄</div>
+                    <div class="exercise-meta">1分钟 · 简单</div>
+                </div>
+                <!-- 仰卧起坐 -->
+                <div class="exercise-card">
+                    <div class="exercise-img pink">
+                        <div class="badge">体测项目</div>
+                        <div class="illustration">
+                            <svg viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <ellipse cx="70" cy="80" rx="30" ry="12" fill="#e8d5c4"/>
+                                <circle cx="85" cy="50" r="12" fill="#333"/>
+                                <path d="M60 75 Q75 55 85 55" stroke="#5ba3d9" stroke-width="14" stroke-linecap="round" fill="none"/>
+                                <path d="M55 80 L75 80" stroke="#5ba3d9" stroke-width="10" stroke-linecap="round"/>
+                                <path d="M75 78 L90 90" stroke="#333" stroke-width="8" stroke-linecap="round"/>
+                            </svg>
+                        </div>
+                    </div>
+                    <div class="exercise-name">仰卧起坐</div>
+                    <div class="exercise-meta">1分钟 · 中等</div>
+                </div>
+                <!-- 收腹跳 -->
+                <div class="exercise-card">
+                    <div class="exercise-img blue">
+                        <div class="illustration">
+                            <svg viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <polygon points="30,80 60,30 90,80" fill="#b8d8f0" opacity="0.5"/>
+                                <polygon points="45,80 60,50 75,80" fill="#90c8e8" opacity="0.6"/>
+                                <circle cx="60" cy="45" r="10" fill="#f5a03a"/>
+                                <rect x="54" y="55" width="12" height="20" rx="4" fill="#5ba3d9"/>
+                                <rect x="50" y="75" width="8" height="15" rx="3" fill="#333"/>
+                                <rect x="62" y="75" width="8" height="15" rx="3" fill="#333"/>
+                                <rect x="52" y="92" width="16" height="12" rx="3" fill="#4caf50"/>
+                                <text x="60" y="101" text-anchor="middle" fill="#fff" font-size="8">✓</text>
+                            </svg>
+                        </div>
+                    </div>
+                    <div class="exercise-name">收腹跳</div>
+                    <div class="exercise-meta">30秒 · 中等</div>
+                </div>
+                <!-- 踢毽子 -->
+                <div class="exercise-card">
+                    <div class="exercise-img blue">
+                        <div class="illustration">
+                            <svg viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <circle cx="60" cy="30" r="12" fill="#333"/>
+                                <rect x="55" y="42" width="10" height="25" rx="5" fill="#f5d03a"/>
+                                <rect x="48" y="67" width="8" height="22" rx="4" fill="#f56a3a"/>
+                                <rect x="64" y="55" width="8" height="22" rx="4" fill="#f56a3a" transform="rotate(-20 68 55)"/>
+                                <path d="M80 40 Q90 50 85 65" stroke="#4caf50" stroke-width="3" fill="none" stroke-linecap="round"/>
+                                <path d="M82 42 Q95 48 88 62" stroke="#f56a3a" stroke-width="2" fill="none" stroke-linecap="round"/>
+                                <path d="M75 70 Q85 55 90 45" stroke="#90caf9" stroke-width="4" fill="none" stroke-linecap="round" opacity="0.5"/>
+                            </svg>
+                        </div>
+                    </div>
+                    <div class="exercise-name">踢毽子</div>
+                    <div class="exercise-meta">1分钟 · 简单</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 科学长高 Section -->
+        <div class="section-card">
+            <div class="section-header">
+                <span class="section-subtitle">助力成长突破</span>
+                <span class="section-more">更多</span>
+            </div>
+            <div class="section-title">科学长高</div>
+            <div class="exercise-grid">
+                <!-- 开合跳 -->
+                <div class="exercise-card">
+                    <div class="exercise-img blue">
+                        <div class="illustration">
+                            <svg viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <circle cx="60" cy="28" r="12" fill="#f56a3a"/>
+                                <rect x="55" y="40" width="10" height="28" rx="5" fill="#5ba3d9"/>
+                                <line x1="55" y1="50" x2="25" y2="65" stroke="#5ba3d9" stroke-width="8" stroke-linecap="round"/>
+                                <line x1="65" y1="50" x2="95" y2="65" stroke="#5ba3d9" stroke-width="8" stroke-linecap="round"/>
+                                <line x1="57" y1="68" x2="40" y2="95" stroke="#5ba3d9" stroke-width="8" stroke-linecap="round"/>
+                                <line x1="63" y1="68" x2="80" y2="95" stroke="#5ba3d9" stroke-width="8" stroke-linecap="round"/>
+                                <path d="M15 55 Q30 45 25 65" stroke="#90caf9" stroke-width="3" fill="none" opacity="0.5"/>
+                                <path d="M105 55 Q90 45 95 65" stroke="#90caf9" stroke-width="3" fill="none" opacity="0.5"/>
+                            </svg>
+                        </div>
+                    </div>
+                    <div class="exercise-name">开合跳</div>
+                    <div class="exercise-meta">1分钟 · 简单</div>
+                </div>
+                <!-- 高抬腿击掌 -->
+                <div class="exercise-card">
+                    <div class="exercise-img pink">
+                        <div class="illustration">
+                            <svg viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <circle cx="60" cy="25" r="12" fill="#333"/>
+                                <rect x="55" y="37" width="10" height="28" rx="5" fill="#f5d03a"/>
+                                <rect x="48" y="65" width="8" height="20" rx="4" fill="#5ba3d9"/>
+                                <rect x="64" y="50" width="8" height="22" rx="4" fill="#5ba3d9" transform="rotate(-30 68 50)"/>
+                                <line x1="55" y1="45" x2="35" y2="35" stroke="#f5d03a" stroke-width="6" stroke-linecap="round"/>
+                                <line x1="65" y1="45" x2="85" y2="35" stroke="#f5d03a" stroke-width="6" stroke-linecap="round"/>
+                                <path d="M85 70 Q95 60 90 45" stroke="#f56a3a" stroke-width="3" fill="none" stroke-linecap="round" opacity="0.4"/>
+                                <path d="M90 75 Q100 62 95 48" stroke="#f56a3a" stroke-width="2" fill="none" stroke-linecap="round" opacity="0.3"/>
+                            </svg>
+                        </div>
+                    </div>
+                    <div class="exercise-name">高抬腿击掌</div>
+                    <div class="exercise-meta">1分钟 · 中等</div>
+                </div>
+                <!-- 纵跳摸高 -->
+                <div class="exercise-card">
+                    <div class="exercise-img blue">
+                        <div class="illustration">
+                            <svg viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <circle cx="60" cy="55" r="10" fill="#f56a3a"/>
+                                <rect x="55" y="65" width="10" height="22" rx="5" fill="#5ba3d9"/>
+                                <rect x="50" y="87" width="8" height="15" rx="3" fill="#333"/>
+                                <rect x="62" y="87" width="8" height="15" rx="3" fill="#333"/>
+                                <line x1="55" y1="70" x2="35" y2="50" stroke="#5ba3d9" stroke-width="7" stroke-linecap="round"/>
+                                <line x1="65" y1="70" x2="85" y2="30" stroke="#5ba3d9" stroke-width="7" stroke-linecap="round"/>
+                                <path d="M80 25 L90 20 L85 30 Z" fill="#f5d03a"/>
+                                <path d="M75 35 Q80 25 85 30" stroke="#90caf9" stroke-width="2" fill="none" opacity="0.5"/>
+                            </svg>
+                        </div>
+                    </div>
+                    <div class="exercise-name">纵跳摸高</div>
+                    <div class="exercise-meta">10次 · 中等</div>
+                </div>
+                <!-- 拉伸运动 -->
+                <div class="exercise-card">
+                    <div class="exercise-img pink">
+                        <div class="illustration">
+                            <svg viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <circle cx="60" cy="30" r="12" fill="#333"/>
+                                <rect x="55" y="42" width="10" height="30" rx="5" fill="#f5d03a"/>
+                                <rect x="48" y="72" width="8" height="25" rx="4" fill="#5ba3d9"/>
+                                <rect x="64" y="72" width="8" height="25" rx="4" fill="#5ba3d9"/>
+                                <line x1="55" y1="50" x2="25" y2="55" stroke="#f5d03a" stroke-width="7" stroke-linecap="round"/>
+                                <line x1="65" y1="50" x2="95" y2="45" stroke="#f5d03a" stroke-width="7" stroke-linecap="round"/>
+                                <path d="M20 55 Q15 50 20 45" stroke="#90caf9" stroke-width="2" fill="none" opacity="0.5"/>
+                                <path d="M100 45 Q105 40 100 35" stroke="#90caf9" stroke-width="2" fill="none" opacity="0.5"/>
+                            </svg>
+                        </div>
+                    </div>
+                    <div class="exercise-name">拉伸运动</div>
+                    <div class="exercise-meta">5分钟 · 简单</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 体能训练 Section -->
+        <div class="section-card">
+            <div class="section-header">
+                <span class="section-subtitle">全面提升</span>
+                <span class="section-more">更多</span>
+            </div>
+            <div class="section-title">体能训练</div>
+            <div class="exercise-grid">
+                <div class="exercise-card">
+                    <div class="exercise-img blue">
+                        <div class="illustration">
+                            <svg viewBox="0 0 120 120" fill="none">
+                                <circle cx="60" cy="35" r="12" fill="#f56a3a"/>
+                                <rect x="55" y="47" width="10" height="25" rx="5" fill="#5ba3d9"/>
+                                <rect x="48" y="72" width="8" height="22" rx="4" fill="#333"/>
+                                <rect x="64" y="72" width="8" height="22" rx="4" fill="#333"/>
+                                <line x1="55" y1="55" x2="30" y2="70" stroke="#5ba3d9" stroke-width="7" stroke-linecap="round"/>
+                                <line x1="65" y1="55" x2="90" y2="70" stroke="#5ba3d9" stroke-width="7" stroke-linecap="round"/>
+                            </svg>
+                        </div>
+                    </div>
+                    <div class="exercise-name">深蹲</div>
+                    <div class="exercise-meta">20次 · 中等</div>
+                </div>
+                <div class="exercise-card">
+                    <div class="exercise-img pink">
+                        <div class="illustration">
+                            <svg viewBox="0 0 120 120" fill="none">
+                                <circle cx="60" cy="40" r="12" fill="#333"/>
+                                <path d="M45 55 Q60 50 75 55" stroke="#5ba3d9" stroke-width="12" stroke-linecap="round" fill="none"/>
+                                <rect x="48" y="65" width="8" height="20" rx="4" fill="#5ba3d9"/>
+                                <rect x="64" y="65" width="8" height="20" rx="4" fill="#5ba3d9"/>
+                                <ellipse cx="60" cy="90" rx="25" ry="6" fill="#e0e0e0" opacity="0.5"/>
+                            </svg>
+                        </div>
+                    </div>
+                    <div class="exercise-name">平板支撑</div>
+                    <div class="exercise-meta">30秒 · 困难</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 计划 Page -->
+    <div class="page" id="page-plan">
+        <div class="plan-empty">
+            <div class="empty-icon">📋</div>
+            <h3>暂无运动计划</h3>
+            <p>去首页选择运动项目，创建你的专属训练计划吧！</p>
+        </div>
+    </div>
+
+    <!-- 我的 Page -->
+    <div class="page" id="page-profile">
+        <div class="profile-header-card">
+            <div class="avatar">S</div>
+            <div class="profile-info">
+                <h3>运动达人</h3>
+                <p>已坚持运动 0 天</p>
+            </div>
+        </div>
+
+        <div class="profile-stats">
+            <div class="stat-item">
+                <div class="stat-value">0</div>
+                <div class="stat-label">累计运动</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-value">0</div>
+                <div class="stat-label">完成次数</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-value">0</div>
+                <div class="stat-label">消耗卡路里</div>
+            </div>
+        </div>
+
+        <div class="profile-menu">
+            <div class="menu-item">
+                <span class="menu-icon"></span>
+                <span class="menu-text">运动记录</span>
+                <span class="menu-arrow">›</span>
+            </div>
+            <div class="menu-item">
+                <span class="menu-icon">🏆</span>
+                <span class="menu-text">我的成就</span>
+                <span class="menu-arrow">›</span>
+            </div>
+            <div class="menu-item">
+                <span class="menu-icon">⚙️</span>
+                <span class="menu-text">设置</span>
+                <span class="menu-arrow">›</span>
+            </div>
+            <div class="menu-item">
+                <span class="menu-icon">❓</span>
+                <span class="menu-text">帮助与反馈</span>
+                <span class="menu-arrow">›</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- 1分钟跳绳 Detail Page -->
+    <div class="detail-page" id="detail-rope">
+        <div class="detail-nav">
+            <button class="detail-close" onclick="closeDetail()">✕</button>
+            <div class="detail-actions">
+                <button class="detail-action-btn pk">PK</button>
+                <button class="detail-action-btn">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M4 12v8a2 2 0 002 2h12a2 2 0 002-2v-8"/>
+                        <polyline points="16 6 12 2 8 6"/>
+                        <line x1="12" y1="2" x2="12" y2="15"/>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <div class="detail-title-area">
+            <div class="detail-title">1分钟跳绳 🔄</div>
+            <div class="detail-subtitle">
+                <svg viewBox="0 0 24 24" fill="none" stroke="#999" stroke-width="2" width="18" height="18">
+                    <rect x="2" y="3" width="20" height="18" rx="2"/>
+                    <path d="M8 7h8M8 11h8M8 15h5"/>
+                </svg>
+                1分钟 · 有氧耐力 · 简单
+            </div>
+        </div>
+        <div class="detail-video">
+            <div class="video-placeholder">
+                <div class="video-timer">0:59</div>
+                <div class="video-count">1</div>
+                <svg class="video-person" viewBox="0 0 120 200" fill="none">
+                    <circle cx="60" cy="30" r="14" fill="#ccc"/>
+                    <rect x="54" y="44" width="12" height="40" rx="6" fill="#555"/>
+                    <line x1="54" y1="55" x2="25" y2="75" stroke="#555" stroke-width="8" stroke-linecap="round"/>
+                    <line x1="66" y1="55" x2="95" y2="75" stroke="#555" stroke-width="8" stroke-linecap="round"/>
+                    <rect x="50" y="84" width="9" height="45" rx="4" fill="#4a6fa5"/>
+                    <rect x="61" y="84" width="9" height="45" rx="4" fill="#4a6fa5"/>
+                    <rect x="48" y="129" width="11" height="14" rx="3" fill="#ddd"/>
+                    <rect x="61" y="129" width="11" height="14" rx="3" fill="#ddd"/>
+                    <path d="M20 70 Q60 140 100 70" stroke="#f56a3a" stroke-width="2.5" fill="none" opacity="0.6"/>
+                </svg>
+                <button class="play-btn"></button>
+            </div>
+        </div>
+        <div class="detail-section">
+            <div class="detail-section-row">
+                <div class="label"><span class="icon">🎒</span>运动准备</div>
+                <div class="value">跳绳</div>
+            </div>
+        </div>
+        <button class="start-btn" onclick="alert('开始运动！')">开始</button>
+        <div class="detail-content-section">
+            <h3>训练目标</h3>
+            <p>锻炼跳绳项目的运动能力</p>
+        </div>
+        <div class="divider"></div>
+        <div class="detail-content-section">
+            <h3>互动规则</h3>
+            <div class="collapse-content" id="rules-content">
+                <ul>
+                    <li>平稳，有节奏的呼吸。</li>
+                    <li>身体上部保持平衡，不要左右摆动。</li>
+                    <li>人体要放松，动作要协调。</li>
+                    <li>尝试双脚同时跳，然后过渡到双脚交替跳。</li>
+                </ul>
+            </div>
+            <div class="collapse-content collapsed" id="scoring-content">
+                <h3 style="margin-top:16px">得分评价</h3>
+                <ul><li>跳的越快越好。</li></ul>
+            </div>
+            <button class="collapse-toggle" id="rules-toggle" onclick="toggleRules()">
+                <span id="rules-toggle-text">规则</span>
+                <span class="arrow"></span>
+            </button>
+        </div>
+        <div class="divider"></div>
+        <div class="detail-content-section">
+            <h3>运动评价</h3>
+            <p>完成运动后将根据成绩获得对应评价。</p>
+            <div class="rating-bar-container">
+                <div class="rating-values">
+                    <span>30</span><span>65</span><span>120</span><span>165</span><span>200</span>
+                </div>
+                <div class="rating-bar">
+                    <div class="tick" style="left:0%"></div>
+                    <div class="tick" style="left:20.6%"></div>
+                    <div class="tick" style="left:52.9%"></div>
+                    <div class="tick" style="left:79.4%"></div>
+                    <div class="tick" style="left:100%"></div>
+                </div>
+                <div class="rating-labels">
+                    <span>D</span><span>C</span><span>B</span><span>A</span><span>S</span>
+                </div>
+            </div>
+        </div>
+        <div class="divider"></div>
+        <div class="detail-content-section">
+            <h3>训练思路</h3>
+            <div class="training-approach">
+                <h4>循序渐进法</h4>
+                <p>从基础的双脚并跳开始，掌握节奏后逐步提升速度。建议先进行30秒适应练习，再挑战1分钟完整计时。注意保持手腕发力，而非手臂大幅摆动。</p>
+            </div>
+        </div>
+        <div class="divider"></div>
+        <div class="detail-content-section">
+            <div class="my-record">
+                <div class="record-icon training"></div>
+                <div class="record-info">
+                    <div class="record-title">训练次数</div>
+                </div>
+                <div class="record-value"><strong>0</strong> 次</div>
+            </div>
+            <div class="my-record">
+                <div class="record-icon medal">🏅</div>
+                <div class="record-info">
+                    <div class="record-title">我的纪录</div>
+                    <div class="record-sub">未参加</div>
+                </div>
+                <div class="record-value">成绩：<strong>-</strong></div>
+            </div>
+        </div>
+        <div style="height:40px"></div>
+    </div>
+
+    <!-- Bottom Tab Bar -->
+    <div class="tab-bar" id="main-tab-bar">
+        <div class="tab-item active" data-page="home">
+            <span class="tab-icon">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/>
+                </svg>
+            </span>
+            <span class="tab-label">首页</span>
+        </div>
+        <div class="tab-item" data-page="plan">
+            <span class="tab-icon">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M19 3h-1V1h-2v2H8V1H6v2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V8h14v11zM9 10H7v2h2v-2zm4 0h-2v2h2v-2zm4 0h-2v2h2v-2z"/>
+                </svg>
+            </span>
+            <span class="tab-label">计划</span>
+        </div>
+        <div class="tab-item" data-page="profile">
+            <span class="tab-icon">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
+                </svg>
+            </span>
+            <span class="tab-label">我的</span>
+        </div>
+    </div>
+
+    <script>
+        // Tab switching
+        const tabItems = document.querySelectorAll('.tab-item');
+        const pages = document.querySelectorAll('.page');
+        const tabBar = document.getElementById('main-tab-bar');
+
+        tabItems.forEach(tab => {
+            tab.addEventListener('click', () => {
+                tabItems.forEach(t => t.classList.remove('active'));
+                tab.classList.add('active');
+                pages.forEach(p => p.classList.remove('active'));
+                const targetPage = document.getElementById('page-' + tab.dataset.page);
+                if (targetPage) {
+                    targetPage.classList.add('active');
+                }
+                tabBar.style.display = 'flex';
+                window.scrollTo(0, 0);
+            });
+        });
+
+        // Exercise card click - open detail page for 1分钟跳绳
+        document.querySelectorAll('.exercise-card').forEach(card => {
+            card.addEventListener('click', () => {
+                const name = card.querySelector('.exercise-name').textContent.trim();
+                if (name.includes('跳绳')) {
+                    document.getElementById('detail-rope').classList.add('active');
+                    tabBar.style.display = 'none';
+                    document.getElementById('detail-rope').scrollTop = 0;
+                } else {
+                    alert('即将开始：' + name);
+                }
+            });
+        });
+
+        // Close detail page
+        function closeDetail() {
+            document.getElementById('detail-rope').classList.remove('active');
+            tabBar.style.display = 'flex';
+        }
+
+        // Toggle rules/scoring collapse
+        let rulesExpanded = false;
+        function toggleRules() {
+            rulesExpanded = !rulesExpanded;
+            const scoringContent = document.getElementById('scoring-content');
+            const toggleText = document.getElementById('rules-toggle-text');
+            const toggleBtn = document.getElementById('rules-toggle');
+            if (rulesExpanded) {
+                scoringContent.classList.remove('collapsed');
+                toggleText.textContent = '收起';
+                toggleBtn.classList.add('expanded');
+            } else {
+                scoringContent.classList.add('collapsed');
+                toggleText.textContent = '规则';
+                toggleBtn.classList.remove('expanded');
+            }
+        }
+    </script>
+</body>
+</html>
