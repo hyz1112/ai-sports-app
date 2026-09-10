@@ -946,7 +946,238 @@
             color: #fff;
         }
 
-        /* ===== Profile Page ===== */
+        /* ===== Profile Page (New Design) ===== */
+        .profile-header-new {
+            background: #fff;
+            padding: 12px 16px 20px;
+            position: relative;
+        }
+
+        .profile-top-bar {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 16px;
+        }
+
+        .profile-icon-btn {
+            width: 36px;
+            height: 36px;
+            border: none;
+            background: none;
+            font-size: 20px;
+            cursor: pointer;
+            color: #333;
+        }
+
+        .profile-user-row {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .profile-avatar-large {
+            width: 64px;
+            height: 64px;
+            border-radius: 50%;
+            background: #fff8e1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 32px;
+            flex-shrink: 0;
+        }
+
+        .profile-user-main {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .profile-username {
+            font-size: 18px;
+            font-weight: 700;
+            color: #1a1a1a;
+            margin-bottom: 4px;
+        }
+
+        .profile-sport-id {
+            font-size: 13px;
+            color: #999;
+            margin-bottom: 6px;
+        }
+
+        .profile-badge-none {
+            font-size: 12px;
+            color: #ccc;
+            border: 1px dashed #ddd;
+            padding: 2px 8px;
+            border-radius: 12px;
+            display: inline-block;
+            margin-bottom: 6px;
+        }
+
+        .profile-level-row {
+            display: flex;
+            gap: 6px;
+        }
+
+        /* User Info Row */
+        .profile-info-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 0 4px;
+            border-top: 1px solid #f5f5f5;
+            margin-top: 12px;
+        }
+
+        .info-item {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .info-label {
+            font-size: 13px;
+            color: #999;
+        }
+
+        .info-value {
+            font-size: 13px;
+            color: #333;
+            font-weight: 600;
+        }
+
+        .level-badge {
+            background: #333;
+            color: #fff;
+            padding: 3px 10px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .pt-badge,
+        .energy-badge {
+            background: #f5f5f5;
+            color: #666;
+            padding: 3px 10px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .profile-character {
+            width: 80px;
+            height: 100px;
+            flex-shrink: 0;
+        }
+
+        .profile-character svg {
+            width: 100%;
+            height: 100%;
+        }
+
+        /* VIP Banner */
+        .vip-banner {
+            background: linear-gradient(135deg, #ffa726, #ff9800);
+            margin: 12px 16px;
+            border-radius: 16px;
+            padding: 16px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 4px 16px rgba(255,152,0,0.3);
+        }
+
+        .vip-title {
+            font-size: 18px;
+            font-weight: 800;
+            color: #fff;
+            margin-bottom: 4px;
+        }
+
+        .vip-desc {
+            font-size: 13px;
+            color: rgba(255,255,255,0.9);
+        }
+
+        .vip-btn {
+            background: #fff;
+            color: #ff9800;
+            border: none;
+            border-radius: 20px;
+            padding: 10px 20px;
+            font-size: 14px;
+            font-weight: 700;
+            cursor: pointer;
+            flex-shrink: 0;
+        }
+
+        /* Stats Row */
+        .profile-stats-new {
+            display: flex;
+            background: #fff;
+            margin: 12px 16px;
+            border-radius: 16px;
+            padding: 20px 0;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.04);
+        }
+
+        .stat-col {
+            flex: 1;
+            text-align: center;
+        }
+
+        .stat-num {
+            font-size: 24px;
+            font-weight: 800;
+            color: #1a1a1a;
+            margin-bottom: 4px;
+        }
+
+        .stat-label {
+            font-size: 12px;
+            color: #999;
+        }
+
+        /* Menu Grid */
+        .profile-menu-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 12px;
+            margin: 12px 16px;
+            background: #fff;
+            border-radius: 16px;
+            padding: 20px 12px;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.04);
+        }
+
+        .menu-grid-item {
+            text-align: center;
+            cursor: pointer;
+        }
+
+        .menu-grid-icon {
+            width: 56px;
+            height: 56px;
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 28px;
+            margin: 0 auto 8px;
+        }
+
+        .menu-grid-icon.orange { background: #ffe0b2; }
+        .menu-grid-icon.blue { background: #bbdefb; }
+        .menu-grid-icon.cyan { background: #b3e5fc; }
+        .menu-grid-icon.darkblue { background: #9fa8da; }
+
+        .menu-grid-text {
+            font-size: 13px;
+            color: #333;
+            font-weight: 600;
+        }
         .profile-header-card {
             background: #fff;
             border-radius: 16px;
@@ -2620,49 +2851,91 @@
 
     <!-- 我的 Page -->
     <div class="page" id="page-profile">
-        <div class="profile-header-card">
-            <div class="avatar">S</div>
-            <div class="profile-info">
-                <h3>运动达人</h3>
-                <p>已坚持运动 0 天</p>
+        <div class="profile-header-new">
+            <div class="profile-top-bar">
+                <button class="profile-icon-btn">&#128276;</button>
+                <button class="profile-icon-btn">&#9745;&#65039;</button>
+            </div>
+            
+            <div class="profile-user-row">
+                <div class="profile-avatar-large">&#128100;</div>
+                <div class="profile-user-main">
+                    <div class="profile-username">用户5577 &#8250;</div>
+                </div>
+                <div class="profile-character">
+                    <svg viewBox="0 0 100 140" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <circle cx="50" cy="20" r="16" fill="#f5c6a0"/>
+                        <path d="M34 18 Q50 6 66 18" stroke="#333" stroke-width="3" fill="none"/>
+                        <rect x="38" y="36" width="24" height="28" rx="8" fill="#fff"/>
+                        <rect x="34" y="64" width="14" height="26" rx="6" fill="#333"/>
+                        <rect x="52" y="64" width="14" height="26" rx="6" fill="#333"/>
+                        <path d="M38 46 L18 56" stroke="#f5c6a0" stroke-width="8" stroke-linecap="round"/>
+                        <path d="M62 46 L82 38" stroke="#f5c6a0" stroke-width="8" stroke-linecap="round"/>
+                        <circle cx="44" cy="18" r="2" fill="#333"/>
+                        <circle cx="56" cy="18" r="2" fill="#333"/>
+                        <path d="M47 24 Q50 27 53 24" stroke="#333" stroke-width="1.5" fill="none"/>
+                    </svg>
+                </div>
+            </div>
+            
+            <!-- User Info Row: Sport ID, Level, Points -->
+            <div class="profile-info-row">
+                <div class="info-item">
+                    <span class="info-label">运动号：</span>
+                    <span class="info-value">98800296 &#9635;</span>
+                </div>
+                <div class="info-item">
+                    <span class="level-badge">Lv.1</span>
+                </div>
+                <div class="info-item">
+                    <span class="pt-badge">pt 0</span>
+                    <span class="energy-badge">&#9889; 0</span>
+                </div>
             </div>
         </div>
 
-        <div class="profile-stats">
-            <div class="stat-item">
-                <div class="stat-value">0</div>
-                <div class="stat-label">累计运动</div>
+        <!-- VIP Banner -->
+        <div class="vip-banner">
+            <div class="vip-content">
+                <div class="vip-title">S+运动会员</div>
+                <div class="vip-desc">解锁会员特权，让运动更闪耀！</div>
             </div>
-            <div class="stat-item">
-                <div class="stat-value">0</div>
-                <div class="stat-label">完成次数</div>
+            <button class="vip-btn">立即开通 &#8250;</button>
+        </div>
+
+        <!-- Stats Row -->
+        <div class="profile-stats-new">
+            <div class="stat-col">
+                <div class="stat-num">0</div>
+                <div class="stat-label">训练(天数)</div>
             </div>
-            <div class="stat-item">
-                <div class="stat-value">0</div>
-                <div class="stat-label">消耗卡路里</div>
+            <div class="stat-col">
+                <div class="stat-num">0</div>
+                <div class="stat-label">总时间(分钟)</div>
+            </div>
+            <div class="stat-col">
+                <div class="stat-num">0</div>
+                <div class="stat-label">总消耗(千卡)</div>
             </div>
         </div>
 
-        <div class="profile-menu">
-            <div class="menu-item">
-                <span class="menu-icon"></span>
-                <span class="menu-text">运动记录</span>
-                <span class="menu-arrow">›</span>
+        <!-- Menu Grid -->
+        <div class="profile-menu-grid">
+            <div class="menu-grid-item">
+                <div class="menu-grid-icon orange">&#128340;</div>
+                <div class="menu-grid-text">训练记录</div>
             </div>
-            <div class="menu-item">
-                <span class="menu-icon">🏆</span>
-                <span class="menu-text">我的成就</span>
-                <span class="menu-arrow">›</span>
+            <div class="menu-grid-item">
+                <div class="menu-grid-icon blue">&#128202;</div>
+                <div class="menu-grid-text">运动数据</div>
             </div>
-            <div class="menu-item">
-                <span class="menu-icon">⚙️</span>
-                <span class="menu-text">设置</span>
-                <span class="menu-arrow">›</span>
+            <div class="menu-grid-item">
+                <div class="menu-grid-icon cyan">&#128203;</div>
+                <div class="menu-grid-text">健康档案</div>
             </div>
-            <div class="menu-item">
-                <span class="menu-icon">❓</span>
-                <span class="menu-text">帮助与反馈</span>
-                <span class="menu-arrow">›</span>
+            <div class="menu-grid-item">
+                <div class="menu-grid-icon darkblue">&#127942;</div>
+                <div class="menu-grid-text">我的荣誉</div>
             </div>
         </div>
     </div>
