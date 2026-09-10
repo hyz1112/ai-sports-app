@@ -632,6 +632,177 @@
             display: inline-block;
         }
 
+        /* ===== All Plans Page ===== */
+        .all-plans-page {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100%;
+            max-width: 430px;
+            height: 100vh;
+            background: #f5f7fa;
+            z-index: 500;
+            overflow-y: auto;
+        }
+
+        .all-plans-page.active {
+            display: block;
+        }
+
+        .all-plans-nav {
+            display: flex;
+            align-items: center;
+            padding: 12px 16px;
+            background: #fff;
+            border-bottom: 1px solid #f0f0f0;
+            position: sticky;
+            top: 0;
+            z-index: 10;
+        }
+
+        .all-plans-back {
+            width: 36px;
+            height: 36px;
+            border: none;
+            background: none;
+            font-size: 22px;
+            cursor: pointer;
+            color: #333;
+        }
+
+        .all-plans-title {
+            flex: 1;
+            text-align: center;
+            font-size: 17px;
+            font-weight: 700;
+            color: #1a1a1a;
+            margin-right: 36px;
+        }
+
+        .course-library {
+            padding: 16px;
+        }
+
+        .library-section-title {
+            font-size: 16px;
+            font-weight: 700;
+            color: #1a1a1a;
+            margin-bottom: 12px;
+        }
+
+        .course-card {
+            background: #fff;
+            border-radius: 16px;
+            padding: 16px;
+            margin-bottom: 12px;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.04);
+        }
+
+        .course-card-header {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            margin-bottom: 12px;
+        }
+
+        .course-icon {
+            width: 60px;
+            height: 60px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 28px;
+            flex-shrink: 0;
+        }
+
+        .course-info {
+            flex: 1;
+        }
+
+        .course-name {
+            font-size: 16px;
+            font-weight: 700;
+            color: #1a1a1a;
+            margin-bottom: 4px;
+        }
+
+        .course-desc {
+            font-size: 12px;
+            color: #999;
+            line-height: 1.4;
+        }
+
+        .course-meta {
+            display: flex;
+            gap: 8px;
+            margin-top: 6px;
+        }
+
+        .course-tag {
+            font-size: 11px;
+            padding: 2px 8px;
+            border-radius: 8px;
+            background: #f5f5f5;
+            color: #666;
+        }
+
+        .course-actions {
+            display: flex;
+            gap: 8px;
+            margin-top: 12px;
+        }
+
+        .duration-btn {
+            flex: 1;
+            padding: 10px;
+            border: 2px solid #e0e0e0;
+            background: #fff;
+            border-radius: 12px;
+            font-size: 14px;
+            font-weight: 600;
+            color: #666;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .duration-btn:hover {
+            border-color: #667eea;
+            color: #667eea;
+        }
+
+        .duration-btn.selected {
+            border-color: #667eea;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: #fff;
+        }
+
+        .add-plan-btn {
+            display: block;
+            width: 100%;
+            padding: 14px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: #fff;
+            border: none;
+            border-radius: 12px;
+            font-size: 15px;
+            font-weight: 700;
+            cursor: pointer;
+            margin-top: 12px;
+            transition: transform 0.15s;
+        }
+
+        .add-plan-btn:active {
+            transform: scale(0.98);
+        }
+
+        .add-plan-btn:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+        }
+
         /* ===== Profile Page ===== */
         .profile-header-card {
             background: #fff;
@@ -2274,7 +2445,7 @@
             </div>
             <div class="plan-section-header">
                 <div class="plan-section-title">智能计划</div>
-                <div class="plan-section-more">+ 全部计划</div>
+                <div class="plan-section-more" onclick="openAllPlans()">+ 全部计划</div>
             </div>
             <div class="plan-calendar">
                 <div class="cal-header">
@@ -2351,6 +2522,15 @@
                 <span class="menu-arrow">›</span>
             </div>
         </div>
+    </div>
+
+    <!-- All Plans Page -->
+    <div class="all-plans-page" id="all-plans-page">
+        <div class="all-plans-nav">
+            <button class="all-plans-back" onclick="closeAllPlans()">&#8249;</button>
+            <div class="all-plans-title">全部计划</div>
+        </div>
+        <div class="course-library" id="course-library"></div>
     </div>
 
     <!-- PK Page -->
@@ -3238,6 +3418,113 @@
             container.innerHTML = html;
         }
         renderRecommendedCourses();
+
+        // ===== All Plans Page =====
+        let selectedCourse = null;
+        let selectedDuration = null;
+
+        const courseLibrary = [
+            {name:'14天·零基础减脂计划', desc:'趣味有氧+基础塑形，减脂效果看得见', icon:'&#127939;', color:'#e8f4fd', tag:'S+会员精选', duration:'14天', level:'入门'},
+            {name:'14天·肩背力量塑造', desc:'改善圆肩驼背，提升上肢力量', icon:'&#128170;', color:'#fde8ec', tag:'热门', duration:'14天', level:'中等'},
+            {name:'21天·核心稳定性训练', desc:'从零基础到核心力量全面提升', icon:'&#129512;', color:'#fff3e0', tag:'AI推荐', duration:'21天', level:'基础'},
+            {name:'7天·柔韧性提升', desc:'边玩边练，提升身体灵活性', icon:'&#129503;', color:'#e8f8e8', tag:'新课', duration:'7天', level:'轻松'},
+            {name:'30天·体态矫正计划', desc:'科学矫正不良体态，重塑健康身姿', icon:'&#128170;', color:'#f0e8fd', tag:'S+会员精选', duration:'30天', level:'中等'},
+            {name:'14天·心肺耐力挑战', desc:'提升心肺功能，增强运动表现', icon:'&#10084;&#65039;', color:'#e8f4fd', tag:'经典', duration:'14天', level:'中等'},
+            {name:'21天·下肢爆发力训练', desc:'强化腿部力量，提升跳跃能力', icon:'&#9889;', color:'#fff3e0', tag:'进阶', duration:'21天', level:'困难'},
+        ];
+
+        function openAllPlans() {
+            document.getElementById('all-plans-page').classList.add('active');
+            renderCourseLibrary();
+        }
+
+        function closeAllPlans() {
+            document.getElementById('all-plans-page').classList.remove('active');
+            selectedCourse = null;
+            selectedDuration = null;
+        }
+
+        function renderCourseLibrary() {
+            const container = document.getElementById('course-library');
+            let html = '<div class="library-section-title">课程库</div>';
+            
+            courseLibrary.forEach((c, idx) => {
+                html += '<div class="course-card" id="course-' + idx + '">' +
+                    '<div class="course-card-header">' +
+                        '<div class="course-icon" style="background:' + c.color + '">' + c.icon + '</div>' +
+                        '<div class="course-info">' +
+                            '<div class="course-name">' + c.name + '</div>' +
+                            '<div class="course-desc">' + c.desc + '</div>' +
+                            '<div class="course-meta">' +
+                                '<span class="course-tag">' + c.duration + '</span>' +
+                                '<span class="course-tag">' + c.level + '</span>' +
+                            '</div>' +
+                        '</div>' +
+                    '</div>' +
+                    '<div class="course-actions">' +
+                        '<button class="duration-btn" onclick="selectDuration(' + idx + ', 7)">7天</button>' +
+                        '<button class="duration-btn" onclick="selectDuration(' + idx + ', 14)">14天</button>' +
+                        '<button class="duration-btn" onclick="selectDuration(' + idx + ', 21)">21天</button>' +
+                    '</div>' +
+                    '<button class="add-plan-btn" id="add-btn-' + idx + '" disabled onclick="addToCalendar(' + idx + ')">添加到计划</button>' +
+                '</div>';
+            });
+            
+            container.innerHTML = html;
+        }
+
+        function selectDuration(courseIdx, days) {
+            selectedCourse = courseIdx;
+            selectedDuration = days;
+            
+            // Update UI
+            document.querySelectorAll('.duration-btn').forEach(btn => btn.classList.remove('selected'));
+            const card = document.getElementById('course-' + courseIdx);
+            const buttons = card.querySelectorAll('.duration-btn');
+            if (days === 7) buttons[0].classList.add('selected');
+            else if (days === 14) buttons[1].classList.add('selected');
+            else if (days === 21) buttons[2].classList.add('selected');
+            
+            // Enable add button
+            const addBtn = document.getElementById('add-btn-' + courseIdx);
+            addBtn.disabled = false;
+            addBtn.textContent = '添加' + days + '天计划';
+        }
+
+        function addToCalendar(courseIdx) {
+            if (selectedCourse === null || selectedDuration === null) return;
+            
+            const course = courseLibrary[selectedCourse];
+            const today = new Date();
+            const startDate = new Date(today);
+            
+            // Add to planData for each day
+            for (let i = 0; i < selectedDuration; i++) {
+                const date = new Date(startDate);
+                date.setDate(date.getDate() + i);
+                const dateKey = date.getFullYear() + '-' + String(date.getMonth() + 1).padStart(2,'0') + '-' + String(date.getDate()).padStart(2,'0');
+                
+                if (!planData[dateKey]) {
+                    planData[dateKey] = [];
+                }
+                
+                // Check if already exists
+                const exists = planData[dateKey].some(p => p.name === course.name);
+                if (!exists) {
+                    planData[dateKey].push({
+                        name: course.name,
+                        meta: 'Day ' + (i + 1) + '/' + selectedDuration + ' · ' + course.level,
+                        icon: course.icon,
+                        color: course.color,
+                        tag: course.tag.replace('S+会员精选', '计划').replace('AI推荐', '计划').replace('热门', '计划').replace('新课', '计划').replace('经典', '计划').replace('进阶', '计划')
+                    });
+                }
+            }
+            
+            alert('已将「' + course.name + '」添加到未来' + selectedDuration + '天的计划中！');
+            closeAllPlans();
+            renderCalendar();
+        }
     </script>
 </body>
 </html>
