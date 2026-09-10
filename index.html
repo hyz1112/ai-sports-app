@@ -244,29 +244,293 @@
         }
 
         /* ===== Plan Page ===== */
-        .plan-empty {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            padding: 80px 40px;
-            text-align: center;
+        .plan-page {
+            padding: 0 0 80px;
         }
 
-        .plan-empty .empty-icon {
-            font-size: 80px;
+        .plan-coach-card {
+            background: #fff;
+            margin: 12px 16px;
+            border-radius: 16px;
+            padding: 20px;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.04);
+        }
+
+        .plan-coach-title {
+            font-size: 20px;
+            font-weight: 800;
+            color: #1a1a1a;
+            margin-bottom: 4px;
+        }
+
+        .plan-coach-title span {
+            color: #f56a3a;
+        }
+
+        .plan-coach-sub {
+            font-size: 13px;
+            color: #999;
             margin-bottom: 16px;
         }
 
-        .plan-empty h3 {
+        .plan-coach-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+
+        .plan-coach-tag {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            font-size: 13px;
+            color: #555;
+        }
+
+        .plan-coach-tag .tag-icon {
+            font-size: 16px;
+        }
+
+        .plan-coach-btn {
+            display: block;
+            width: 100%;
+            padding: 16px;
+            background: linear-gradient(135deg, #f56a3a, #f07a4a);
+            color: #fff;
+            border: none;
+            border-radius: 50px;
+            font-size: 17px;
+            font-weight: 700;
+            cursor: pointer;
+            text-align: center;
+            box-shadow: 0 4px 16px rgba(245,106,58,0.3);
+            transition: transform 0.15s;
+        }
+
+        .plan-coach-btn:active {
+            transform: scale(0.97);
+        }
+
+        .plan-coach-img {
+            position: absolute;
+            right: 10px;
+            top: 10px;
+            width: 90px;
+            height: 110px;
+            display: flex;
+            align-items: flex-end;
+            justify-content: center;
+        }
+
+        .plan-coach-img svg {
+            width: 100%;
+            height: 100%;
+        }
+
+        .plan-section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 16px 16px 8px;
+        }
+
+        .plan-section-title {
             font-size: 18px;
-            color: #333;
+            font-weight: 800;
+            color: #1a1a1a;
+        }
+
+        .plan-section-more {
+            font-size: 14px;
+            color: #999;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .plan-calendar {
+            background: #fff;
+            margin: 8px 16px;
+            border-radius: 16px;
+            padding: 16px;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.04);
+        }
+
+        .cal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
+        }
+
+        .cal-month {
+            font-size: 16px;
+            font-weight: 700;
+            color: #1a1a1a;
+        }
+
+        .cal-nav {
+            display: flex;
+            gap: 8px;
+        }
+
+        .cal-nav button {
+            width: 30px;
+            height: 30px;
+            border: 1px solid #eee;
+            background: #fff;
+            border-radius: 50%;
+            font-size: 14px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #666;
+        }
+
+        .cal-weekdays {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            text-align: center;
             margin-bottom: 8px;
         }
 
-        .plan-empty p {
+        .cal-weekdays span {
+            font-size: 12px;
+            color: #bbb;
+            padding: 4px 0;
+        }
+
+        .cal-days {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            text-align: center;
+            gap: 2px;
+        }
+
+        .cal-day {
+            position: relative;
+            padding: 8px 0 6px;
             font-size: 14px;
+            color: #333;
+            cursor: pointer;
+            border-radius: 50%;
+            transition: all 0.15s;
+        }
+
+        .cal-day:hover {
+            background: #f5f5f5;
+        }
+
+        .cal-day.today {
+            background: #f56a3a;
+            color: #fff;
+            font-weight: 700;
+        }
+
+        .cal-day.selected {
+            background: #fde8ec;
+            color: #f56a3a;
+            font-weight: 700;
+        }
+
+        .cal-day.other-month {
+            color: #ddd;
+        }
+
+        .cal-day.has-plan::after {
+            content: '';
+            position: absolute;
+            bottom: 2px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 5px;
+            height: 5px;
+            border-radius: 50%;
+            background: #f56a3a;
+        }
+
+        .cal-day.today.has-plan::after {
+            background: #fff;
+        }
+
+        .plan-detail {
+            margin: 8px 16px;
+            background: #fff;
+            border-radius: 16px;
+            padding: 16px;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.04);
+            display: none;
+        }
+
+        .plan-detail.active {
+            display: block;
+        }
+
+        .plan-detail-date {
+            font-size: 15px;
+            font-weight: 700;
+            color: #1a1a1a;
+            margin-bottom: 12px;
+        }
+
+        .plan-detail-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 0;
+            border-bottom: 1px solid #f5f5f5;
+        }
+
+        .plan-detail-item:last-child {
+            border-bottom: none;
+        }
+
+        .plan-detail-icon {
+            width: 44px;
+            height: 44px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 22px;
+            flex-shrink: 0;
+        }
+
+        .plan-detail-info {
+            flex: 1;
+        }
+
+        .plan-detail-name {
+            font-size: 14px;
+            font-weight: 600;
+            color: #333;
+        }
+
+        .plan-detail-meta {
+            font-size: 12px;
             color: #999;
+            margin-top: 2px;
+        }
+
+        .plan-detail-tag {
+            font-size: 11px;
+            padding: 3px 8px;
+            border-radius: 10px;
+            background: #fde8ec;
+            color: #f56a3a;
+            font-weight: 600;
+        }
+
+        .plan-no-detail {
+            text-align: center;
+            padding: 24px;
+            color: #ccc;
+            font-size: 14px;
         }
 
         /* ===== Profile Page ===== */
@@ -1882,10 +2146,55 @@
 
     <!-- 计划 Page -->
     <div class="page" id="page-plan">
-        <div class="plan-empty">
-            <div class="empty-icon">📋</div>
-            <h3>暂无运动计划</h3>
-            <p>去首页选择运动项目，创建你的专属训练计划吧！</p>
+        <div class="plan-page">
+            <div class="plan-coach-card">
+                <div class="plan-coach-img">
+                    <svg viewBox="0 0 100 130" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <circle cx="50" cy="22" r="16" fill="#f5c6a0"/>
+                        <path d="M34 18 Q50 5 66 18" stroke="#333" stroke-width="3" fill="none"/>
+                        <path d="M30 20 Q25 30 28 38" stroke="#333" stroke-width="3" fill="none"/>
+                        <path d="M70 20 Q75 30 72 38" stroke="#333" stroke-width="3" fill="none"/>
+                        <rect x="38" y="38" width="24" height="30" rx="8" fill="#f56a3a"/>
+                        <rect x="34" y="68" width="14" height="28" rx="6" fill="#333"/>
+                        <rect x="52" y="68" width="14" height="28" rx="6" fill="#333"/>
+                        <path d="M38 48 L18 58" stroke="#f5c6a0" stroke-width="8" stroke-linecap="round"/>
+                        <path d="M62 48 L82 40" stroke="#f5c6a0" stroke-width="8" stroke-linecap="round"/>
+                        <circle cx="44" cy="20" r="2" fill="#333"/>
+                        <circle cx="56" cy="20" r="2" fill="#333"/>
+                        <path d="M47 26 Q50 29 53 26" stroke="#333" stroke-width="1.5" fill="none"/>
+                    </svg>
+                </div>
+                <div class="plan-coach-title">AI<span>天天</span>健康指导师</div>
+                <div class="plan-coach-sub">和你一起关注孩子体质健康成长</div>
+                <div class="plan-coach-tags">
+                    <div class="plan-coach-tag"><span class="tag-icon">&#128202;</span> 体测成绩</div>
+                    <div class="plan-coach-tag"><span class="tag-icon">&#127939;</span> 运动健康</div>
+                    <div class="plan-coach-tag"><span class="tag-icon">&#127823;</span> 饮食健康</div>
+                    <div class="plan-coach-tag"><span class="tag-icon">&#128170;</span> 体质健康</div>
+                </div>
+                <button class="plan-coach-btn" onclick="alert('观观教练已开启！')">开启家庭专属健康守护</button>
+            </div>
+            <div class="plan-section-header">
+                <div class="plan-section-title">会员专属·智能计划</div>
+                <div class="plan-section-more">+ 全部计划</div>
+            </div>
+            <div class="plan-calendar">
+                <div class="cal-header">
+                    <div class="cal-month" id="cal-month-label">2026年9月</div>
+                    <div class="cal-nav">
+                        <button onclick="changeMonth(-1)">&#8249;</button>
+                        <button onclick="changeMonth(1)">&#8250;</button>
+                    </div>
+                </div>
+                <div class="cal-weekdays">
+                    <span>日</span><span>一</span><span>二</span><span>三</span><span>四</span><span>五</span><span>六</span>
+                </div>
+                <div class="cal-days" id="cal-days"></div>
+            </div>
+            <div class="plan-detail" id="plan-detail">
+                <div class="plan-detail-date" id="plan-detail-date"></div>
+                <div id="plan-detail-content"></div>
+            </div>
         </div>
     </div>
 
@@ -2670,6 +2979,125 @@
             }
             ctx.stroke();
         }
+
+        // ===== Calendar =====
+        let calYear = 2026, calMonth = 9; // 9 = September
+        const today = new Date();
+        const todayDate = today.getDate();
+        const todayMonth = today.getMonth() + 1;
+        const todayYear = today.getFullYear();
+
+        // Sample plan data: { 'YYYY-MM-DD': [plans] }
+        const planData = {
+            '2026-09-10': [{name:'1分钟跳绳', meta:'1分钟 · 简单', icon:'&#128260;', color:'#e8f4fd', tag:'体测'}],
+            '2026-09-12': [{name:'仰卧起坐', meta:'1分钟 · 中等', icon:'&#128170;', color:'#fde8ec', tag:'体测'},{name:'收腹跳', meta:'30秒 · 中等', icon:'&#9889;', color:'#fff3e0', tag:'训练'}],
+            '2026-09-14': [{name:'踢毽子', meta:'1分钟 · 简单', icon:'&#127939;', color:'#e8f4fd', tag:'体测'}],
+            '2026-09-15': [{name:'1分钟跳绳', meta:'1分钟 · 简单', icon:'&#128260;', color:'#e8f4fd', tag:'体测'},{name:'平板支撑', meta:'30秒 · 困难', icon:'&#129512;', color:'#fde8ec', tag:'训练'}],
+            '2026-09-17': [{name:'仰卧起坐', meta:'1分钟 · 中等', icon:'&#128170;', color:'#fde8ec', tag:'体测'}],
+            '2026-09-20': [{name:'1分钟跳绳', meta:'1分钟 · 简单', icon:'&#128260;', color:'#e8f4fd', tag:'体测'},{name:'踢毽子', meta:'1分钟 · 简单', icon:'&#127939;', color:'#fff3e0', tag:'体测'}],
+            '2026-09-22': [{name:'收腹跳', meta:'30秒 · 中等', icon:'&#9889;', color:'#fff3e0', tag:'训练'}],
+            '2026-09-25': [{name:'1分钟跳绳', meta:'1分钟 · 简单', icon:'&#128260;', color:'#e8f4fd', tag:'体测'}],
+            '2026-09-28': [{name:'仰卧起坐', meta:'1分钟 · 中等', icon:'&#128170;', color:'#fde8ec', tag:'体测'},{name:'平板支撑', meta:'30秒 · 困难', icon:'&#129512;', color:'#fde8ec', tag:'训练'}],
+        };
+
+        function renderCalendar() {
+            const label = document.getElementById('cal-month-label');
+            label.textContent = calYear + '年' + calMonth + '月';
+
+            const firstDay = new Date(calYear, calMonth - 1, 1);
+            const lastDay = new Date(calYear, calMonth, 0);
+            const startWeekday = firstDay.getDay(); // 0=Sun
+            const daysInMonth = lastDay.getDate();
+            const prevLastDay = new Date(calYear, calMonth - 1, 0).getDate();
+
+            const container = document.getElementById('cal-days');
+            container.innerHTML = '';
+
+            // Previous month days
+            for (let i = startWeekday - 1; i >= 0; i--) {
+                const d = prevLastDay - i;
+                const div = document.createElement('div');
+                div.className = 'cal-day other-month';
+                div.textContent = d;
+                container.appendChild(div);
+            }
+
+            // Current month days
+            for (let d = 1; d <= daysInMonth; d++) {
+                const div = document.createElement('div');
+                div.className = 'cal-day';
+                div.textContent = d;
+
+                const dateKey = calYear + '-' + String(calMonth).padStart(2,'0') + '-' + String(d).padStart(2,'0');
+
+                if (d === todayDate && calMonth === todayMonth && calYear === todayYear) {
+                    div.classList.add('today');
+                }
+                if (planData[dateKey]) {
+                    div.classList.add('has-plan');
+                }
+
+                div.addEventListener('click', (function(date, day) {
+                    return function() {
+                        document.querySelectorAll('.cal-day').forEach(el => el.classList.remove('selected'));
+                        this.classList.add('selected');
+                        showPlanDetail(date, day);
+                    };
+                })(dateKey, d));
+
+                container.appendChild(div);
+            }
+
+            // Next month days
+            const totalCells = startWeekday + daysInMonth;
+            const remaining = totalCells % 7 === 0 ? 0 : 7 - (totalCells % 7);
+            for (let i = 1; i <= remaining; i++) {
+                const div = document.createElement('div');
+                div.className = 'cal-day other-month';
+                div.textContent = i;
+                container.appendChild(div);
+            }
+        }
+
+        function changeMonth(delta) {
+            calMonth += delta;
+            if (calMonth > 12) { calMonth = 1; calYear++; }
+            if (calMonth < 1) { calMonth = 12; calYear--; }
+            renderCalendar();
+            document.getElementById('plan-detail').classList.remove('active');
+        }
+
+        function showPlanDetail(dateKey, day) {
+            const detail = document.getElementById('plan-detail');
+            const dateLabel = document.getElementById('plan-detail-date');
+            const content = document.getElementById('plan-detail-content');
+
+            const plans = planData[dateKey];
+            if (!plans || plans.length === 0) {
+                dateLabel.textContent = calYear + '年' + calMonth + '月' + day + '日';
+                content.innerHTML = '<div class="plan-no-detail">这一天没有安排计划</div>';
+                detail.classList.add('active');
+                return;
+            }
+
+            dateLabel.textContent = calYear + '年' + calMonth + '月' + day + '日 · ' + plans.length + '项计划';
+            let html = '';
+            plans.forEach(p => {
+                html += '<div class="plan-detail-item">' +
+                    '<div class="plan-detail-icon" style="background:' + p.color + '">' + p.icon + '</div>' +
+                    '<div class="plan-detail-info">' +
+                        '<div class="plan-detail-name">' + p.name + '</div>' +
+                        '<div class="plan-detail-meta">' + p.meta + '</div>' +
+                    '</div>' +
+                    '<div class="plan-detail-tag">' + p.tag + '</div>' +
+                '</div>';
+            });
+            content.innerHTML = html;
+            detail.classList.add('active');
+        }
+
+        // Init calendar
+        renderCalendar();
     </script>
 </body>
 </html>
