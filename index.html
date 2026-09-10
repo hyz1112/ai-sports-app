@@ -1057,6 +1057,11 @@
             left: 16px;
         }
 
+        #exercise-dropdown {
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
         #type-dropdown {
             right: 16px;
         }
@@ -1608,17 +1613,24 @@
             <div class="lb-nav-title">排行榜</div>
             <button class="lb-rules-btn" onclick="alert('规则内容待补充')">查看规则</button>
         </div>
-        <div class="lb-title"><span class="laurel">&#127807;</span> 1分钟跳绳排名 <span class="laurel">&#127807;</span></div>
+        <div class="lb-title"><span class="laurel">&#127807;</span> 1分钟运动排名 <span class="laurel">&#127807;</span></div>
         <div class="lb-filters" id="lb-filters">
             <button class="lb-filter" id="lb-time-filter" onclick="toggleTimeDropdown()">
                 今日 <span class="arrow">&#9662;</span>
             </button>
-            <button class="lb-filter" style="color:#333">
+            <button class="lb-filter" id="lb-exercise-filter" onclick="toggleExerciseDropdown()" style="color:#333">
                 1分钟跳绳 <span class="arrow" style="font-size:10px">&#9662;</span>
             </button>
             <button class="lb-filter" id="lb-type-filter" onclick="toggleTypeDropdown()">
                 总榜 <span class="arrow">&#9662;</span>
             </button>
+            <!-- Exercise dropdown -->
+            <div class="lb-dropdown" id="exercise-dropdown">
+                <div class="lb-dropdown-item active" onclick="selectExercise(this,'1分钟跳绳')">1分钟跳绳</div>
+                <div class="lb-dropdown-item" onclick="selectExercise(this,'仰卧起坐')">仰卧起坐</div>
+                <div class="lb-dropdown-item" onclick="selectExercise(this,'收腹跳')">收腹跳</div>
+                <div class="lb-dropdown-item" onclick="selectExercise(this,'踢毽子')">踢毽子</div>
+            </div>
             <!-- Time dropdown -->
             <div class="lb-dropdown" id="time-dropdown">
                 <div class="lb-dropdown-item active" onclick="selectTime(this,'今日')">今日</div>
@@ -1943,12 +1955,21 @@
             document.getElementById('lb-type-filter').classList.add('active');
         }
 
+        function toggleExerciseDropdown() {
+            closeDropdowns();
+            document.getElementById('exercise-dropdown').classList.add('show');
+            document.getElementById('lb-overlay').classList.add('show');
+            document.getElementById('lb-exercise-filter').classList.add('active');
+        }
+
         function closeDropdowns() {
             document.getElementById('time-dropdown').classList.remove('show');
             document.getElementById('type-dropdown').classList.remove('show');
+            document.getElementById('exercise-dropdown').classList.remove('show');
             document.getElementById('lb-overlay').classList.remove('show');
             document.getElementById('lb-time-filter').classList.remove('active');
             document.getElementById('lb-type-filter').classList.remove('active');
+            document.getElementById('lb-exercise-filter').classList.remove('active');
         }
 
         function selectTime(el, label) {
@@ -1962,6 +1983,13 @@
             el.parentElement.querySelectorAll('.lb-dropdown-item').forEach(i => i.classList.remove('active'));
             el.classList.add('active');
             document.getElementById('lb-type-filter').innerHTML = label + ' <span class="arrow">&#9662;</span>';
+            closeDropdowns();
+        }
+
+        function selectExercise(el, label) {
+            el.parentElement.querySelectorAll('.lb-dropdown-item').forEach(i => i.classList.remove('active'));
+            el.classList.add('active');
+            document.getElementById('lb-exercise-filter').innerHTML = label + ' <span class="arrow" style="font-size:10px">&#9662;</span>';
             closeDropdowns();
         }
 
