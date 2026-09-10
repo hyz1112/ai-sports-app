@@ -975,6 +975,287 @@
         .pk-start-btn:active {
             transform: scale(0.97);
         }
+
+        /* ===== Leaderboard Page ===== */
+        .lb-page {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100%;
+            max-width: 430px;
+            height: 100vh;
+            background: #fff;
+            z-index: 500;
+            overflow-y: auto;
+        }
+
+        .lb-page.active {
+            display: block;
+        }
+
+        .lb-nav {
+            display: flex;
+            align-items: center;
+            padding: 12px 16px;
+            border-bottom: 1px solid #f0f0f0;
+            position: sticky;
+            top: 0;
+            background: #fff;
+            z-index: 10;
+        }
+
+        .lb-back {
+            width: 36px;
+            height: 36px;
+            border: none;
+            background: none;
+            font-size: 22px;
+            cursor: pointer;
+            color: #333;
+        }
+
+        .lb-nav-title {
+            flex: 1;
+            text-align: center;
+            font-size: 17px;
+            font-weight: 700;
+            color: #1a1a1a;
+        }
+
+        .lb-rules-btn {
+            font-size: 14px;
+            color: #bbb;
+            border: none;
+            background: none;
+            cursor: pointer;
+            padding: 8px;
+        }
+
+        .lb-title {
+            text-align: center;
+            padding: 20px 16px 12px;
+            font-size: 22px;
+            font-weight: 800;
+            color: #1a1a1a;
+        }
+
+        .lb-title .laurel {
+            color: #8B7355;
+            font-size: 20px;
+        }
+
+        .lb-filters {
+            display: flex;
+            justify-content: space-around;
+            padding: 8px 16px 4px;
+            position: relative;
+        }
+
+        .lb-filter {
+            font-size: 15px;
+            color: #333;
+            border: none;
+            background: none;
+            cursor: pointer;
+            padding: 8px 12px;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            font-weight: 600;
+        }
+
+        .lb-filter.active {
+            color: #f56a3a;
+        }
+
+        .lb-filter .arrow {
+            font-size: 10px;
+            transition: transform 0.2s;
+        }
+
+        .lb-filter.active .arrow {
+            transform: rotate(180deg);
+        }
+
+        .lb-update-info {
+            text-align: center;
+            font-size: 12px;
+            color: #ccc;
+            padding: 8px 0 16px;
+        }
+
+        .lb-list {
+            padding: 0 16px;
+        }
+
+        .lb-item {
+            display: flex;
+            align-items: center;
+            padding: 12px 0;
+            border-bottom: 1px solid #f8f8f8;
+        }
+
+        .lb-rank {
+            width: 32px;
+            font-size: 16px;
+            font-weight: 700;
+            color: #333;
+            text-align: center;
+            flex-shrink: 0;
+        }
+
+        .lb-rank.gold { color: #DAA520; font-size: 20px; }
+        .lb-rank.silver { color: #A8A8A8; font-size: 20px; }
+        .lb-rank.bronze { color: #CD7F32; font-size: 20px; }
+
+        .lb-avatar {
+            width: 42px;
+            height: 42px;
+            border-radius: 50%;
+            margin: 0 12px;
+            flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+        }
+
+        .lb-user-info {
+            flex: 1;
+        }
+
+        .lb-user-name {
+            font-size: 15px;
+            font-weight: 600;
+            color: #1a1a1a;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .lb-user-level {
+            font-size: 11px;
+            color: #999;
+            background: #f5f5f5;
+            padding: 1px 6px;
+            border-radius: 8px;
+            font-weight: 500;
+        }
+
+        .lb-score {
+            font-size: 18px;
+            font-weight: 800;
+            color: #1a1a1a;
+            margin-right: 8px;
+        }
+
+        .lb-score span {
+            font-size: 13px;
+            font-weight: 600;
+        }
+
+        .lb-arrow {
+            color: #ccc;
+            font-size: 18px;
+        }
+
+        .lb-footer {
+            text-align: center;
+            padding: 20px 16px 12px;
+            font-size: 14px;
+            color: #999;
+        }
+
+        .lb-footer .highlight {
+            color: #f56a3a;
+            font-weight: 700;
+        }
+
+        .lb-my-score {
+            display: flex;
+            align-items: center;
+            padding: 16px;
+            border-top: 1px solid #f0f0f0;
+            margin-top: 8px;
+            position: sticky;
+            bottom: 0;
+            background: #fff;
+        }
+
+        .lb-my-rank {
+            width: 32px;
+            font-size: 16px;
+            font-weight: 700;
+            color: #999;
+            text-align: center;
+        }
+
+        .lb-my-info {
+            flex: 1;
+        }
+
+        .lb-my-info .lb-my-title {
+            font-size: 15px;
+            font-weight: 700;
+            color: #1a1a1a;
+        }
+
+        .lb-my-info .lb-my-sub {
+            font-size: 12px;
+            color: #999;
+            margin-top: 2px;
+        }
+
+        /* Dropdown */
+        .lb-dropdown {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #fff;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.12);
+            z-index: 20;
+            min-width: 100px;
+            overflow: hidden;
+        }
+
+        .lb-dropdown.show {
+            display: block;
+        }
+
+        .lb-dropdown-item {
+            padding: 12px 24px;
+            font-size: 15px;
+            color: #333;
+            cursor: pointer;
+            text-align: center;
+            white-space: nowrap;
+        }
+
+        .lb-dropdown-item:hover,
+        .lb-dropdown-item.active {
+            color: #f56a3a;
+            font-weight: 600;
+        }
+
+        .lb-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.3);
+            z-index: 15;
+        }
+
+        .lb-overlay.show {
+            display: block;
+        }
     </style>
 </head>
 <body>
@@ -1314,12 +1595,120 @@
         <button class="pk-start-btn" onclick="alert('开始PK！')">开始PK</button>
     </div>
 
+    <!-- Leaderboard Page -->
+    <div class="lb-page" id="lb-page">
+        <div class="lb-nav">
+            <button class="lb-back" onclick="closeLeaderboard()">&#8249;</button>
+            <div class="lb-nav-title">排行榜</div>
+            <button class="lb-rules-btn" onclick="alert('规则内容待补充')">查看规则</button>
+        </div>
+        <div class="lb-title"><span class="laurel">&#127807;</span> 1分钟跳绳排名 <span class="laurel">&#127807;</span></div>
+        <div class="lb-filters" id="lb-filters">
+            <button class="lb-filter" id="lb-time-filter" onclick="toggleTimeDropdown()">
+                今日 <span class="arrow">&#9662;</span>
+            </button>
+            <button class="lb-filter" style="color:#333">
+                1分钟跳绳 <span class="arrow" style="font-size:10px">&#9662;</span>
+            </button>
+            <button class="lb-filter" id="lb-type-filter" onclick="toggleTypeDropdown()">
+                总榜 <span class="arrow">&#9662;</span>
+            </button>
+            <!-- Time dropdown -->
+            <div class="lb-dropdown" id="time-dropdown">
+                <div class="lb-dropdown-item active" onclick="selectTime(this,'今日')">今日</div>
+                <div class="lb-dropdown-item" onclick="selectTime(this,'本周')">本周</div>
+                <div class="lb-dropdown-item" onclick="selectTime(this,'本月')">本月</div>
+            </div>
+            <!-- Type dropdown -->
+            <div class="lb-dropdown" id="type-dropdown">
+                <div class="lb-dropdown-item active" onclick="selectType(this,'总榜')">总榜</div>
+                <div class="lb-dropdown-item" onclick="selectType(this,'好友榜')">好友榜</div>
+                <div class="lb-dropdown-item" onclick="selectType(this,'同学榜')">同学榜</div>
+                <div class="lb-dropdown-item" onclick="selectType(this,'战队榜')">战队榜</div>
+            </div>
+        </div>
+        <div class="lb-overlay" id="lb-overlay" onclick="closeDropdowns()"></div>
+        <div class="lb-update-info">榜单每10分钟更新</div>
+        <div class="lb-list">
+            <div class="lb-item">
+                <div class="lb-rank gold">&#127942;</div>
+                <div class="lb-avatar" style="background:#fde8ec">&#128100;</div>
+                <div class="lb-user-info">
+                    <div class="lb-user-name">柒柒 <span class="lb-user-level">Lv.8</span></div>
+                </div>
+                <div class="lb-score">274<span>分</span></div>
+                <div class="lb-arrow">&#8250;</div>
+            </div>
+            <div class="lb-item">
+                <div class="lb-rank silver">&#127942;</div>
+                <div class="lb-avatar" style="background:#e8f4fd">&#128100;</div>
+                <div class="lb-user-info">
+                    <div class="lb-user-name">王一硕 <span class="lb-user-level">Lv.17</span></div>
+                </div>
+                <div class="lb-score">258<span>分</span></div>
+                <div class="lb-arrow">&#8250;</div>
+            </div>
+            <div class="lb-item">
+                <div class="lb-rank bronze">&#127942;</div>
+                <div class="lb-avatar" style="background:#fde8ec">&#128100;</div>
+                <div class="lb-user-info">
+                    <div class="lb-user-name">用户6077 <span class="lb-user-level">Lv.4</span></div>
+                </div>
+                <div class="lb-score">235<span>分</span></div>
+                <div class="lb-arrow">&#8250;</div>
+            </div>
+            <div class="lb-item">
+                <div class="lb-rank">4.</div>
+                <div class="lb-avatar" style="background:#fff8e1">&#128100;</div>
+                <div class="lb-user-info">
+                    <div class="lb-user-name">用户9577 <span class="lb-user-level">Lv.16</span></div>
+                </div>
+                <div class="lb-score">234<span>分</span></div>
+                <div class="lb-arrow">&#8250;</div>
+            </div>
+            <div class="lb-item">
+                <div class="lb-rank">5.</div>
+                <div class="lb-avatar" style="background:#fde8ec">&#128100;</div>
+                <div class="lb-user-info">
+                    <div class="lb-user-name">用户7237 <span class="lb-user-level">Lv.2</span></div>
+                </div>
+                <div class="lb-score">210<span>分</span></div>
+                <div class="lb-arrow">&#8250;</div>
+            </div>
+            <div class="lb-item">
+                <div class="lb-rank">6.</div>
+                <div class="lb-avatar" style="background:#fff3e0">&#128100;</div>
+                <div class="lb-user-info">
+                    <div class="lb-user-name">彬彬 <span class="lb-user-level">Lv.12</span></div>
+                </div>
+                <div class="lb-score">201<span>分</span></div>
+                <div class="lb-arrow">&#8250;</div>
+            </div>
+        </div>
+        <div class="lb-footer">
+            上榜基准成绩：<span class="highlight">200分</span><br>
+            前<span class="highlight">200</span>名上榜
+        </div>
+        <div class="lb-my-score">
+            <div class="lb-my-rank">-</div>
+            <div class="lb-avatar" style="background:#fff8e1;width:42px;height:42px;border-radius:50%;margin:0 12px;display:flex;align-items:center;justify-content:center;font-size:20px">&#128100;</div>
+            <div class="lb-my-info">
+                <div class="lb-my-title">我的成绩：-</div>
+                <div class="lb-my-sub">暂无上榜记录</div>
+            </div>
+        </div>
+    </div>
+
     <!-- 1分钟跳绳 Detail Page -->
     <div class="detail-page" id="detail-rope">
         <div class="detail-nav">
             <button class="detail-close" onclick="closeDetail()">✕</button>
             <div class="detail-actions">
                 <button class="detail-action-btn pk" onclick="openPK()">PK</button>
+                <button class="detail-action-btn" onclick="openLeaderboard()" style="font-size:12px;font-weight:700;gap:3px;display:flex;align-items:center;">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="3" y="12" width="4" height="9" rx="1"/><rect x="10" y="6" width="4" height="15" rx="1"/><rect x="17" y="3" width="4" height="18" rx="1"/></svg>
+                    排行榜
+                </button>
                 <button class="detail-action-btn">
                     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                         <path d="M4 12v8a2 2 0 002 2h12a2 2 0 002-2v-8"/>
@@ -1521,6 +1910,53 @@
             if (card.classList.contains('disabled')) return;
             document.querySelectorAll('.pk-mode-card').forEach(c => c.classList.remove('selected'));
             card.classList.add('selected');
+        }
+
+        // Leaderboard
+        function openLeaderboard() {
+            document.getElementById('lb-page').classList.add('active');
+            document.getElementById('lb-page').scrollTop = 0;
+        }
+
+        function closeLeaderboard() {
+            document.getElementById('lb-page').classList.remove('active');
+            closeDropdowns();
+        }
+
+        function toggleTimeDropdown() {
+            closeDropdowns();
+            document.getElementById('time-dropdown').classList.add('show');
+            document.getElementById('lb-overlay').classList.add('show');
+            document.getElementById('lb-time-filter').classList.add('active');
+        }
+
+        function toggleTypeDropdown() {
+            closeDropdowns();
+            document.getElementById('type-dropdown').classList.add('show');
+            document.getElementById('lb-overlay').classList.add('show');
+            document.getElementById('lb-type-filter').classList.add('active');
+        }
+
+        function closeDropdowns() {
+            document.getElementById('time-dropdown').classList.remove('show');
+            document.getElementById('type-dropdown').classList.remove('show');
+            document.getElementById('lb-overlay').classList.remove('show');
+            document.getElementById('lb-time-filter').classList.remove('active');
+            document.getElementById('lb-type-filter').classList.remove('active');
+        }
+
+        function selectTime(el, label) {
+            el.parentElement.querySelectorAll('.lb-dropdown-item').forEach(i => i.classList.remove('active'));
+            el.classList.add('active');
+            document.getElementById('lb-time-filter').innerHTML = label + ' <span class="arrow">&#9662;</span>';
+            closeDropdowns();
+        }
+
+        function selectType(el, label) {
+            el.parentElement.querySelectorAll('.lb-dropdown-item').forEach(i => i.classList.remove('active'));
+            el.classList.add('active');
+            document.getElementById('lb-type-filter').innerHTML = label + ' <span class="arrow">&#9662;</span>';
+            closeDropdowns();
         }
 
         // Toggle rules/scoring collapse
