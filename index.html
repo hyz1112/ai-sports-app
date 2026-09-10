@@ -1137,6 +1137,76 @@
             color: #333;
             font-weight: 600;
         }
+
+        /* Profile Menu List */
+        .profile-menu-list {
+            margin: 12px 16px;
+            background: #fff;
+            border-radius: 16px;
+            padding: 8px 0;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.04);
+        }
+
+        .menu-list-item {
+            display: flex;
+            align-items: center;
+            padding: 16px;
+            cursor: pointer;
+            transition: background 0.15s;
+        }
+
+        .menu-list-item:hover {
+            background: #f9f9f9;
+        }
+
+        .menu-list-icon {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            margin-right: 12px;
+            flex-shrink: 0;
+        }
+
+        .menu-list-icon.blue { background: #e3f2fd; }
+        .menu-list-icon.orange { background: #fff3e0; }
+        .menu-list-icon.green { background: #e8f5e9; }
+        .menu-list-icon.purple { background: #f3e5f5; }
+        .menu-list-icon.dark { background: #eceff1; }
+
+        .menu-list-content {
+            flex: 1;
+        }
+
+        .menu-list-title {
+            font-size: 15px;
+            font-weight: 600;
+            color: #1a1a1a;
+            margin-bottom: 2px;
+        }
+
+        .menu-list-desc {
+            font-size: 12px;
+            color: #999;
+        }
+
+        .menu-list-arrow {
+            font-size: 16px;
+            color: #ccc;
+            margin-left: 8px;
+        }
+
+        .menu-list-badge {
+            background: #f56a3a;
+            color: #fff;
+            font-size: 10px;
+            padding: 2px 6px;
+            border-radius: 8px;
+            margin-right: 8px;
+        }
         .profile-header-card {
             background: #fff;
             border-radius: 16px;
@@ -2862,6 +2932,67 @@
             <div class="menu-grid-item">
                 <div class="menu-grid-icon darkblue">&#127942;</div>
                 <div class="menu-grid-text">我的荣誉</div>
+            </div>
+        </div>
+
+        <!-- Menu List Section 1 -->
+        <div class="profile-menu-list">
+            <div class="menu-list-item">
+                <div class="menu-list-icon blue">&#128722;</div>
+                <div class="menu-list-content">
+                    <div class="menu-list-title">会员商城</div>
+                    <div class="menu-list-desc">积分换礼物</div>
+                </div>
+                <span class="menu-list-arrow">&#8250;</span>
+            </div>
+            <div class="menu-list-item">
+                <div class="menu-list-icon orange">&#127873;</div>
+                <div class="menu-list-content">
+                    <div class="menu-list-title">每日福利</div>
+                    <div class="menu-list-desc">今日福利未领取</div>
+                </div>
+                <span class="menu-list-badge"></span>
+                <span class="menu-list-arrow">&#8250;</span>
+            </div>
+            <div class="menu-list-item">
+                <div class="menu-list-icon purple">&#128681;</div>
+                <div class="menu-list-content">
+                    <div class="menu-list-title">好友和小队</div>
+                    <div class="menu-list-desc">运动伙伴和小队</div>
+                </div>
+                <span class="menu-list-arrow">&#8250;</span>
+            </div>
+        </div>
+
+        <!-- Menu List Section 2 -->
+        <div class="profile-menu-list">
+            <div class="menu-list-item">
+                <div class="menu-list-icon blue">&#128077;</div>
+                <div class="menu-list-content">
+                    <div class="menu-list-title">推荐给好友</div>
+                </div>
+                <span class="menu-list-arrow">&#8250;</span>
+            </div>
+            <div class="menu-list-item">
+                <div class="menu-list-icon green">&#128172;</div>
+                <div class="menu-list-content">
+                    <div class="menu-list-title">关注服务号</div>
+                </div>
+                <span class="menu-list-arrow">&#8250;</span>
+            </div>
+            <div class="menu-list-item">
+                <div class="menu-list-icon dark">&#128221;</div>
+                <div class="menu-list-content">
+                    <div class="menu-list-title">客服与反馈</div>
+                </div>
+                <span class="menu-list-arrow">&#8250;</span>
+            </div>
+            <div class="menu-list-item">
+                <div class="menu-list-icon dark">&#9881;&#65039;</div>
+                <div class="menu-list-content">
+                    <div class="menu-list-title">设置</div>
+                </div>
+                <span class="menu-list-arrow">&#8250;</span>
             </div>
         </div>
     </div>
