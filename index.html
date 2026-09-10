@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>AI运动</title>
+    <title>观观体测</title>
     <style>
         * {
             margin: 0;
@@ -1626,12 +1626,13 @@
 
         .comment-like-btn {
             display: flex;
+            flex-direction: column;
             align-items: center;
-            gap: 3px;
+            gap: 1px;
             background: none;
             border: none;
             cursor: pointer;
-            padding: 4px 6px;
+            padding: 6px 10px;
             border-radius: 12px;
             transition: all 0.2s;
             color: #ccc;
@@ -1642,31 +1643,17 @@
         }
 
         .comment-like-btn .heart-icon {
-            font-size: 16px;
+            font-size: 22px;
             line-height: 1;
         }
 
         .comment-like-btn .like-num {
-            font-size: 12px;
+            font-size: 11px;
             color: #999;
         }
 
         .comment-like-btn.liked .like-num {
             color: #f56a3a;
-        }
-
-        .comment-dislike-btn {
-            background: none;
-            border: none;
-            cursor: pointer;
-            padding: 4px;
-            font-size: 16px;
-            color: #ddd;
-            transition: color 0.15s;
-        }
-
-        .comment-dislike-btn:hover {
-            color: #999;
         }
     </style>
 </head>
@@ -1674,7 +1661,7 @@
 
     <!-- Header -->
     <div class="header">
-        <h1>AI运动</h1>
+        <h1>观观体测</h1>
     </div>
 
     <!-- 首页 Page -->
@@ -2207,7 +2194,6 @@
                             <span class="heart-icon">&#9825;</span>
                             <span class="like-num">12</span>
                         </button>
-                        <button class="comment-dislike-btn">&#128528;</button>
                     </div>
                 </div>
                 <div class="comment-item">
@@ -2225,7 +2211,6 @@
                             <span class="heart-icon">&#9825;</span>
                             <span class="like-num">3</span>
                         </button>
-                        <button class="comment-dislike-btn">&#128528;</button>
                     </div>
                 </div>
                 <div class="comment-item">
@@ -2243,7 +2228,6 @@
                             <span class="heart-icon">&#9825;</span>
                             <span class="like-num">8</span>
                         </button>
-                        <button class="comment-dislike-btn">&#128528;</button>
                     </div>
                 </div>
             </div>
@@ -2599,7 +2583,6 @@
                 '</div>' +
                 '<div class="comment-actions">' +
                     '<button class="comment-like-btn" onclick="toggleCommentLike(this)"><span class="heart-icon">&#9825;</span><span class="like-num">0</span></button>' +
-                    '<button class="comment-dislike-btn">&#128528;</button>' +
                 '</div>';
             list.insertBefore(item, list.firstChild);
             input.value = '';
