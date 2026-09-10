@@ -1108,6 +1108,12 @@
             align-items: center;
             padding: 12px 0;
             border-bottom: 1px solid #f8f8f8;
+            cursor: pointer;
+            transition: background 0.15s;
+        }
+
+        .lb-item:hover {
+            background: #f9f9f9;
         }
 
         .lb-rank {
@@ -1266,6 +1272,319 @@
 
         .lb-overlay.show {
             display: block;
+        }
+
+        /* ===== User Report Page ===== */
+        .report-page {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100%;
+            max-width: 430px;
+            height: 100vh;
+            background: #fff;
+            z-index: 600;
+            overflow-y: auto;
+        }
+
+        .report-page.active {
+            display: block;
+        }
+
+        .report-nav {
+            display: flex;
+            align-items: center;
+            padding: 12px 16px;
+            border-bottom: 1px solid #f0f0f0;
+            position: sticky;
+            top: 0;
+            background: #fff;
+            z-index: 10;
+        }
+
+        .report-back {
+            width: 36px;
+            height: 36px;
+            border: none;
+            background: none;
+            font-size: 22px;
+            cursor: pointer;
+            color: #333;
+        }
+
+        .report-nav-title {
+            flex: 1;
+            text-align: center;
+            font-size: 17px;
+            font-weight: 700;
+            color: #1a1a1a;
+            margin-right: 36px;
+        }
+
+        .report-video-notice {
+            background: #1a1a1a;
+            color: #999;
+            text-align: center;
+            padding: 14px 16px;
+            font-size: 14px;
+        }
+
+        .report-user-header {
+            display: flex;
+            align-items: center;
+            padding: 16px 20px 8px;
+            gap: 12px;
+        }
+
+        .report-avatar {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            background: #fff8e1;
+        }
+
+        .report-user-level {
+            font-size: 13px;
+            color: #999;
+            background: #f5f5f5;
+            padding: 2px 8px;
+            border-radius: 10px;
+        }
+
+        .report-result {
+            padding: 12px 20px 0;
+            font-size: 17px;
+            font-weight: 700;
+            color: #1a1a1a;
+        }
+
+        .report-time {
+            padding: 4px 20px 16px;
+            font-size: 13px;
+            color: #bbb;
+        }
+
+        .report-actions {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 8px 20px 16px;
+        }
+
+        .report-like {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 16px;
+            color: #999;
+            cursor: pointer;
+            border: none;
+            background: none;
+            padding: 8px 12px;
+            border-radius: 20px;
+            transition: all 0.2s;
+        }
+
+        .report-like.liked {
+            color: #f56a3a;
+        }
+
+        .report-like .like-icon {
+            font-size: 22px;
+        }
+
+        .report-challenge-btn {
+            background: linear-gradient(135deg, #f56a3a, #f07a4a);
+            color: #fff;
+            border: none;
+            border-radius: 50px;
+            padding: 10px 24px;
+            font-size: 15px;
+            font-weight: 700;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            box-shadow: 0 2px 12px rgba(245,106,58,0.3);
+        }
+
+        .report-challenge-btn:active {
+            transform: scale(0.96);
+        }
+
+        .report-divider {
+            height: 8px;
+            background: #f5f5f5;
+        }
+
+        .report-section {
+            padding: 20px;
+        }
+
+        .report-section h3 {
+            font-size: 18px;
+            font-weight: 700;
+            color: #1a1a1a;
+            margin-bottom: 16px;
+        }
+
+        .report-stats {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+        }
+
+        .report-stat {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .report-stat-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 22px;
+            flex-shrink: 0;
+        }
+
+        .report-stat-icon.grade { background: #fde8ec; }
+        .report-stat-icon.time { background: #e8f4fd; }
+        .report-stat-icon.count { background: #e8f4fd; }
+        .report-stat-icon.cal { background: #fde8ec; }
+
+        .report-stat-value {
+            font-size: 28px;
+            font-weight: 800;
+            color: #1a1a1a;
+            line-height: 1.1;
+        }
+
+        .report-stat-label {
+            font-size: 13px;
+            color: #999;
+        }
+
+        /* Chart */
+        .report-chart {
+            padding: 0 20px 20px;
+        }
+
+        .report-chart h3 {
+            font-size: 18px;
+            font-weight: 700;
+            color: #1a1a1a;
+            margin-bottom: 16px;
+        }
+
+        .chart-container {
+            position: relative;
+            width: 100%;
+            height: 200px;
+        }
+
+        .chart-container canvas {
+            width: 100% !important;
+            height: 100% !important;
+        }
+
+        /* Comments */
+        .report-comments {
+            padding: 0 20px 20px;
+        }
+
+        .report-comments h3 {
+            font-size: 18px;
+            font-weight: 700;
+            color: #1a1a1a;
+            margin-bottom: 12px;
+        }
+
+        .comment-input-wrap {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+
+        .comment-input {
+            flex: 1;
+            padding: 10px 14px;
+            border: 1px solid #e0e0e0;
+            border-radius: 20px;
+            font-size: 14px;
+            outline: none;
+        }
+
+        .comment-input:focus {
+            border-color: #f56a3a;
+        }
+
+        .comment-send {
+            background: #f56a3a;
+            color: #fff;
+            border: none;
+            border-radius: 50%;
+            width: 36px;
+            height: 36px;
+            font-size: 16px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .comment-list {
+            margin-top: 12px;
+        }
+
+        .comment-item {
+            display: flex;
+            gap: 10px;
+            padding: 10px 0;
+            border-bottom: 1px solid #f8f8f8;
+        }
+
+        .comment-avatar {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background: #f0f0f0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            flex-shrink: 0;
+        }
+
+        .comment-content {
+            flex: 1;
+        }
+
+        .comment-name {
+            font-size: 13px;
+            font-weight: 600;
+            color: #333;
+        }
+
+        .comment-text {
+            font-size: 13px;
+            color: #666;
+            margin-top: 2px;
+        }
+
+        .comment-time {
+            font-size: 11px;
+            color: #ccc;
+            margin-top: 2px;
         }
     </style>
 </head>
@@ -1648,7 +1967,7 @@
         <div class="lb-overlay" id="lb-overlay" onclick="closeDropdowns()"></div>
         <div class="lb-update-info">榜单每10分钟更新</div>
         <div class="lb-list">
-            <div class="lb-item">
+            <div class="lb-item" onclick="openReport('柒柒','Lv.8','1分钟跳绳',274,'上午 0:52','S','1:00.0',274,71.7)">
                 <div class="lb-rank gold">&#127942;</div>
                 <div class="lb-avatar" style="background:#fde8ec">&#128100;</div>
                 <div class="lb-user-info">
@@ -1657,7 +1976,7 @@
                 <div class="lb-score">274<span>分</span></div>
                 <div class="lb-arrow">&#8250;</div>
             </div>
-            <div class="lb-item">
+            <div class="lb-item" onclick="openReport('王一硕','Lv.17','1分钟跳绳',258,'上午 1:15','S','1:00.0',258,68.3)">
                 <div class="lb-rank silver">&#127942;</div>
                 <div class="lb-avatar" style="background:#e8f4fd">&#128100;</div>
                 <div class="lb-user-info">
@@ -1666,7 +1985,7 @@
                 <div class="lb-score">258<span>分</span></div>
                 <div class="lb-arrow">&#8250;</div>
             </div>
-            <div class="lb-item">
+            <div class="lb-item" onclick="openReport('用户6077','Lv.4','1分钟跳绳',235,'上午 2:30','A','1:00.0',235,62.1)">
                 <div class="lb-rank bronze">&#127942;</div>
                 <div class="lb-avatar" style="background:#fde8ec">&#128100;</div>
                 <div class="lb-user-info">
@@ -1675,7 +1994,7 @@
                 <div class="lb-score">235<span>分</span></div>
                 <div class="lb-arrow">&#8250;</div>
             </div>
-            <div class="lb-item">
+            <div class="lb-item" onclick="openReport('用户9577','Lv.16','1分钟跳绳',234,'上午 3:10','A','1:00.0',234,61.8)">
                 <div class="lb-rank">4.</div>
                 <div class="lb-avatar" style="background:#fff8e1">&#128100;</div>
                 <div class="lb-user-info">
@@ -1684,7 +2003,7 @@
                 <div class="lb-score">234<span>分</span></div>
                 <div class="lb-arrow">&#8250;</div>
             </div>
-            <div class="lb-item">
+            <div class="lb-item" onclick="openReport('用户7237','Lv.2','1分钟跳绳',210,'上午 4:20','B','1:00.0',210,55.5)">
                 <div class="lb-rank">5.</div>
                 <div class="lb-avatar" style="background:#fde8ec">&#128100;</div>
                 <div class="lb-user-info">
@@ -1693,7 +2012,7 @@
                 <div class="lb-score">210<span>分</span></div>
                 <div class="lb-arrow">&#8250;</div>
             </div>
-            <div class="lb-item">
+            <div class="lb-item" onclick="openReport('彬彬','Lv.12','1分钟跳绳',201,'上午 5:05','B','1:00.0',201,53.2)">
                 <div class="lb-rank">6.</div>
                 <div class="lb-avatar" style="background:#fff3e0">&#128100;</div>
                 <div class="lb-user-info">
@@ -1715,6 +2034,101 @@
                 <div class="lb-my-sub">暂无上榜记录</div>
             </div>
         </div>
+    </div>
+
+    <!-- User Report Page -->
+    <div class="report-page" id="report-page">
+        <div class="report-nav">
+            <button class="report-back" onclick="closeReport()">&#8249;</button>
+            <div class="report-nav-title">训练报告</div>
+        </div>
+        <div class="report-video-notice">视频将在用户开启权限并公开本次记录后显示</div>
+        <div class="report-user-header">
+            <div class="report-avatar" id="report-avatar">&#128100;</div>
+            <div>
+                <div style="font-size:16px;font-weight:700;color:#1a1a1a" id="report-name">-</div>
+                <div class="report-user-level" id="report-level">-</div>
+            </div>
+        </div>
+        <div class="report-result" id="report-result-text">完成了1分钟跳绳练习，成绩: 0个</div>
+        <div class="report-time" id="report-time-text">上午 0:00</div>
+        <div class="report-actions">
+            <button class="report-like" id="report-like-btn" onclick="toggleLike()">
+                <span class="like-icon" id="like-icon">&#128077;</span>
+                <span id="like-count">0</span>
+            </button>
+            <button class="report-challenge-btn" onclick="alert('已发送挑战！')">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M13 2L4.09 12.63c-.39.47-.06 1.17.55 1.17H11v8l8.91-10.63c.39-.47.06-1.17-.55-1.17H13V2z"/></svg>
+                挑战Ta
+            </button>
+        </div>
+        <div class="report-divider"></div>
+        <div class="report-section">
+            <h3>数据一览</h3>
+            <div class="report-stats">
+                <div class="report-stat">
+                    <div class="report-stat-icon grade">&#127942;</div>
+                    <div>
+                        <div class="report-stat-value" id="report-grade">S</div>
+                        <div class="report-stat-label">评价</div>
+                    </div>
+                </div>
+                <div class="report-stat">
+                    <div class="report-stat-icon time">&#9201;</div>
+                    <div>
+                        <div class="report-stat-value" id="report-time-val">1:00.0</div>
+                        <div class="report-stat-label">时间（分钟）</div>
+                    </div>
+                </div>
+                <div class="report-stat">
+                    <div class="report-stat-icon count">&#9889;</div>
+                    <div>
+                        <div class="report-stat-value" id="report-count-val">0</div>
+                        <div class="report-stat-label">次数</div>
+                    </div>
+                </div>
+                <div class="report-stat">
+                    <div class="report-stat-icon cal">&#128293;</div>
+                    <div>
+                        <div class="report-stat-value" id="report-cal-val">0</div>
+                        <div class="report-stat-label">热量（大卡）</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="report-chart">
+            <h3>个数-时间图</h3>
+            <div class="chart-container">
+                <canvas id="reportChart"></canvas>
+            </div>
+        </div>
+        <div class="report-divider"></div>
+        <div class="report-comments">
+            <h3>评论</h3>
+            <div class="comment-input-wrap">
+                <input class="comment-input" id="comment-input" placeholder="写下你的评论..." />
+                <button class="comment-send" onclick="addComment()">&#10148;</button>
+            </div>
+            <div class="comment-list" id="comment-list">
+                <div class="comment-item">
+                    <div class="comment-avatar">&#128100;</div>
+                    <div class="comment-content">
+                        <div class="comment-name">运动达人</div>
+                        <div class="comment-text">太厉害了！&#128077;</div>
+                        <div class="comment-time">2小时前</div>
+                    </div>
+                </div>
+                <div class="comment-item">
+                    <div class="comment-avatar">&#128100;</div>
+                    <div class="comment-content">
+                        <div class="comment-name">健身小白</div>
+                        <div class="comment-text">求教怎么跳这么快！</div>
+                        <div class="comment-time">5小时前</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div style="height:40px"></div>
     </div>
 
     <!-- 1分钟跳绳 Detail Page -->
@@ -2009,6 +2423,118 @@
                 toggleText.textContent = '规则';
                 toggleBtn.classList.remove('expanded');
             }
+        }
+
+        // Report Page
+        let isLiked = false;
+        let likeCount = 0;
+
+        function openReport(name, level, exercise, score, time, grade, duration, count, cal) {
+            document.getElementById('report-name').textContent = name;
+            document.getElementById('report-level').textContent = level;
+            document.getElementById('report-result-text').textContent = '完成了' + exercise + '练习，成绩: ' + score + '个';
+            document.getElementById('report-time-text').textContent = time;
+            document.getElementById('report-grade').textContent = grade;
+            document.getElementById('report-time-val').textContent = duration;
+            document.getElementById('report-count-val').textContent = count;
+            document.getElementById('report-cal-val').textContent = cal;
+            isLiked = false;
+            likeCount = Math.floor(Math.random() * 5);
+            document.getElementById('like-count').textContent = likeCount;
+            document.getElementById('report-like-btn').classList.remove('liked');
+            document.getElementById('report-page').classList.add('active');
+            document.getElementById('report-page').scrollTop = 0;
+            drawChart(count);
+        }
+
+        function closeReport() {
+            document.getElementById('report-page').classList.remove('active');
+        }
+
+        function toggleLike() {
+            isLiked = !isLiked;
+            const btn = document.getElementById('report-like-btn');
+            if (isLiked) {
+                likeCount++;
+                btn.classList.add('liked');
+            } else {
+                likeCount--;
+                btn.classList.remove('liked');
+            }
+            document.getElementById('like-count').textContent = likeCount;
+        }
+
+        function addComment() {
+            const input = document.getElementById('comment-input');
+            const text = input.value.trim();
+            if (!text) return;
+            const list = document.getElementById('comment-list');
+            const item = document.createElement('div');
+            item.className = 'comment-item';
+            item.innerHTML = '<div class="comment-avatar">&#128100;</div><div class="comment-content"><div class="comment-name">我</div><div class="comment-text">' + text.replace(/</g, '&lt;') + '</div><div class="comment-time">刚刚</div></div>';
+            list.insertBefore(item, list.firstChild);
+            input.value = '';
+        }
+
+        function drawChart(totalCount) {
+            const canvas = document.getElementById('reportChart');
+            const ctx = canvas.getContext('2d');
+            const rect = canvas.parentElement.getBoundingClientRect();
+            canvas.width = rect.width * 2;
+            canvas.height = 400;
+            canvas.style.width = rect.width + 'px';
+            canvas.style.height = '200px';
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+            const w = canvas.width;
+            const h = canvas.height;
+            const padL = 60, padR = 20, padT = 20, padB = 40;
+            const chartW = w - padL - padR;
+            const chartH = h - padT - padB;
+
+            // Grid lines
+            ctx.strokeStyle = '#f0f0f0';
+            ctx.lineWidth = 1;
+            const ySteps = 4;
+            for (let i = 0; i <= ySteps; i++) {
+                const y = padT + (chartH / ySteps) * i;
+                ctx.beginPath();
+                ctx.moveTo(padL, y);
+                ctx.lineTo(w - padR, y);
+                ctx.stroke();
+
+                // Y labels
+                const val = Math.round(totalCount - (totalCount / ySteps) * i);
+                ctx.fillStyle = '#ccc';
+                ctx.font = '22px sans-serif';
+                ctx.textAlign = 'right';
+                ctx.fillText(val + ' 个', padL - 10, y + 6);
+            }
+
+            // X labels
+            const xLabels = ['00:01', '00:18', '00:32', '00:47', '00:59'];
+            ctx.textAlign = 'center';
+            for (let i = 0; i < xLabels.length; i++) {
+                const x = padL + (chartW / (xLabels.length - 1)) * i;
+                ctx.fillStyle = '#ccc';
+                ctx.fillText(xLabels[i], x, h - 10);
+            }
+
+            // Draw line
+            ctx.strokeStyle = '#f56a3a';
+            ctx.lineWidth = 4;
+            ctx.lineCap = 'round';
+            ctx.lineJoin = 'round';
+            ctx.beginPath();
+            const points = xLabels.length;
+            for (let i = 0; i < points; i++) {
+                const x = padL + (chartW / (points - 1)) * i;
+                const progress = i / (points - 1);
+                const y = padT + chartH - (chartH * progress * 0.95);
+                if (i === 0) ctx.moveTo(x, y);
+                else ctx.lineTo(x, y);
+            }
+            ctx.stroke();
         }
     </script>
 </body>
