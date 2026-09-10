@@ -297,29 +297,49 @@
         .plan-coach-btn {
             display: block;
             width: 100%;
-            padding: 16px;
-            background: linear-gradient(135deg, #f56a3a, #f07a4a);
-            color: #fff;
+            padding: 16px 20px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
             border: none;
-            border-radius: 50px;
-            font-size: 17px;
-            font-weight: 700;
+            border-radius: 16px;
             cursor: pointer;
-            text-align: center;
-            box-shadow: 0 4px 16px rgba(245,106,58,0.3);
+            text-align: left;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 4px 16px rgba(102,126,234,0.25);
             transition: transform 0.15s;
         }
 
         .plan-coach-btn:active {
-            transform: scale(0.97);
+            transform: scale(0.98);
+        }
+
+        .plan-coach-btn-title {
+            font-size: 20px;
+            font-weight: 800;
+            color: #fff;
+            margin-bottom: 4px;
+        }
+
+        .plan-coach-btn-sub {
+            font-size: 13px;
+            color: rgba(255,255,255,0.8);
+        }
+
+        .plan-coach-btn-icon {
+            position: absolute;
+            right: 16px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 48px;
+            opacity: 0.3;
         }
 
         .plan-coach-img {
             position: absolute;
-            right: 10px;
-            top: 10px;
-            width: 90px;
-            height: 110px;
+            right: 12px;
+            top: 8px;
+            width: 60px;
+            height: 75px;
             display: flex;
             align-items: flex-end;
             justify-content: center;
@@ -531,6 +551,116 @@
             padding: 24px;
             color: #ccc;
             font-size: 14px;
+        }
+
+        /* Recommended Courses */
+        .plan-recommend {
+            margin: 8px 16px;
+        }
+
+        .plan-recommend-title {
+            font-size: 16px;
+            font-weight: 700;
+            color: #1a1a1a;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .plan-recommend-title .rec-badge {
+            font-size: 11px;
+            background: linear-gradient(135deg, #f56a3a, #f07a4a);
+            color: #fff;
+            padding: 2px 8px;
+            border-radius: 10px;
+            font-weight: 600;
+        }
+
+        .rec-card {
+            background: #fff;
+            border-radius: 16px;
+            padding: 16px;
+            margin-bottom: 10px;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.04);
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            cursor: pointer;
+            transition: transform 0.15s;
+        }
+
+        .rec-card:active {
+            transform: scale(0.98);
+        }
+
+        .rec-card-img {
+            width: 80px;
+            height: 80px;
+            border-radius: 12px;
+            flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 36px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .rec-card-img .rec-tag {
+            position: absolute;
+            top: 4px;
+            right: 4px;
+            font-size: 9px;
+            background: rgba(245,106,58,0.9);
+            color: #fff;
+            padding: 2px 6px;
+            border-radius: 8px;
+            font-weight: 600;
+        }
+
+        .rec-card-info {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .rec-card-name {
+            font-size: 15px;
+            font-weight: 700;
+            color: #1a1a1a;
+            margin-bottom: 4px;
+        }
+
+        .rec-card-desc {
+            font-size: 12px;
+            color: #999;
+            margin-bottom: 6px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .rec-card-meta {
+            display: flex;
+            gap: 8px;
+            font-size: 11px;
+            color: #bbb;
+        }
+
+        .rec-card-meta span {
+            display: flex;
+            align-items: center;
+            gap: 2px;
+        }
+
+        .rec-reason {
+            font-size: 11px;
+            color: #f56a3a;
+            background: #fde8ec;
+            padding: 2px 8px;
+            border-radius: 8px;
+            margin-top: 4px;
+            display: inline-block;
         }
 
         /* ===== Profile Page ===== */
@@ -2149,22 +2279,22 @@
         <div class="plan-page">
             <div class="plan-coach-card">
                 <div class="plan-coach-img">
-                    <svg viewBox="0 0 100 130" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <circle cx="50" cy="22" r="16" fill="#f5c6a0"/>
-                        <path d="M34 18 Q50 5 66 18" stroke="#333" stroke-width="3" fill="none"/>
-                        <path d="M30 20 Q25 30 28 38" stroke="#333" stroke-width="3" fill="none"/>
-                        <path d="M70 20 Q75 30 72 38" stroke="#333" stroke-width="3" fill="none"/>
-                        <rect x="38" y="38" width="24" height="30" rx="8" fill="#f56a3a"/>
-                        <rect x="34" y="68" width="14" height="28" rx="6" fill="#333"/>
-                        <rect x="52" y="68" width="14" height="28" rx="6" fill="#333"/>
-                        <path d="M38 48 L18 58" stroke="#f5c6a0" stroke-width="8" stroke-linecap="round"/>
-                        <path d="M62 48 L82 40" stroke="#f5c6a0" stroke-width="8" stroke-linecap="round"/>
-                        <circle cx="44" cy="20" r="2" fill="#333"/>
-                        <circle cx="56" cy="20" r="2" fill="#333"/>
-                        <path d="M47 26 Q50 29 53 26" stroke="#333" stroke-width="1.5" fill="none"/>
+                    <svg viewBox="0 0 80 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <circle cx="40" cy="16" r="12" fill="#f5c6a0"/>
+                        <path d="M28 14 Q40 4 52 14" stroke="#5a3e2b" stroke-width="2.5" fill="none"/>
+                        <rect x="32" y="28" width="16" height="22" rx="6" fill="#4a90d9"/>
+                        <rect x="28" y="50" width="10" height="22" rx="4" fill="#333"/>
+                        <rect x="42" y="50" width="10" height="22" rx="4" fill="#333"/>
+                        <path d="M32 34 L16 44" stroke="#f5c6a0" stroke-width="6" stroke-linecap="round"/>
+                        <path d="M48 34 L64 28" stroke="#f5c6a0" stroke-width="6" stroke-linecap="round"/>
+                        <circle cx="20" cy="42" r="4" fill="#888"/>
+                        <circle cx="60" cy="26" r="4" fill="#888"/>
+                        <circle cx="36" cy="14" r="1.5" fill="#333"/>
+                        <circle cx="44" cy="14" r="1.5" fill="#333"/>
+                        <path d="M38 19 Q40 21 42 19" stroke="#333" stroke-width="1" fill="none"/>
                     </svg>
                 </div>
-                <div class="plan-coach-title">AI<span>天天</span>健康指导师</div>
+                <div class="plan-coach-title">AI<span>教练</span></div>
                 <div class="plan-coach-sub">和你一起关注孩子体质健康成长</div>
                 <div class="plan-coach-tags">
                     <div class="plan-coach-tag"><span class="tag-icon">&#128202;</span> 体测成绩</div>
@@ -2172,10 +2302,14 @@
                     <div class="plan-coach-tag"><span class="tag-icon">&#127823;</span> 饮食健康</div>
                     <div class="plan-coach-tag"><span class="tag-icon">&#128170;</span> 体质健康</div>
                 </div>
-                <button class="plan-coach-btn" onclick="alert('观观教练已开启！')">开启家庭专属健康守护</button>
+                <button class="plan-coach-btn" onclick="alert('进入观观教练智能体！')">
+                    <div class="plan-coach-btn-title">观观教练</div>
+                    <div class="plan-coach-btn-sub">AI智能体 · 专属健康指导</div>
+                    <div class="plan-coach-btn-icon">&#129302;</div>
+                </button>
             </div>
             <div class="plan-section-header">
-                <div class="plan-section-title">会员专属·智能计划</div>
+                <div class="plan-section-title">智能计划</div>
                 <div class="plan-section-more">+ 全部计划</div>
             </div>
             <div class="plan-calendar">
@@ -2194,6 +2328,14 @@
             <div class="plan-detail" id="plan-detail">
                 <div class="plan-detail-date" id="plan-detail-date"></div>
                 <div id="plan-detail-content"></div>
+            </div>
+
+            <!-- Recommended Courses -->
+            <div class="plan-recommend">
+                <div class="plan-recommend-title">
+                    &#128161; 为你推荐 <span class="rec-badge">AI精选</span>
+                </div>
+                <div id="rec-courses"></div>
             </div>
         </div>
     </div>
@@ -2987,18 +3129,27 @@
         const todayMonth = today.getMonth() + 1;
         const todayYear = today.getFullYear();
 
-        // Sample plan data: { 'YYYY-MM-DD': [plans] }
+        // Sample plan data: course-like plans
         const planData = {
-            '2026-09-10': [{name:'1分钟跳绳', meta:'1分钟 · 简单', icon:'&#128260;', color:'#e8f4fd', tag:'体测'}],
-            '2026-09-12': [{name:'仰卧起坐', meta:'1分钟 · 中等', icon:'&#128170;', color:'#fde8ec', tag:'体测'},{name:'收腹跳', meta:'30秒 · 中等', icon:'&#9889;', color:'#fff3e0', tag:'训练'}],
-            '2026-09-14': [{name:'踢毽子', meta:'1分钟 · 简单', icon:'&#127939;', color:'#e8f4fd', tag:'体测'}],
-            '2026-09-15': [{name:'1分钟跳绳', meta:'1分钟 · 简单', icon:'&#128260;', color:'#e8f4fd', tag:'体测'},{name:'平板支撑', meta:'30秒 · 困难', icon:'&#129512;', color:'#fde8ec', tag:'训练'}],
-            '2026-09-17': [{name:'仰卧起坐', meta:'1分钟 · 中等', icon:'&#128170;', color:'#fde8ec', tag:'体测'}],
-            '2026-09-20': [{name:'1分钟跳绳', meta:'1分钟 · 简单', icon:'&#128260;', color:'#e8f4fd', tag:'体测'},{name:'踢毽子', meta:'1分钟 · 简单', icon:'&#127939;', color:'#fff3e0', tag:'体测'}],
-            '2026-09-22': [{name:'收腹跳', meta:'30秒 · 中等', icon:'&#9889;', color:'#fff3e0', tag:'训练'}],
-            '2026-09-25': [{name:'1分钟跳绳', meta:'1分钟 · 简单', icon:'&#128260;', color:'#e8f4fd', tag:'体测'}],
-            '2026-09-28': [{name:'仰卧起坐', meta:'1分钟 · 中等', icon:'&#128170;', color:'#fde8ec', tag:'体测'},{name:'平板支撑', meta:'30秒 · 困难', icon:'&#129512;', color:'#fde8ec', tag:'训练'}],
+            '2026-09-10': [{name:'14天·肩背力量塑造', meta:'Day 3/14 · 中等强度', icon:'&#128170;', color:'#e8f4fd', tag:'力量'}],
+            '2026-09-12': [{name:'21天·核心稳定性训练', meta:'Day 5/21 · 基础', icon:'&#129512;', color:'#fde8ec', tag:'核心'},{name:'7天·柔韧性提升', meta:'Day 2/7 · 轻松', icon:'&#129503;', color:'#fff3e0', tag:'柔韧'}],
+            '2026-09-14': [{name:'14天·心肺耐力挑战', meta:'Day 1/14 · 入门', icon:'&#10084;&#65039;', color:'#e8f4fd', tag:'耐力'}],
+            '2026-09-15': [{name:'14天·肩背力量塑造', meta:'Day 8/14 · 进阶', icon:'&#128170;', color:'#e8f4fd', tag:'力量'},{name:'30天·体态矫正计划', meta:'Day 12/30 · 中等', icon:'&#129503;', color:'#fde8ec', tag:'体态'}],
+            '2026-09-17': [{name:'21天·核心稳定性训练', meta:'Day 10/21 · 中等', icon:'&#129512;', color:'#fde8ec', tag:'核心'}],
+            '2026-09-20': [{name:'14天·心肺耐力挑战', meta:'Day 7/14 · 中等', icon:'&#10084;&#65039;', color:'#e8f4fd', tag:'耐力'},{name:'7天·柔韧性提升', meta:'Day 5/7 · 轻松', icon:'&#129503;', color:'#fff3e0', tag:'柔韧'}],
+            '2026-09-22': [{name:'21天·核心稳定性训练', meta:'Day 15/21 · 进阶', icon:'&#129512;', color:'#fff3e0', tag:'核心'}],
+            '2026-09-25': [{name:'14天·肩背力量塑造', meta:'Day 14/14 · 冲刺', icon:'&#128170;', color:'#e8f4fd', tag:'力量'}],
+            '2026-09-28': [{name:'30天·体态矫正计划', meta:'Day 25/30 · 巩固', icon:'&#129503;', color:'#fde8ec', tag:'体态'},{name:'14天·下肢爆发力', meta:'Day 3/14 · 中等', icon:'&#9889;', color:'#fde8ec', tag:'爆发'}],
         };
+
+        // Recommended courses
+        const recommendCourses = [
+            {name:'14天·零基础减脂计划', desc:'趣味有氧+基础塑形，减脂效果看得见', icon:'&#127939;', color:'#e8f4fd', tag:'S+会员精选', duration:'14天', level:'入门', reason:'根据你的体测数据，体脂率偏高，建议优先减脂'},
+            {name:'14天·肩背力量塑造', desc:'改善圆肩驼背，提升上肢力量', icon:'&#128170;', color:'#fde8ec', tag:'热门', duration:'14天', level:'中等', reason:'你的仰卧起坐成绩较弱，加强核心和上肢'},
+            {name:'21天·核心稳定性训练', desc:'从零基础到核心力量全面提升', icon:'&#129512;', color:'#fff3e0', tag:'AI推荐', duration:'21天', level:'基础', reason:'核心力量是各项运动的基础，适合长期训练'},
+            {name:'7天·柔韧性提升', desc:'边玩边练，提升身体灵活性', icon:'&#129503;', color:'#e8f8e8', tag:'新课', duration:'7天', level:'轻松', reason:'柔韧性训练有助于预防运动损伤'},
+            {name:'30天·体态矫正计划', desc:'科学矫正不良体态，重塑健康身姿', icon:'&#128170;', color:'#f0e8fd', tag:'S+会员精选', duration:'30天', level:'中等', reason:'AI检测到你有轻微驼背趋势'},
+        ];
 
         function renderCalendar() {
             const label = document.getElementById('cal-month-label');
@@ -3098,6 +3249,31 @@
 
         // Init calendar
         renderCalendar();
+
+        // Render recommended courses
+        function renderRecommendedCourses() {
+            const container = document.getElementById('rec-courses');
+            let html = '';
+            recommendCourses.forEach(c => {
+                html += '<div class="rec-card" onclick="alert(\'进入课程：' + c.name.replace(/'/g, "\\'") + '\')">' +
+                    '<div class="rec-card-img" style="background:' + c.color + '">' +
+                        c.icon +
+                        '<span class="rec-tag">' + c.tag + '</span>' +
+                    '</div>' +
+                    '<div class="rec-card-info">' +
+                        '<div class="rec-card-name">' + c.name + '</div>' +
+                        '<div class="rec-card-desc">' + c.desc + '</div>' +
+                        '<div class="rec-card-meta">' +
+                            '<span>&#128337; ' + c.duration + '</span>' +
+                            '<span>&#128200; ' + c.level + '</span>' +
+                        '</div>' +
+                        '<div class="rec-reason">&#129302; ' + c.reason + '</div>' +
+                    '</div>' +
+                '</div>';
+            });
+            container.innerHTML = html;
+        }
+        renderRecommendedCourses();
     </script>
 </body>
 </html>
