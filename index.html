@@ -803,6 +803,149 @@
             cursor: not-allowed;
         }
 
+        /* Calendar in All Plans */
+        .all-plans-calendar {
+            background: #fff;
+            margin: 0 16px 12px;
+            border-radius: 16px;
+            padding: 12px;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.04);
+        }
+
+        .mini-cal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 8px;
+        }
+
+        .mini-cal-month {
+            font-size: 14px;
+            font-weight: 700;
+            color: #1a1a1a;
+        }
+
+        .mini-cal-nav button {
+            width: 24px;
+            height: 24px;
+            border: 1px solid #eee;
+            background: #fff;
+            border-radius: 50%;
+            font-size: 12px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #666;
+        }
+
+        .mini-cal-weekdays {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            text-align: center;
+            margin-bottom: 4px;
+        }
+
+        .mini-cal-weekdays span {
+            font-size: 10px;
+            color: #bbb;
+            padding: 2px 0;
+        }
+
+        .mini-cal-days {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            text-align: center;
+            gap: 1px;
+        }
+
+        .mini-cal-day {
+            position: relative;
+            padding: 6px 0 4px;
+            font-size: 12px;
+            color: #333;
+            border-radius: 50%;
+            transition: all 0.15s;
+        }
+
+        .mini-cal-day.today {
+            background: #667eea;
+            color: #fff;
+            font-weight: 700;
+        }
+
+        .mini-cal-day.has-plan::after {
+            content: '';
+            position: absolute;
+            bottom: 1px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 4px;
+            height: 4px;
+            border-radius: 50%;
+            background: #f56a3a;
+        }
+
+        .mini-cal-day.today.has-plan::after {
+            background: #fff;
+        }
+
+        /* Filter Section */
+        .filter-section {
+            background: #fff;
+            margin: 0 16px 12px;
+            border-radius: 16px;
+            padding: 16px;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.04);
+        }
+
+        .filter-row {
+            display: flex;
+            align-items: center;
+            margin-bottom: 12px;
+        }
+
+        .filter-row:last-child {
+            margin-bottom: 0;
+        }
+
+        .filter-label {
+            font-size: 13px;
+            font-weight: 600;
+            color: #667eea;
+            min-width: 50px;
+            flex-shrink: 0;
+        }
+
+        .filter-options {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            flex: 1;
+        }
+
+        .filter-option {
+            padding: 6px 12px;
+            border: 1px solid #e0e0e0;
+            background: #fff;
+            border-radius: 16px;
+            font-size: 12px;
+            color: #666;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .filter-option:hover {
+            border-color: #667eea;
+            color: #667eea;
+        }
+
+        .filter-option.active {
+            border-color: #667eea;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: #fff;
+        }
+
         /* ===== Profile Page ===== */
         .profile-header-card {
             background: #fff;
@@ -2530,6 +2673,57 @@
             <button class="all-plans-back" onclick="closeAllPlans()">&#8249;</button>
             <div class="all-plans-title">全部计划</div>
         </div>
+        
+        <!-- Mini Calendar -->
+        <div class="all-plans-calendar">
+            <div class="mini-cal-header">
+                <div class="mini-cal-month" id="mini-cal-month">2026年9月</div>
+                <div class="mini-cal-nav">
+                    <button onclick="changeMiniMonth(-1)">&#8249;</button>
+                    <button onclick="changeMiniMonth(1)">&#8250;</button>
+                </div>
+            </div>
+            <div class="mini-cal-weekdays">
+                <span>日</span><span>一</span><span>二</span><span>三</span><span>四</span><span>五</span><span>六</span>
+            </div>
+            <div class="mini-cal-days" id="mini-cal-days"></div>
+        </div>
+
+        <!-- Filter Section -->
+        <div class="filter-section">
+            <div class="filter-row">
+                <div class="filter-label">类型</div>
+                <div class="filter-options" id="filter-type">
+                    <div class="filter-option active" onclick="setFilter('type', 'all', this)">全部</div>
+                    <div class="filter-option" onclick="setFilter('type', '力量', this)">力量</div>
+                    <div class="filter-option" onclick="setFilter('type', '核心', this)">核心</div>
+                    <div class="filter-option" onclick="setFilter('type', '耐力', this)">耐力</div>
+                    <div class="filter-option" onclick="setFilter('type', '柔韧', this)">柔韧</div>
+                    <div class="filter-option" onclick="setFilter('type', '体态', this)">体态</div>
+                </div>
+            </div>
+            <div class="filter-row">
+                <div class="filter-label">难度</div>
+                <div class="filter-options" id="filter-level">
+                    <div class="filter-option active" onclick="setFilter('level', 'all', this)">全部</div>
+                    <div class="filter-option" onclick="setFilter('level', '入门', this)">入门</div>
+                    <div class="filter-option" onclick="setFilter('level', '基础', this)">基础</div>
+                    <div class="filter-option" onclick="setFilter('level', '中等', this)">中等</div>
+                    <div class="filter-option" onclick="setFilter('level', '困难', this)">困难</div>
+                </div>
+            </div>
+            <div class="filter-row">
+                <div class="filter-label">时长</div>
+                <div class="filter-options" id="filter-duration">
+                    <div class="filter-option active" onclick="setFilter('duration', 'all', this)">全部</div>
+                    <div class="filter-option" onclick="setFilter('duration', '7天', this)">7天</div>
+                    <div class="filter-option" onclick="setFilter('duration', '14天', this)">14天</div>
+                    <div class="filter-option" onclick="setFilter('duration', '21天', this)">21天</div>
+                    <div class="filter-option" onclick="setFilter('duration', '30天', this)">30天</div>
+                </div>
+            </div>
+        </div>
+
         <div class="course-library" id="course-library"></div>
     </div>
 
@@ -3422,6 +3616,8 @@
         // ===== All Plans Page =====
         let selectedCourse = null;
         let selectedDuration = null;
+        let activeFilters = { type: 'all', level: 'all', duration: 'all' };
+        let miniCalYear = 2026, miniCalMonth = 9;
 
         const courseLibrary = [
             {name:'14天·零基础减脂计划', desc:'趣味有氧+基础塑形，减脂效果看得见', icon:'&#127939;', color:'#e8f4fd', tag:'S+会员精选', duration:'14天', level:'入门'},
@@ -3435,6 +3631,7 @@
 
         function openAllPlans() {
             document.getElementById('all-plans-page').classList.add('active');
+            renderMiniCalendar();
             renderCourseLibrary();
         }
 
@@ -3444,31 +3641,119 @@
             selectedDuration = null;
         }
 
+        // Mini Calendar
+        function renderMiniCalendar() {
+            const label = document.getElementById('mini-cal-month');
+            label.textContent = miniCalYear + '年' + miniCalMonth + '月';
+
+            const firstDay = new Date(miniCalYear, miniCalMonth - 1, 1);
+            const lastDay = new Date(miniCalYear, miniCalMonth, 0);
+            const startWeekday = firstDay.getDay();
+            const daysInMonth = lastDay.getDate();
+            const prevLastDay = new Date(miniCalYear, miniCalMonth - 1, 0).getDate();
+            const todayDate = new Date().getDate();
+            const todayMonth = new Date().getMonth() + 1;
+            const todayYear = new Date().getFullYear();
+
+            const container = document.getElementById('mini-cal-days');
+            container.innerHTML = '';
+
+            for (let i = startWeekday - 1; i >= 0; i--) {
+                const d = prevLastDay - i;
+                const div = document.createElement('div');
+                div.className = 'mini-cal-day';
+                div.style.color = '#ddd';
+                div.textContent = d;
+                container.appendChild(div);
+            }
+
+            for (let d = 1; d <= daysInMonth; d++) {
+                const div = document.createElement('div');
+                div.className = 'mini-cal-day';
+                div.textContent = d;
+
+                if (d === todayDate && miniCalMonth === todayMonth && miniCalYear === todayYear) {
+                    div.classList.add('today');
+                }
+
+                const dateKey = miniCalYear + '-' + String(miniCalMonth).padStart(2,'0') + '-' + String(d).padStart(2,'0');
+                if (planData[dateKey]) {
+                    div.classList.add('has-plan');
+                }
+
+                container.appendChild(div);
+            }
+
+            const totalCells = startWeekday + daysInMonth;
+            const remaining = totalCells % 7 === 0 ? 0 : 7 - (totalCells % 7);
+            for (let i = 1; i <= remaining; i++) {
+                const div = document.createElement('div');
+                div.className = 'mini-cal-day';
+                div.style.color = '#ddd';
+                div.textContent = i;
+                container.appendChild(div);
+            }
+        }
+
+        function changeMiniMonth(delta) {
+            miniCalMonth += delta;
+            if (miniCalMonth > 12) { miniCalMonth = 1; miniCalYear++; }
+            if (miniCalMonth < 1) { miniCalMonth = 12; miniCalYear--; }
+            renderMiniCalendar();
+        }
+
+        // Filter functions
+        function setFilter(category, value, el) {
+            activeFilters[category] = value;
+            
+            // Update UI
+            const parent = el.parentElement;
+            parent.querySelectorAll('.filter-option').forEach(opt => opt.classList.remove('active'));
+            el.classList.add('active');
+            
+            // Re-render courses with filter
+            renderCourseLibrary();
+        }
+
         function renderCourseLibrary() {
             const container = document.getElementById('course-library');
-            let html = '<div class="library-section-title">课程库</div>';
             
-            courseLibrary.forEach((c, idx) => {
-                html += '<div class="course-card" id="course-' + idx + '">' +
-                    '<div class="course-card-header">' +
-                        '<div class="course-icon" style="background:' + c.color + '">' + c.icon + '</div>' +
-                        '<div class="course-info">' +
-                            '<div class="course-name">' + c.name + '</div>' +
-                            '<div class="course-desc">' + c.desc + '</div>' +
-                            '<div class="course-meta">' +
-                                '<span class="course-tag">' + c.duration + '</span>' +
-                                '<span class="course-tag">' + c.level + '</span>' +
+            // Filter courses
+            let filteredCourses = courseLibrary.filter(c => {
+                if (activeFilters.type !== 'all' && c.tag !== activeFilters.type && !c.name.includes(activeFilters.type)) return false;
+                if (activeFilters.level !== 'all' && c.level !== activeFilters.level) return false;
+                if (activeFilters.duration !== 'all' && c.duration !== activeFilters.duration) return false;
+                return true;
+            });
+            
+            let html = '<div class="library-section-title">课程库 (' + filteredCourses.length + ')</div>';
+            
+            if (filteredCourses.length === 0) {
+                html += '<div style="text-align:center;padding:40px;color:#ccc;">没有符合条件的课程</div>';
+            } else {
+                filteredCourses.forEach((c, idx) => {
+                    const realIdx = courseLibrary.indexOf(c);
+                    html += '<div class="course-card" id="course-' + realIdx + '">' +
+                        '<div class="course-card-header">' +
+                            '<div class="course-icon" style="background:' + c.color + '">' + c.icon + '</div>' +
+                            '<div class="course-info">' +
+                                '<div class="course-name">' + c.name + '</div>' +
+                                '<div class="course-desc">' + c.desc + '</div>' +
+                                '<div class="course-meta">' +
+                                    '<span class="course-tag">' + c.duration + '</span>' +
+                                    '<span class="course-tag">' + c.level + '</span>' +
+                                '</div>' +
                             '</div>' +
                         '</div>' +
-                    '</div>' +
-                    '<div class="course-actions">' +
-                        '<button class="duration-btn" onclick="selectDuration(' + idx + ', 7)">7天</button>' +
-                        '<button class="duration-btn" onclick="selectDuration(' + idx + ', 14)">14天</button>' +
-                        '<button class="duration-btn" onclick="selectDuration(' + idx + ', 21)">21天</button>' +
-                    '</div>' +
-                    '<button class="add-plan-btn" id="add-btn-' + idx + '" disabled onclick="addToCalendar(' + idx + ')">添加到计划</button>' +
-                '</div>';
-            });
+                        '<div class="course-actions">' +
+                            '<button class="duration-btn" onclick="selectDuration(' + realIdx + ', 7)">7天</button>' +
+                            '<button class="duration-btn" onclick="selectDuration(' + realIdx + ', 14)">14天</button>' +
+                            '<button class="duration-btn" onclick="selectDuration(' + realIdx + ', 21)">21天</button>' +
+                        '</div>' +
+                        '<button class="add-plan-btn" id="add-btn-' + realIdx + '" disabled onclick="addToCalendar(' + realIdx + ')">添加到计划</button>' +
+                    '</div>';
+                });
+            }
             
             container.innerHTML = html;
         }
