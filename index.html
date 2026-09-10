@@ -1030,57 +1030,35 @@
             box-shadow: 0 4px 12px rgba(33,150,243,0.3);
         }
 
-        /* User Info Cards */
-        .user-info-cards {
+        .profile-sport-id-row {
             display: flex;
-            gap: 12px;
-            margin: -16px 16px 12px;
-            position: relative;
-            z-index: 10;
+            align-items: center;
+            gap: 8px;
+            margin-top: 6px;
         }
 
-        .info-card {
-            flex: 1;
-            background: #fff;
-            border-radius: 12px;
-            padding: 16px 12px;
-            text-align: center;
-            box-shadow: 0 2px 12px rgba(0,0,0,0.08);
-        }
-
-        .card-label {
-            display: block;
-            font-size: 12px;
-            color: #999;
-            margin-bottom: 6px;
-        }
-
-        .card-value {
-            display: block;
-            font-size: 16px;
-            font-weight: 700;
-            color: #1a1a1a;
-        }
-
-            color: #fff;
-            margin-bottom: 4px;
-        }
-
-        .vip-desc {
+        .sport-id-text {
             font-size: 13px;
-            color: rgba(255,255,255,0.9);
+            color: #666;
         }
 
-        .vip-btn {
-            background: #fff;
-            color: #ff9800;
-            border: none;
-            border-radius: 20px;
-            padding: 10px 20px;
+        .qr-code-icon {
             font-size: 14px;
-            font-weight: 700;
-            cursor: pointer;
-            flex-shrink: 0;
+            color: #999;
+        }
+
+        .profile-badges-row {
+            display: flex;
+            gap: 8px;
+            margin-top: 8px;
+        }
+
+        .mini-badge {
+            display: inline-block;
+            padding: 4px 10px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: 600;
         }
 
         /* Stats Row */
@@ -2819,7 +2797,7 @@
         <!-- Gradient Header -->
         <div class="profile-gradient-header">
             <div class="header-top-bar">
-                <button class="header-icon-btn">&#9745;&#65039;</button>
+                <button class="header-icon-btn">&#128247;</button>
                 <button class="header-icon-btn">&#128276;</button>
             </div>
             
@@ -2827,25 +2805,16 @@
                 <div class="profile-avatar-circle">&#128100;</div>
                 <div class="profile-info-area">
                     <div class="profile-name-large">用户5577</div>
-                    <div class="profile-level-tag">Lv.1</div>
+                    <div class="profile-sport-id-row">
+                        <span class="sport-id-text">运动号：98800296</span>
+                        <span class="qr-code-icon">&#9635;</span>
+                    </div>
+                    <div class="profile-badges-row">
+                        <span class="mini-badge level">Lv.1</span>
+                        <span class="mini-badge points">pt 0</span>
+                        <span class="mini-badge energy">&#9889; 0</span>
+                    </div>
                 </div>
-                <button class="personal-home-btn">个人主页 &#8250;</button>
-            </div>
-        </div>
-
-        <!-- User Info Cards -->
-        <div class="user-info-cards">
-            <div class="info-card">
-                <span class="card-label">运动号</span>
-                <span class="card-value">98800296</span>
-            </div>
-            <div class="info-card">
-                <span class="card-label">等级</span>
-                <span class="card-value">Lv.1</span>
-            </div>
-            <div class="info-card">
-                <span class="card-label">积分</span>
-                <span class="card-value">pt 0</span>
             </div>
         </div>
 
