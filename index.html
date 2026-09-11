@@ -3609,37 +3609,6 @@
             </div>
         </div>
         <div class="lb-overlay" id="lb-overlay" onclick="closeDropdowns()"></div>
-
-        <!-- User Profile Popup -->
-        <div class="profile-popup-overlay" id="profile-popup-overlay" onclick="closeProfilePopup(event)">
-            <div class="profile-popup" onclick="event.stopPropagation()">
-                <div class="profile-popup-header">
-                    <div class="profile-popup-avatar" id="popup-avatar">&#128100;</div>
-                    <div class="profile-popup-info">
-                        <div class="profile-popup-name" id="popup-name">-</div>
-                        <div class="profile-popup-level" id="popup-level">Lv.1</div>
-                    </div>
-                </div>
-                <div class="profile-popup-stats">
-                    <div class="profile-popup-stat">
-                        <div class="profile-popup-stat-value" id="popup-train-days">0</div>
-                        <div class="profile-popup-stat-label">训练天数</div>
-                    </div>
-                    <div class="profile-popup-stat">
-                        <div class="profile-popup-stat-value" id="popup-total-time">0</div>
-                        <div class="profile-popup-stat-label">总时间(分)</div>
-                    </div>
-                    <div class="profile-popup-stat">
-                        <div class="profile-popup-stat-value" id="popup-total-cal">0</div>
-                        <div class="profile-popup-stat-label">总消耗(千卡)</div>
-                    </div>
-                </div>
-                <div class="profile-popup-actions">
-                    <button class="profile-popup-btn secondary" onclick="closeProfilePopup()">关闭</button>
-                    <button class="profile-popup-btn primary" id="popup-add-friend-btn" onclick="addFriendFromPopup()">添加好友</button>
-                </div>
-            </div>
-        </div>
         <div class="lb-update-info">榜单每10分钟更新</div>
         <div class="lb-list">
             <div class="lb-item" onclick="openReport('柒柒','Lv.8','1分钟跳绳',274,'上午 0:52','S','1:00.0',274,71.7)">
@@ -3840,6 +3809,37 @@
             </div>
         </div>
         <div style="height:40px"></div>
+
+        <!-- User Profile Popup (inside report page) -->
+        <div class="profile-popup-overlay" id="profile-popup-overlay" onclick="closeProfilePopup(event)">
+            <div class="profile-popup" onclick="event.stopPropagation()">
+                <div class="profile-popup-header">
+                    <div class="profile-popup-avatar" id="popup-avatar">&#128100;</div>
+                    <div class="profile-popup-info">
+                        <div class="profile-popup-name" id="popup-name">-</div>
+                        <div class="profile-popup-level" id="popup-level">Lv.1</div>
+                    </div>
+                </div>
+                <div class="profile-popup-stats">
+                    <div class="profile-popup-stat">
+                        <div class="profile-popup-stat-value" id="popup-train-days">0</div>
+                        <div class="profile-popup-stat-label">训练天数</div>
+                    </div>
+                    <div class="profile-popup-stat">
+                        <div class="profile-popup-stat-value" id="popup-total-time">0</div>
+                        <div class="profile-popup-stat-label">总时间(分)</div>
+                    </div>
+                    <div class="profile-popup-stat">
+                        <div class="profile-popup-stat-value" id="popup-total-cal">0</div>
+                        <div class="profile-popup-stat-label">总消耗(千卡)</div>
+                    </div>
+                </div>
+                <div class="profile-popup-actions">
+                    <button class="profile-popup-btn secondary" onclick="closeProfilePopup()">关闭</button>
+                    <button class="profile-popup-btn primary" id="popup-add-friend-btn" onclick="sendFriendRequest()">发送好友申请</button>
+                </div>
+            </div>
+        </div>
     </div>
 
     <!-- 1分钟跳绳 Detail Page -->
@@ -4154,8 +4154,8 @@
 
             // Reset add friend button
             const friendBtn = document.getElementById('report-add-friend-btn');
-            if (friendAdded.has(name)) {
-                friendBtn.textContent = '已添加';
+            if (friendRequestSent.has(name)) {
+                friendBtn.textContent = '申请已发送';
                 friendBtn.classList.add('added');
             } else {
                 friendBtn.textContent = '添加好友';
@@ -4174,7 +4174,7 @@
 
         // User Profile Popup
         let currentPopupUser = null;
-        let friendAdded = new Set();
+        let friendRequestSent = new Set();
 
         function showUserProfile(name, level, trainDays, totalTime, totalCal) {
             currentPopupUser = name;
@@ -4185,11 +4185,11 @@
             document.getElementById('popup-total-cal').textContent = totalCal;
 
             const btn = document.getElementById('popup-add-friend-btn');
-            if (friendAdded.has(name)) {
-                btn.textContent = '已添加';
+            if (friendRequestSent.has(name)) {
+                btn.textContent = '申请已发送';
                 btn.classList.add('added');
             } else {
-                btn.textContent = '添加好友';
+                btn.textContent = '发送好友申请';
                 btn.classList.remove('added');
             }
 
@@ -4201,23 +4201,94 @@
             document.getElementById('profile-popup-overlay').classList.remove('show');
         }
 
-        function addFriendFromPopup() {
-            if (!currentPopupUser || friendAdded.has(currentPopupUser)) return;
-            friendAdded.add(currentPopupUser);
+        function sendFriendRequest() {
+            if (!currentPopupUser) return;
+            
+            // 检查是否已经发送过申请
+            if (friendRequestSent.has(currentPopupUser)) {
+                showToast('好友申请已发送，等待对方确认');
+                return;
+            }
+            
+            friendRequestSent.add(currentPopupUser);
             const btn = document.getElementById('popup-add-friend-btn');
-            btn.textContent = '已添加';
+            btn.textContent = '申请已发送';
             btn.classList.add('added');
-            showToast('已发送好友申请给 ' + currentPopupUser);
+            
+            // 显示发送成功的通知
+            showNotification('好友申请', '已向 ' + currentPopupUser + ' 发送好友申请，等待对方确认', 'success');
         }
 
         function addFriendFromReport() {
             const name = document.getElementById('report-name').textContent;
-            if (friendAdded.has(name)) return;
-            friendAdded.add(name);
+            
+            if (friendRequestSent.has(name)) {
+                showToast('好友申请已发送，等待对方确认');
+                return;
+            }
+            
+            friendRequestSent.add(name);
             const btn = document.getElementById('report-add-friend-btn');
-            btn.textContent = '已添加';
+            btn.textContent = '申请已发送';
             btn.classList.add('added');
-            showToast('已发送好友申请给 ' + name);
+            
+            showNotification('好友申请', '已向 ' + name + ' 发送好友申请，等待对方确认', 'success');
+        }
+
+        // 通知系统
+        function showNotification(title, message, type) {
+            const notification = document.createElement('div');
+            notification.className = 'notification-item';
+            
+            const icon = type === 'success' ? '✓' : type === 'error' ? '' : 'ℹ';
+            const bgColor = type === 'success' ? '#52c41a' : type === 'error' ? '#ff4d4f' : '#1890ff';
+            
+            notification.innerHTML = `
+                <div style="display:flex;align-items:center;gap:12px;">
+                    <div style="width:32px;height:32px;border-radius:50%;background:${bgColor};color:white;display:flex;align-items:center;justify-content:center;font-size:16px;font-weight:bold;">${icon}</div>
+                    <div style="flex:1;">
+                        <div style="font-size:14px;font-weight:600;color:#1a1a1a;margin-bottom:4px;">${title}</div>
+                        <div style="font-size:13px;color:#666;">${message}</div>
+                    </div>
+                    <div style="font-size:12px;color:#999;">刚刚</div>
+                </div>
+            `;
+            
+            notification.style.cssText = 'background:white;padding:16px;border-radius:12px;box-shadow:0 4px 12px rgba(0,0,0,0.15);margin-bottom:8px;animation:popupSlideIn 0.3s ease;';
+            
+            // 添加到通知列表
+            const notificationList = document.getElementById('notification-list');
+            if (notificationList) {
+                notificationList.insertBefore(notification, notificationList.firstChild);
+            }
+            
+            // 显示通知弹窗
+            showNotificationPopup(title, message, type);
+        }
+
+        function showNotificationPopup(title, message, type) {
+            const popup = document.createElement('div');
+            popup.style.cssText = 'position:fixed;top:80px;left:50%;transform:translateX(-50%);background:white;padding:16px 24px;border-radius:12px;box-shadow:0 8px 24px rgba(0,0,0,0.2);z-index:300;animation:popupSlideIn 0.3s ease;min-width:280px;';
+            
+            const bgColor = type === 'success' ? '#52c41a' : type === 'error' ? '#ff4d4f' : '#1890ff';
+            const icon = type === 'success' ? '✓' : type === 'error' ? '✕' : 'ℹ';
+            
+            popup.innerHTML = `
+                <div style="display:flex;align-items:center;gap:12px;">
+                    <div style="width:36px;height:36px;border-radius:50%;background:${bgColor};color:white;display:flex;align-items:center;justify-content:center;font-size:18px;font-weight:bold;">${icon}</div>
+                    <div style="flex:1;">
+                        <div style="font-size:15px;font-weight:600;color:#1a1a1a;margin-bottom:4px;">${title}</div>
+                        <div style="font-size:13px;color:#666;">${message}</div>
+                    </div>
+                </div>
+            `;
+            
+            document.body.appendChild(popup);
+            setTimeout(() => {
+                popup.style.opacity = '0';
+                popup.style.transition = 'opacity 0.3s';
+                setTimeout(() => popup.remove(), 300);
+            }, 3000);
         }
 
         function showToast(msg) {
