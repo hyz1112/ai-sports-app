@@ -2449,6 +2449,144 @@
             display: block;
         }
 
+        /* ===== User Profile Popup ===== */
+        .profile-popup-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.4);
+            z-index: 100;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .profile-popup-overlay.show {
+            display: flex;
+        }
+
+        .profile-popup {
+            background: white;
+            border-radius: 16px;
+            padding: 24px;
+            width: 320px;
+            max-width: 90%;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.2);
+            animation: popupSlideIn 0.3s ease;
+        }
+
+        @keyframes popupSlideIn {
+            from {
+                opacity: 0;
+                transform: translateY(-20px) scale(0.95);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        .profile-popup-header {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            margin-bottom: 20px;
+        }
+
+        .profile-popup-avatar {
+            width: 64px;
+            height: 64px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 32px;
+            background: #fff8e1;
+        }
+
+        .profile-popup-info {
+            flex: 1;
+        }
+
+        .profile-popup-name {
+            font-size: 18px;
+            font-weight: 700;
+            color: #1a1a1a;
+            margin-bottom: 4px;
+        }
+
+        .profile-popup-level {
+            font-size: 13px;
+            color: #999;
+            background: #f5f5f5;
+            padding: 2px 10px;
+            border-radius: 10px;
+            display: inline-block;
+        }
+
+        .profile-popup-stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 12px;
+            margin-bottom: 20px;
+            padding: 16px;
+            background: #f9f9f9;
+            border-radius: 12px;
+        }
+
+        .profile-popup-stat {
+            text-align: center;
+        }
+
+        .profile-popup-stat-value {
+            font-size: 20px;
+            font-weight: 700;
+            color: #f56a3a;
+            margin-bottom: 4px;
+        }
+
+        .profile-popup-stat-label {
+            font-size: 12px;
+            color: #999;
+        }
+
+        .profile-popup-actions {
+            display: flex;
+            gap: 12px;
+        }
+
+        .profile-popup-btn {
+            flex: 1;
+            padding: 12px;
+            border: none;
+            border-radius: 24px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .profile-popup-btn.primary {
+            background: #f56a3a;
+            color: white;
+        }
+
+        .profile-popup-btn.primary:hover {
+            background: #e55a2a;
+            transform: scale(1.02);
+        }
+
+        .profile-popup-btn.secondary {
+            background: #f5f5f5;
+            color: #666;
+        }
+
+        .profile-popup-btn.secondary:hover {
+            background: #e5e5e5;
+        }
+
         /* ===== User Report Page ===== */
         .report-page {
             display: none;
@@ -2522,6 +2660,29 @@
             justify-content: center;
             font-size: 24px;
             background: #fff8e1;
+        }
+
+        .add-friend-btn {
+            margin-left: auto;
+            padding: 6px 16px;
+            background: #f56a3a;
+            color: white;
+            border: none;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .add-friend-btn:hover {
+            background: #e55a2a;
+            transform: scale(1.05);
+        }
+
+        .add-friend-btn.added {
+            background: #999;
+            cursor: default;
         }
 
         .report-user-level {
@@ -3448,6 +3609,37 @@
             </div>
         </div>
         <div class="lb-overlay" id="lb-overlay" onclick="closeDropdowns()"></div>
+
+        <!-- User Profile Popup -->
+        <div class="profile-popup-overlay" id="profile-popup-overlay" onclick="closeProfilePopup(event)">
+            <div class="profile-popup" onclick="event.stopPropagation()">
+                <div class="profile-popup-header">
+                    <div class="profile-popup-avatar" id="popup-avatar">&#128100;</div>
+                    <div class="profile-popup-info">
+                        <div class="profile-popup-name" id="popup-name">-</div>
+                        <div class="profile-popup-level" id="popup-level">Lv.1</div>
+                    </div>
+                </div>
+                <div class="profile-popup-stats">
+                    <div class="profile-popup-stat">
+                        <div class="profile-popup-stat-value" id="popup-train-days">0</div>
+                        <div class="profile-popup-stat-label">训练天数</div>
+                    </div>
+                    <div class="profile-popup-stat">
+                        <div class="profile-popup-stat-value" id="popup-total-time">0</div>
+                        <div class="profile-popup-stat-label">总时间(分)</div>
+                    </div>
+                    <div class="profile-popup-stat">
+                        <div class="profile-popup-stat-value" id="popup-total-cal">0</div>
+                        <div class="profile-popup-stat-label">总消耗(千卡)</div>
+                    </div>
+                </div>
+                <div class="profile-popup-actions">
+                    <button class="profile-popup-btn secondary" onclick="closeProfilePopup()">关闭</button>
+                    <button class="profile-popup-btn primary" id="popup-add-friend-btn" onclick="addFriendFromPopup()">添加好友</button>
+                </div>
+            </div>
+        </div>
         <div class="lb-update-info">榜单每10分钟更新</div>
         <div class="lb-list">
             <div class="lb-item" onclick="openReport('柒柒','Lv.8','1分钟跳绳',274,'上午 0:52','S','1:00.0',274,71.7)">
@@ -3532,6 +3724,7 @@
                 <div style="font-size:16px;font-weight:700;color:#1a1a1a" id="report-name">-</div>
                 <div class="report-user-level" id="report-level">-</div>
             </div>
+            <button class="add-friend-btn" id="report-add-friend-btn" onclick="addFriendFromReport()">添加好友</button>
         </div>
         <div class="report-result" id="report-result-text">完成了1分钟跳绳练习，成绩: 0个</div>
         <div class="report-time" id="report-time-text">上午 0:00</div>
@@ -3594,7 +3787,7 @@
             </div>
             <div class="comment-list" id="comment-list">
                 <div class="comment-item">
-                    <div class="comment-avatar" style="background:#ffe0e6">&#128100;</div>
+                    <div class="comment-avatar" style="background:#ffe0e6;cursor:pointer" onclick="showUserProfile('运动达人','Lv.5',12,360,180)">&#128100;</div>
                     <div class="comment-body">
                         <div class="comment-name">运动达人</div>
                         <div class="comment-text">太厉害了！&#128077;</div>
@@ -3611,7 +3804,7 @@
                     </div>
                 </div>
                 <div class="comment-item">
-                    <div class="comment-avatar" style="background:#e0f0ff">&#128100;</div>
+                    <div class="comment-avatar" style="background:#e0f0ff;cursor:pointer" onclick="showUserProfile('健身小白','Lv.3',5,150,75)">&#128100;</div>
                     <div class="comment-body">
                         <div class="comment-name">健身小白</div>
                         <div class="comment-text">求教怎么跳这么快！</div>
@@ -3628,7 +3821,7 @@
                     </div>
                 </div>
                 <div class="comment-item">
-                    <div class="comment-avatar" style="background:#fff3e0">&#128100;</div>
+                    <div class="comment-avatar" style="background:#fff3e0;cursor:pointer" onclick="showUserProfile('跳绳爱好者','Lv.7',28,840,420)">&#128100;</div>
                     <div class="comment-body">
                         <div class="comment-name">跳绳爱好者</div>
                         <div class="comment-text">这个速度太猛了，我1分钟才跳80个&#128557;</div>
@@ -3958,6 +4151,16 @@
             document.getElementById('report-cal-val').textContent = cal;
             isLiked = false;
             likeCount = Math.floor(Math.random() * 5);
+
+            // Reset add friend button
+            const friendBtn = document.getElementById('report-add-friend-btn');
+            if (friendAdded.has(name)) {
+                friendBtn.textContent = '已添加';
+                friendBtn.classList.add('added');
+            } else {
+                friendBtn.textContent = '添加好友';
+                friendBtn.classList.remove('added');
+            }
             document.getElementById('like-count').textContent = likeCount;
             document.getElementById('report-like-btn').classList.remove('liked');
             document.getElementById('report-page').classList.add('active');
@@ -3967,6 +4170,66 @@
 
         function closeReport() {
             document.getElementById('report-page').classList.remove('active');
+        }
+
+        // User Profile Popup
+        let currentPopupUser = null;
+        let friendAdded = new Set();
+
+        function showUserProfile(name, level, trainDays, totalTime, totalCal) {
+            currentPopupUser = name;
+            document.getElementById('popup-name').textContent = name;
+            document.getElementById('popup-level').textContent = level;
+            document.getElementById('popup-train-days').textContent = trainDays;
+            document.getElementById('popup-total-time').textContent = totalTime;
+            document.getElementById('popup-total-cal').textContent = totalCal;
+
+            const btn = document.getElementById('popup-add-friend-btn');
+            if (friendAdded.has(name)) {
+                btn.textContent = '已添加';
+                btn.classList.add('added');
+            } else {
+                btn.textContent = '添加好友';
+                btn.classList.remove('added');
+            }
+
+            document.getElementById('profile-popup-overlay').classList.add('show');
+        }
+
+        function closeProfilePopup(e) {
+            if (e && e.target !== document.getElementById('profile-popup-overlay')) return;
+            document.getElementById('profile-popup-overlay').classList.remove('show');
+        }
+
+        function addFriendFromPopup() {
+            if (!currentPopupUser || friendAdded.has(currentPopupUser)) return;
+            friendAdded.add(currentPopupUser);
+            const btn = document.getElementById('popup-add-friend-btn');
+            btn.textContent = '已添加';
+            btn.classList.add('added');
+            showToast('已发送好友申请给 ' + currentPopupUser);
+        }
+
+        function addFriendFromReport() {
+            const name = document.getElementById('report-name').textContent;
+            if (friendAdded.has(name)) return;
+            friendAdded.add(name);
+            const btn = document.getElementById('report-add-friend-btn');
+            btn.textContent = '已添加';
+            btn.classList.add('added');
+            showToast('已发送好友申请给 ' + name);
+        }
+
+        function showToast(msg) {
+            const toast = document.createElement('div');
+            toast.textContent = msg;
+            toast.style.cssText = 'position:fixed;top:80px;left:50%;transform:translateX(-50%);background:rgba(0,0,0,0.75);color:white;padding:12px 24px;border-radius:24px;font-size:14px;z-index:200;animation:popupSlideIn 0.3s ease;';
+            document.body.appendChild(toast);
+            setTimeout(() => {
+                toast.style.opacity = '0';
+                toast.style.transition = 'opacity 0.3s';
+                setTimeout(() => toast.remove(), 300);
+            }, 2000);
         }
 
         function toggleLike() {
