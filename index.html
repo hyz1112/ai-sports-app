@@ -2662,29 +2662,6 @@
             background: #fff8e1;
         }
 
-        .add-friend-btn {
-            margin-left: auto;
-            padding: 6px 16px;
-            background: #f56a3a;
-            color: white;
-            border: none;
-            border-radius: 20px;
-            font-size: 13px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.2s;
-        }
-
-        .add-friend-btn:hover {
-            background: #e55a2a;
-            transform: scale(1.05);
-        }
-
-        .add-friend-btn.added {
-            background: #999;
-            cursor: default;
-        }
-
         .report-user-level {
             font-size: 13px;
             color: #999;
@@ -3688,12 +3665,11 @@
         </div>
         <div class="report-video-notice">视频将在用户开启权限并公开本次记录后显示</div>
         <div class="report-user-header">
-            <div class="report-avatar" id="report-avatar">&#128100;</div>
-            <div>
+            <div class="report-avatar" id="report-avatar" style="cursor:pointer" onclick="showReportUserProfile()">&#128100;</div>
+            <div style="cursor:pointer" onclick="showReportUserProfile()">
                 <div style="font-size:16px;font-weight:700;color:#1a1a1a" id="report-name">-</div>
                 <div class="report-user-level" id="report-level">-</div>
             </div>
-            <button class="add-friend-btn" id="report-add-friend-btn" onclick="addFriendFromReport()">添加好友</button>
         </div>
         <div class="report-result" id="report-result-text">完成了1分钟跳绳练习，成绩: 0个</div>
         <div class="report-time" id="report-time-text">上午 0:00</div>
@@ -4152,15 +4128,9 @@
             isLiked = false;
             likeCount = Math.floor(Math.random() * 5);
 
-            // Reset add friend button
-            const friendBtn = document.getElementById('report-add-friend-btn');
-            if (friendRequestSent.has(name)) {
-                friendBtn.textContent = '申请已发送';
-                friendBtn.classList.add('added');
-            } else {
-                friendBtn.textContent = '添加好友';
-                friendBtn.classList.remove('added');
-            }
+            // Store current report user info for profile popup
+            currentReportUser = { name: name, level: level, trainDays: Math.floor(Math.random() * 30) + 1, totalTime: Math.floor(Math.random() * 500) + 50, totalCal: Math.floor(Math.random() * 200) + 30 };
+
             document.getElementById('like-count').textContent = likeCount;
             document.getElementById('report-like-btn').classList.remove('liked');
             document.getElementById('report-page').classList.add('active');
@@ -4174,7 +4144,13 @@
 
         // User Profile Popup
         let currentPopupUser = null;
+        let currentReportUser = null;
         let friendRequestSent = new Set();
+
+        function showReportUserProfile() {
+            if (!currentReportUser) return;
+            showUserProfile(currentReportUser.name, currentReportUser.level, currentReportUser.trainDays, currentReportUser.totalTime, currentReportUser.totalCal);
+        }
 
         function showUserProfile(name, level, trainDays, totalTime, totalCal) {
             currentPopupUser = name;
@@ -4217,22 +4193,6 @@
             
             // 显示发送成功的通知
             showNotification('好友申请', '已向 ' + currentPopupUser + ' 发送好友申请，等待对方确认', 'success');
-        }
-
-        function addFriendFromReport() {
-            const name = document.getElementById('report-name').textContent;
-            
-            if (friendRequestSent.has(name)) {
-                showToast('好友申请已发送，等待对方确认');
-                return;
-            }
-            
-            friendRequestSent.add(name);
-            const btn = document.getElementById('report-add-friend-btn');
-            btn.textContent = '申请已发送';
-            btn.classList.add('added');
-            
-            showNotification('好友申请', '已向 ' + name + ' 发送好友申请，等待对方确认', 'success');
         }
 
         // 通知系统
