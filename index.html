@@ -4987,19 +4987,20 @@
         function nextStep(step) {
             // Save data from current step
             if (currentStep === 1) {
-                userData.gender = document.querySelector('.gender-option.active')?.textContent.trim() === '女' ? 'female' : 'male';
+                // Gender already saved in selectGender
+            } else if (currentStep === 2) {
+                // Birthday saved from picker
+            } else if (currentStep === 3) {
                 userData.height = document.getElementById('input-height').value;
                 userData.weight = document.getElementById('input-weight').value;
-                userData.age = document.getElementById('input-age').value;
-                userData.birthday = document.getElementById('input-birthday').value;
-                userData.goal = document.getElementById('input-goal').value;
-            } else if (currentStep === 2) {
+            } else if (currentStep === 4) {
+                const goalEl = document.querySelector('.goal-option.active');
+                userData.goal = goalEl ? goalEl.textContent : '';
+            } else if (currentStep === 5) {
                 userData.sports = Array.from(document.querySelectorAll('.sport-tag.active')).map(t => t.textContent);
-            } else if (currentStep === 3) {
-                userData.prefSports = Array.from(document.querySelectorAll('.pref-option-card.active')).map(c => c.querySelector('.pref-option-text').textContent);
+            } else if (currentStep === 6) {
                 userData.duration = document.querySelector('.time-option.active')?.textContent || '';
                 userData.equipment = Array.from(document.querySelectorAll('.equipment-card.active')).map(c => c.querySelector('.equipment-name').textContent);
-                userData.standOnly = document.querySelector('.stand-option.active')?.textContent === '需要';
             }
 
             showStep(step);
@@ -5019,7 +5020,7 @@
 
         // Gender selection
         function selectGender(gender, el) {
-            document.querySelectorAll('.gender-option').forEach(o => o.classList.remove('active'));
+            document.querySelectorAll('.gender-body-option').forEach(o => o.classList.remove('active'));
             el.classList.add('active');
             userData.gender = gender;
         }
