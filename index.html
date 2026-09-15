@@ -3615,6 +3615,37 @@
             font-size: 13px;
             color: #999;
         }
+
+        /* 导航按钮组 */
+        .onboarding-nav-buttons {
+            display: flex;
+            gap: 12px;
+            margin-top: 20px;
+        }
+
+        .onboarding-nav-buttons .onboarding-btn {
+            flex: 1;
+            margin-top: 0;
+        }
+
+        /* 生日输入框 */
+        .birthday-input-wrapper {
+            margin: 40px 0;
+        }
+
+        .birthday-date-input {
+            width: 100%;
+            padding: 20px;
+            font-size: 18px;
+            border: 2px solid #f0f0f0;
+            border-radius: 12px;
+            outline: none;
+            transition: border-color 0.2s;
+        }
+
+        .birthday-date-input:focus {
+            border-color: #667eea;
+        }
 \n    </style>
 </head>
 <body>
@@ -3661,7 +3692,10 @@
                 </div>
             </div>
 
-            <button class="onboarding-btn" onclick="nextStep(2)">下一步</button>
+            <div class="onboarding-nav-buttons">
+                <button class="onboarding-btn secondary" onclick="onboardingBack()">上一步</button>
+                <button class="onboarding-btn" onclick="nextStep(2)">下一步</button>
+            </div>
             <div class="onboarding-footer-text">信息将同步到「个人资料」</div>
         </div>
 
@@ -3677,15 +3711,15 @@
             <div class="onboarding-step-label" style="display:inline-block;margin-bottom:8px">基础信息</div>
             <div class="onboarding-title">选择生日</div>
             <div style="font-size:14px;color:#999;margin-bottom:40px">填写真实信息，生成合适的计划</div>
-            
-            <div class="birthday-picker">
-                <div class="birthday-column" id="birthday-year"></div>
-                <div class="birthday-column" id="birthday-month"></div>
-                <div class="birthday-column" id="birthday-day"></div>
-                <div class="birthday-highlight"></div>
+                        
+            <div class="birthday-input-wrapper">
+                <input type="date" class="birthday-date-input" id="input-birthday" value="2000-01-01">
             </div>
-
-            <button class="onboarding-btn" onclick="nextStep(3)">下一步</button>
+        
+            <div class="onboarding-nav-buttons">
+                <button class="onboarding-btn secondary" onclick="onboardingBack()">上一步</button>
+                <button class="onboarding-btn" onclick="nextStep(3)">下一步</button>
+            </div>
             <div class="onboarding-footer-text">信息将同步到「个人资料」</div>
         </div>
 
@@ -3721,7 +3755,10 @@
                 </div>
             </div>
 
-            <button class="onboarding-btn" onclick="nextStep(4)">下一步</button>
+            <div class="onboarding-nav-buttons">
+                <button class="onboarding-btn secondary" onclick="onboardingBack()">上一步</button>
+                <button class="onboarding-btn" onclick="nextStep(4)">下一步</button>
+            </div>
             <div class="onboarding-footer-text">信息将同步到「个人资料」</div>
         </div>
 
@@ -3747,7 +3784,10 @@
                 <div class="goal-option" onclick="selectGoal(this)">其他</div>
             </div>
 
-            <button class="onboarding-btn" onclick="nextStep(5)">下一步</button>
+            <div class="onboarding-nav-buttons">
+                <button class="onboarding-btn secondary" onclick="onboardingBack()">上一步</button>
+                <button class="onboarding-btn" onclick="nextStep(5)">下一步</button>
+            </div>
         </div>
 
         <!-- Step 5: Sport Preferences -->
@@ -3776,7 +3816,10 @@
                 <div class="sport-tag" onclick="toggleSportTag(this)">普拉提</div>
             </div>
 
-            <button class="onboarding-btn" onclick="nextStep(6)">下一步</button>
+            <div class="onboarding-nav-buttons">
+                <button class="onboarding-btn secondary" onclick="onboardingBack()">上一步</button>
+                <button class="onboarding-btn" onclick="nextStep(6)">下一步</button>
+            </div>
             <div class="skip-link" onclick="nextStep(6)">我有非常丰富的运动经验，直接使用 >>></div>
         </div>
 
@@ -3814,7 +3857,10 @@
                 </div>
             </div>
 
-            <button class="onboarding-btn" onclick="nextStep(7)">下一步</button>
+            <div class="onboarding-nav-buttons">
+                <button class="onboarding-btn secondary" onclick="onboardingBack()">上一步</button>
+                <button class="onboarding-btn" onclick="nextStep(7)">下一步</button>
+            </div>
         </div>
 
         <!-- Step 7: Fitness Test -->
@@ -3853,7 +3899,10 @@
                 </div>
             </div>
 
-            <button class="onboarding-btn" onclick="nextStep(8)">确定</button>
+            <div class="onboarding-nav-buttons">
+                <button class="onboarding-btn secondary" onclick="onboardingBack()">上一步</button>
+                <button class="onboarding-btn" onclick="nextStep(8)">确定</button>
+            </div>
         </div>
 
         <!-- Step 8: Loading -->
