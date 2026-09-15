@@ -2896,9 +2896,764 @@
         .comment-like-btn.liked .like-num {
             color: #f56a3a;
         }
+
+        /* ===== Onboarding Flow ===== */
+        .onboarding-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: #fff;
+            z-index: 1000;
+            overflow-y: auto;
+        }
+
+        .onboarding-overlay.active {
+            display: block;
+        }
+
+        .onboarding-container {
+            max-width: 430px;
+            margin: 0 auto;
+            min-height: 100vh;
+            position: relative;
+        }
+
+        .splash-screen {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            text-align: center;
+            padding: 40px;
+        }
+
+        .splash-logo {
+            width: 120px;
+            height: 120px;
+            background: rgba(255,255,255,0.2);
+            border-radius: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 60px;
+            margin-bottom: 30px;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        .splash-title {
+            font-size: 32px;
+            font-weight: 800;
+            margin-bottom: 16px;
+        }
+
+        .splash-subtitle {
+            font-size: 16px;
+            opacity: 0.9;
+            margin-bottom: 40px;
+        }
+
+        .splash-loader {
+            width: 200px;
+            height: 4px;
+            background: rgba(255,255,255,0.3);
+            border-radius: 2px;
+            overflow: hidden;
+        }
+
+        .splash-loader-bar {
+            height: 100%;
+            background: white;
+            border-radius: 2px;
+            animation: loading 3s ease-in-out;
+        }
+
+        @keyframes loading {
+            0% { width: 0%; }
+            100% { width: 100%; }
+        }
+
+        .onboarding-step {
+            display: none;
+            padding: 20px;
+            min-height: 100vh;
+        }
+
+        .onboarding-step.active {
+            display: block;
+        }
+
+        .onboarding-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 30px;
+        }
+
+        .onboarding-back {
+            background: none;
+            border: none;
+            font-size: 24px;
+            cursor: pointer;
+            color: #333;
+        }
+
+        .onboarding-progress {
+            flex: 1;
+            margin: 0 20px;
+            height: 6px;
+            background: #f0f0f0;
+            border-radius: 3px;
+            overflow: hidden;
+        }
+
+        .onboarding-progress-bar {
+            height: 100%;
+            background: #f56a3a;
+            border-radius: 3px;
+            transition: width 0.3s;
+        }
+
+        .onboarding-step-label {
+            font-size: 12px;
+            color: #999;
+            background: #f5f5f5;
+            padding: 4px 12px;
+            border-radius: 12px;
+        }
+
+        .onboarding-title {
+            font-size: 24px;
+            font-weight: 700;
+            color: #1a1a1a;
+            margin-bottom: 30px;
+        }
+
+        .info-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+            margin-bottom: 20px;
+        }
+
+        .info-item {
+            background: #f5f7ff;
+            border-radius: 16px;
+            padding: 20px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .info-item.full-width {
+            grid-column: 1 / -1;
+        }
+
+        .info-label {
+            font-size: 14px;
+            color: #666;
+        }
+
+        .info-value {
+            font-size: 18px;
+            font-weight: 600;
+            color: #1a1a1a;
+        }
+
+        .info-input {
+            border: none;
+            background: transparent;
+            font-size: 18px;
+            font-weight: 600;
+            color: #1a1a1a;
+            width: 100%;
+            outline: none;
+        }
+
+        .gender-selector {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+
+        .gender-option {
+            flex: 1;
+            padding: 16px;
+            background: #f5f5f5;
+            border: 2px solid transparent;
+            border-radius: 12px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .gender-option.active {
+            background: #f5f7ff;
+            border-color: #667eea;
+        }
+
+        .gender-option-icon {
+            font-size: 32px;
+            margin-bottom: 8px;
+        }
+
+        .gender-option-text {
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        .goal-input {
+            width: 100%;
+            padding: 16px;
+            border: 2px solid #f0f0f0;
+            border-radius: 12px;
+            font-size: 16px;
+            outline: none;
+            transition: border-color 0.2s;
+        }
+
+        .goal-input:focus {
+            border-color: #667eea;
+        }
+
+        .sport-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-bottom: 30px;
+        }
+
+        .sport-tag {
+            padding: 12px 20px;
+            background: #f5f5f5;
+            border-radius: 24px;
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s;
+            user-select: none;
+        }
+
+        .sport-tag.active {
+            background: #667eea;
+            color: white;
+        }
+
+        .pref-section {
+            margin-bottom: 30px;
+        }
+
+        .pref-title {
+            font-size: 18px;
+            font-weight: 700;
+            color: #1a1a1a;
+            margin-bottom: 16px;
+        }
+
+        .pref-options {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 12px;
+        }
+
+        .pref-option-card {
+            background: #f5f7ff;
+            border-radius: 12px;
+            padding: 20px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.2s;
+            border: 2px solid transparent;
+        }
+
+        .pref-option-card.active {
+            border-color: #667eea;
+            background: #e8ebff;
+        }
+
+        .pref-option-icon {
+            font-size: 40px;
+            margin-bottom: 8px;
+        }
+
+        .pref-option-text {
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        .time-options {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+
+        .time-option {
+            padding: 12px 24px;
+            background: #f5f5f5;
+            border-radius: 24px;
+            font-size: 14px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .time-option.active {
+            background: #667eea;
+            color: white;
+        }
+
+        .equipment-options {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+        }
+
+        .equipment-card {
+            background: #f9f9f9;
+            border-radius: 12px;
+            overflow: hidden;
+            cursor: pointer;
+            transition: all 0.2s;
+            border: 2px solid transparent;
+        }
+
+        .equipment-card.active {
+            border-color: #667eea;
+        }
+
+        .equipment-image {
+            width: 100%;
+            height: 120px;
+            background: #e0e0e0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 48px;
+        }
+
+        .equipment-name {
+            padding: 12px;
+            text-align: center;
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        .stand-options {
+            display: flex;
+            gap: 12px;
+        }
+
+        .stand-option {
+            flex: 1;
+            padding: 16px;
+            background: #f5f5f5;
+            border-radius: 12px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .stand-option.active {
+            background: #667eea;
+            color: white;
+        }
+
+        .test-question {
+            margin-bottom: 30px;
+        }
+
+        .test-image {
+            width: 100%;
+            height: 200px;
+            background: #f5f5f5;
+            border-radius: 12px;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 80px;
+        }
+
+        .test-options {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .test-option {
+            padding: 16px;
+            background: #f5f5f5;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-size: 15px;
+        }
+
+        .test-option.active {
+            background: #667eea;
+            color: white;
+        }
+
+        .test-options-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 12px;
+        }
+
+        .test-option-card {
+            padding: 16px;
+            background: #f5f5f5;
+            border-radius: 12px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        .test-option-card.active {
+            background: #667eea;
+            color: white;
+        }
+
+        .loading-screen {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            text-align: center;
+            padding: 40px;
+        }
+
+        .loading-greeting {
+            font-size: 20px;
+            color: #666;
+            margin-bottom: 16px;
+        }
+
+        .loading-title {
+            font-size: 32px;
+            font-weight: 800;
+            color: #1a1a1a;
+            margin-bottom: 40px;
+        }
+
+        .loading-illustration {
+            width: 300px;
+            height: 300px;
+            margin-bottom: 40px;
+            background: linear-gradient(135deg, #667eea20 0%, #764ba220 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 120px;
+            animation: bounce 2s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
+        }
+
+        .loading-status {
+            font-size: 16px;
+            color: #999;
+            margin-bottom: 20px;
+        }
+
+        .loading-progress {
+            width: 100%;
+            max-width: 300px;
+            height: 8px;
+            background: #f0f0f0;
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        .loading-progress-bar {
+            height: 100%;
+            background: #667eea;
+            border-radius: 4px;
+            animation: loadingProgress 3s ease-in-out;
+        }
+
+        @keyframes loadingProgress {
+            0% { width: 0%; }
+            100% { width: 100%; }
+        }
+
+        .onboarding-btn {
+            width: 100%;
+            padding: 18px;
+            background: #667eea;
+            color: white;
+            border: none;
+            border-radius: 30px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+            margin-top: 20px;
+        }
+
+        .onboarding-btn:hover {
+            background: #5568d3;
+            transform: scale(1.02);
+        }
+
+        .onboarding-btn.secondary {
+            background: transparent;
+            color: #666;
+            border: 2px solid #f0f0f0;
+        }
+
+        .onboarding-btn.secondary:hover {
+            background: #f5f5f5;
+        }
+
+        .skip-link {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 14px;
+            color: #999;
+            cursor: pointer;
+        }
+
+        .skip-link:hover {
+            color: #667eea;
+        }
     </style>
 </head>
 <body>
+
+    <!-- Onboarding Flow -->
+    <div class="onboarding-overlay" id="onboarding-overlay">
+        <div class="onboarding-container">
+            <!-- Splash Screen -->
+            <div class="splash-screen" id="splash-screen">
+                <div class="splash-logo"></div>
+                <div class="splash-title">观观体测</div>
+                <div class="splash-subtitle">你的智能运动伙伴</div>
+                <div class="splash-loader">
+                    <div class="splash-loader-bar"></div>
+                </div>
+            </div>
+
+            <!-- Step 1: Basic Info -->
+            <div class="onboarding-step" id="step-1">
+                <div class="onboarding-header">
+                    <button class="onboarding-back" onclick="onboardingBack()">&#8249;</button>
+                    <div class="onboarding-progress">
+                        <div class="onboarding-progress-bar" style="width: 20%"></div>
+                    </div>
+                    <div class="onboarding-step-label">1/5</div>
+                </div>
+                <div class="onboarding-title">让我们先了解一下你</div>
+                
+                <div class="gender-selector">
+                    <div class="gender-option active" onclick="selectGender('male', this)">
+                        <div class="gender-option-icon"></div>
+                        <div class="gender-option-text">男</div>
+                    </div>
+                    <div class="gender-option" onclick="selectGender('female', this)">
+                        <div class="gender-option-icon">👩</div>
+                        <div class="gender-option-text">女</div>
+                    </div>
+                </div>
+
+                <div class="info-grid">
+                    <div class="info-item">
+                        <div>
+                            <div class="info-label">身高</div>
+                            <input type="number" class="info-input" id="input-height" placeholder="170" value="170">
+                            <span style="font-size:14px;color:#666">cm</span>
+                        </div>
+                    </div>
+                    <div class="info-item">
+                        <div>
+                            <div class="info-label">体重</div>
+                            <input type="number" class="info-input" id="input-weight" placeholder="65" value="65">
+                            <span style="font-size:14px;color:#666">kg</span>
+                        </div>
+                    </div>
+                    <div class="info-item">
+                        <div>
+                            <div class="info-label">年龄</div>
+                            <input type="number" class="info-input" id="input-age" placeholder="25" value="25">
+                            <span style="font-size:14px;color:#666">岁</span>
+                        </div>
+                    </div>
+                    <div class="info-item">
+                        <div>
+                            <div class="info-label">生日</div>
+                            <input type="date" class="info-input" id="input-birthday">
+                        </div>
+                    </div>
+                </div>
+
+                <div style="margin-bottom:20px">
+                    <div class="info-label" style="margin-bottom:8px">最近你最想达成什么健身目标？</div>
+                    <input type="text" class="goal-input" id="input-goal" placeholder="例如：全身减脂、增肌塑形...">
+                </div>
+
+                <button class="onboarding-btn" onclick="nextStep(2)">下一步</button>
+            </div>
+
+            <!-- Step 2: Sport Preferences -->
+            <div class="onboarding-step" id="step-2">
+                <div class="onboarding-header">
+                    <button class="onboarding-back" onclick="onboardingBack()">&#8249;</button>
+                    <div class="onboarding-progress">
+                        <div class="onboarding-progress-bar" style="width: 40%"></div>
+                    </div>
+                    <div class="onboarding-step-label">2/5</div>
+                </div>
+                <div class="onboarding-title">你更喜欢哪些类型的运动？</div>
+                
+                <div class="sport-tags" id="sport-tags">
+                    <div class="sport-tag" onclick="toggleSportTag(this)">跑步</div>
+                    <div class="sport-tag" onclick="toggleSportTag(this)">HIIT 燃脂</div>
+                    <div class="sport-tag" onclick="toggleSportTag(this)">跳操</div>
+                    <div class="sport-tag" onclick="toggleSportTag(this)">骑行</div>
+                    <div class="sport-tag" onclick="toggleSportTag(this)">跳绳</div>
+                    <div class="sport-tag" onclick="toggleSportTag(this)">椭圆机/划船机</div>
+                    <div class="sport-tag" onclick="toggleSportTag(this)">家庭徒手训练</div>
+                    <div class="sport-tag" onclick="toggleSportTag(this)">哑铃/壶铃/弹力带等</div>
+                    <div class="sport-tag" onclick="toggleSportTag(this)">瑜伽</div>
+                    <div class="sport-tag" onclick="toggleSportTag(this)">普拉提</div>
+                </div>
+
+                <button class="onboarding-btn" onclick="nextStep(3)">下一步</button>
+                <div class="skip-link" onclick="nextStep(3)">我有非常丰富的运动经验，直接使用 >>></div>
+            </div>
+
+            <!-- Step 3: Detailed Preferences -->
+            <div class="onboarding-step" id="step-3">
+                <div class="onboarding-header">
+                    <button class="onboarding-back" onclick="onboardingBack()">&#8249;</button>
+                    <div class="onboarding-progress">
+                        <div class="onboarding-progress-bar" style="width: 60%"></div>
+                    </div>
+                    <div class="onboarding-step-label">3/5</div>
+                </div>
+
+                <div class="pref-section">
+                    <div class="onboarding-step-label" style="display:inline-block;margin-bottom:16px">运动偏好</div>
+                    <div class="pref-title">你希望在基础训练外，增加哪些运动类型？</div>
+                    <div class="pref-options">
+                        <div class="pref-option-card" onclick="togglePrefOption(this)">
+                            <div class="pref-option-icon"></div>
+                            <div class="pref-option-text">操课</div>
+                        </div>
+                        <div class="pref-option-card" onclick="togglePrefOption(this)">
+                            <div class="pref-option-icon">🪢</div>
+                            <div class="pref-option-text">跳绳</div>
+                        </div>
+                        <div class="pref-option-card" onclick="togglePrefOption(this)">
+                            <div class="pref-option-icon"></div>
+                            <div class="pref-option-text">跑步</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="pref-section">
+                    <div class="pref-title">你希望每天运动多长时间？</div>
+                    <div class="time-options">
+                        <div class="time-option" onclick="selectTimeOption(this)">20 分钟左右</div>
+                        <div class="time-option" onclick="selectTimeOption(this)">30 分钟左右</div>
+                        <div class="time-option" onclick="selectTimeOption(this)">40 分钟左右</div>
+                    </div>
+                </div>
+
+                <div class="pref-section">
+                    <div class="pref-title">是否允许计划使用以下运动器械？</div>
+                    <div class="equipment-options">
+                        <div class="equipment-card" onclick="toggleEquipment(this)">
+                            <div class="equipment-image">🏋️</div>
+                            <div class="equipment-name">哑铃</div>
+                        </div>
+                        <div class="equipment-card" onclick="toggleEquipment(this)">
+                            <div class="equipment-image">🪢</div>
+                            <div class="equipment-name">弹力带</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="pref-section">
+                    <div class="pref-title">你是否需要课程全程站立？</div>
+                    <div class="stand-options">
+                        <div class="stand-option" onclick="selectStandOption(this)">需要</div>
+                        <div class="stand-option" onclick="selectStandOption(this)">都可以</div>
+                    </div>
+                </div>
+
+                <button class="onboarding-btn" onclick="nextStep(4)">确定</button>
+            </div>
+
+            <!-- Step 4: Fitness Test -->
+            <div class="onboarding-step" id="step-4">
+                <div class="onboarding-header">
+                    <button class="onboarding-back" onclick="onboardingBack()">&#8249;</button>
+                    <div class="onboarding-progress">
+                        <div class="onboarding-progress-bar" style="width: 80%"></div>
+                    </div>
+                    <div class="onboarding-step-label">4/5</div>
+                </div>
+
+                <div class="test-question">
+                    <div class="onboarding-step-label" style="display:inline-block;margin-bottom:16px">运动能力</div>
+                    <div class="pref-title">你可以连续完成多少个俯卧撑？</div>
+                    <div class="test-image"></div>
+                    <div class="test-options">
+                        <div class="test-option" onclick="selectTestOption(this)">从来没试过，或 1 个也做不了</div>
+                    </div>
+                    <div class="test-options-grid" style="margin-top:12px">
+                        <div class="test-option-card" onclick="selectTestOptionCard(this)">10 个以内</div>
+                        <div class="test-option-card" onclick="selectTestOptionCard(this)">10-20 个</div>
+                        <div class="test-option-card" onclick="selectTestOptionCard(this)">20-30 个</div>
+                        <div class="test-option-card" onclick="selectTestOptionCard(this)">30 个以上</div>
+                    </div>
+                </div>
+
+                <div class="test-question">
+                    <div class="pref-title">上五层楼后是否会感到疲累或呼吸急促？</div>
+                    <div class="test-options">
+                        <div class="test-option" onclick="selectTestOption(this)">很累，甚至有点喘不过气</div>
+                        <div class="test-option" onclick="selectTestOption(this)">比较累，呼吸也比较局促</div>
+                        <div class="test-option" onclick="selectTestOption(this)">呼吸有点局促，但可以很快恢复</div>
+                        <div class="test-option" onclick="selectTestOption(this)">几乎没有感觉</div>
+                        <div class="test-option" onclick="selectTestOption(this)">非常轻松，完全没有感觉</div>
+                    </div>
+                </div>
+
+                <button class="onboarding-btn" onclick="nextStep(5)">确定</button>
+            </div>
+
+            <!-- Step 5: Loading -->
+            <div class="onboarding-step" id="step-5">
+                <div class="loading-screen">
+                    <div class="loading-greeting" id="loading-greeting">Hi，运动爱好者</div>
+                    <div class="loading-title">正在为你生成计划</div>
+                    <div class="loading-illustration">🏃‍♂️</div>
+                    <div class="loading-status">评估运动状态</div>
+                    <div class="loading-progress">
+                        <div class="loading-progress-bar"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <!-- 首页 Page -->
     <div class="page active" id="page-home">
@@ -3902,6 +4657,141 @@
     </div>
 
     <script>
+        // ===== Onboarding Flow =====
+        let currentStep = 0;
+        let userData = {
+            gender: 'male',
+            height: 170,
+            weight: 65,
+            age: 25,
+            birthday: '',
+            goal: '',
+            sports: [],
+            prefSports: [],
+            duration: '',
+            equipment: [],
+            standOnly: false,
+            pushups: '',
+            stamina: ''
+        };
+
+        // Check if first time user
+        function checkFirstTime() {
+            const isFirstTime = !localStorage.getItem('onboarding_completed');
+            if (isFirstTime) {
+                document.getElementById('onboarding-overlay').classList.add('active');
+                currentStep = 0;
+                // Show splash for 3 seconds
+                setTimeout(() => {
+                    showStep(1);
+                }, 3000);
+            }
+        }
+
+        function showStep(step) {
+            // Hide all steps
+            document.querySelectorAll('.onboarding-step').forEach(s => s.classList.remove('active'));
+            document.getElementById('splash-screen').style.display = 'none';
+            
+            // Show current step
+            const stepEl = document.getElementById('step-' + step);
+            if (stepEl) {
+                stepEl.classList.add('active');
+                currentStep = step;
+            }
+
+            // If step 5 (loading), auto complete after 3 seconds
+            if (step === 5) {
+                setTimeout(() => {
+                    completeOnboarding();
+                }, 3000);
+            }
+        }
+
+        function nextStep(step) {
+            // Save data from current step
+            if (currentStep === 1) {
+                userData.gender = document.querySelector('.gender-option.active')?.textContent.trim() === '女' ? 'female' : 'male';
+                userData.height = document.getElementById('input-height').value;
+                userData.weight = document.getElementById('input-weight').value;
+                userData.age = document.getElementById('input-age').value;
+                userData.birthday = document.getElementById('input-birthday').value;
+                userData.goal = document.getElementById('input-goal').value;
+            } else if (currentStep === 2) {
+                userData.sports = Array.from(document.querySelectorAll('.sport-tag.active')).map(t => t.textContent);
+            } else if (currentStep === 3) {
+                userData.prefSports = Array.from(document.querySelectorAll('.pref-option-card.active')).map(c => c.querySelector('.pref-option-text').textContent);
+                userData.duration = document.querySelector('.time-option.active')?.textContent || '';
+                userData.equipment = Array.from(document.querySelectorAll('.equipment-card.active')).map(c => c.querySelector('.equipment-name').textContent);
+                userData.standOnly = document.querySelector('.stand-option.active')?.textContent === '需要';
+            }
+
+            showStep(step);
+        }
+
+        function onboardingBack() {
+            if (currentStep > 1) {
+                showStep(currentStep - 1);
+            }
+        }
+
+        function completeOnboarding() {
+            localStorage.setItem('onboarding_completed', 'true');
+            document.getElementById('onboarding-overlay').classList.remove('active');
+            showToast('欢迎！你的专属运动计划已生成');
+        }
+
+        // Gender selection
+        function selectGender(gender, el) {
+            document.querySelectorAll('.gender-option').forEach(o => o.classList.remove('active'));
+            el.classList.add('active');
+            userData.gender = gender;
+        }
+
+        // Sport tag toggle
+        function toggleSportTag(el) {
+            el.classList.toggle('active');
+        }
+
+        // Preference option toggle
+        function togglePrefOption(el) {
+            el.classList.toggle('active');
+        }
+
+        // Time option selection
+        function selectTimeOption(el) {
+            document.querySelectorAll('.time-option').forEach(o => o.classList.remove('active'));
+            el.classList.add('active');
+        }
+
+        // Equipment toggle
+        function toggleEquipment(el) {
+            el.classList.toggle('active');
+        }
+
+        // Stand option selection
+        function selectStandOption(el) {
+            document.querySelectorAll('.stand-option').forEach(o => o.classList.remove('active'));
+            el.classList.add('active');
+        }
+
+        // Test option selection (single)
+        function selectTestOption(el) {
+            const parent = el.parentElement;
+            parent.querySelectorAll('.test-option').forEach(o => o.classList.remove('active'));
+            el.classList.add('active');
+        }
+
+        // Test option card selection (single)
+        function selectTestOptionCard(el) {
+            const parent = el.parentElement;
+            parent.querySelectorAll('.test-option-card').forEach(o => o.classList.remove('active'));
+            el.classList.add('active');
+        }
+
+        // Initialize onboarding check
+        checkFirstTime();
+
         // Tab switching
         const tabItems = document.querySelectorAll('.tab-item');
         const pages = document.querySelectorAll('.page');
