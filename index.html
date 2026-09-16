@@ -5514,10 +5514,8 @@
 
         // Check if first time user
         function checkFirstTime() {
-            const isFirstTime = !localStorage.getItem('welcome_completed');
-            if (isFirstTime) {
-                document.getElementById('welcome-overlay').classList.add('active');
-            }
+            // 暂时每次都显示欢迎页，方便查看设计效果
+            document.getElementById('welcome-overlay').classList.add('active');
         }
 
         // Show profile page
