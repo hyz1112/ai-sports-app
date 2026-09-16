@@ -3646,7 +3646,156 @@
         .birthday-date-input:focus {
             border-color: #667eea;
         }
-\n    </style>
+
+        /* ===== Welcome Page ===== */
+        .welcome-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: #fff;
+            z-index: 2000;
+            overflow-y: auto;
+        }
+
+        .welcome-overlay.active {
+            display: block;
+        }
+
+        .welcome-container {
+            max-width: 430px;
+            margin: 0 auto;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 40px 30px;
+        }
+
+        .welcome-content {
+            width: 100%;
+            text-align: center;
+        }
+
+        .welcome-logo {
+            margin-bottom: 30px;
+        }
+
+        .welcome-logo-icon {
+            width: 100px;
+            height: 100px;
+            background: linear-gradient(135deg, #f56a3a 0%, #f7a84b 100%);
+            border-radius: 24px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 50px;
+            box-shadow: 0 10px 30px rgba(245, 106, 58, 0.3);
+        }
+
+        .welcome-title {
+            font-size: 36px;
+            font-weight: 800;
+            color: #1a1a1a;
+            margin-bottom: 12px;
+        }
+
+        .welcome-subtitle {
+            font-size: 16px;
+            color: #666;
+            margin-bottom: 8px;
+        }
+
+        .welcome-desc {
+            font-size: 14px;
+            color: #999;
+            margin-bottom: 40px;
+        }
+
+        .welcome-features {
+            text-align: left;
+            margin-bottom: 40px;
+        }
+
+        .welcome-feature {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            padding: 16px 0;
+            border-bottom: 1px solid #f5f5f5;
+        }
+
+        .welcome-feature:last-child {
+            border-bottom: none;
+        }
+
+        .welcome-feature-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            flex-shrink: 0;
+        }
+
+        .welcome-feature-text {
+            flex: 1;
+        }
+
+        .welcome-feature-title {
+            font-size: 15px;
+            font-weight: 600;
+            color: #1a1a1a;
+            margin-bottom: 4px;
+        }
+
+        .welcome-feature-desc {
+            font-size: 13px;
+            color: #999;
+        }
+
+        .welcome-buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .welcome-btn {
+            width: 100%;
+            padding: 18px;
+            border-radius: 30px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+            border: none;
+        }
+
+        .welcome-btn.primary {
+            background: #f56a3a;
+            color: white;
+        }
+
+        .welcome-btn.primary:hover {
+            background: #e55a2a;
+            transform: scale(1.02);
+        }
+
+        .welcome-btn.secondary {
+            background: transparent;
+            color: #666;
+            border: 2px solid #f0f0f0;
+        }
+
+        .welcome-btn.secondary:hover {
+            background: #f5f5f5;
+        }
+
+    </style>
 </head>
 <body>
 
@@ -3921,6 +4070,54 @@
         </div>
     </div>
 </div>
+
+    <!-- Welcome Page -->
+    <div class="welcome-overlay" id="welcome-overlay">
+        <div class="welcome-container">
+            <div class="welcome-content">
+                <!-- Logo -->
+                <div class="welcome-logo">
+                    <div class="welcome-logo-icon">🏃</div>
+                </div>
+
+                <!-- Title -->
+                <h1 class="welcome-title">观观体测</h1>
+                <div class="welcome-subtitle">你的 AI 运动伙伴</div>
+                <div class="welcome-desc">看得懂动作，陪你一起练</div>
+
+                <!-- Features -->
+                <div class="welcome-features">
+                    <div class="welcome-feature">
+                        <div class="welcome-feature-icon" style="background:#fff0f0">📷</div>
+                        <div class="welcome-feature-text">
+                            <div class="welcome-feature-title">AI 实时识别动作</div>
+                            <div class="welcome-feature-desc">精准计数纠错</div>
+                        </div>
+                    </div>
+                    <div class="welcome-feature">
+                        <div class="welcome-feature-icon" style="background:#f0f7ff">📊</div>
+                        <div class="welcome-feature-text">
+                            <div class="welcome-feature-title">训练报告 + 数据趋势</div>
+                            <div class="welcome-feature-desc">看见进步</div>
+                        </div>
+                    </div>
+                    <div class="welcome-feature">
+                        <div class="welcome-feature-icon" style="background:#f0fff4"></div>
+                        <div class="welcome-feature-text">
+                            <div class="welcome-feature-title">个性化计划</div>
+                            <div class="welcome-feature-desc">AI 制定、AI 验收</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Buttons -->
+                <div class="welcome-buttons">
+                    <button class="welcome-btn primary" onclick="startOnboarding()">开始使用</button>
+                    <button class="welcome-btn secondary" onclick="skipWelcome()">稍后提醒</button>
+                </div>
+            </div>
+        </div>
+    </div>
 
 
     <!-- 首页 Page -->
@@ -4999,15 +5196,24 @@
 
         // Check if first time user
         function checkFirstTime() {
-            const isFirstTime = !localStorage.getItem('onboarding_completed');
+            const isFirstTime = !localStorage.getItem('welcome_completed');
             if (isFirstTime) {
-                document.getElementById('onboarding-overlay').classList.add('active');
-                currentStep = 0;
-                // Show splash for 3 seconds
-                setTimeout(() => {
-                    showStep(1);
-                }, 3000);
+                document.getElementById('welcome-overlay').classList.add('active');
             }
+        }
+
+        // Start onboarding flow
+        function startOnboarding() {
+            document.getElementById('welcome-overlay').classList.remove('active');
+            localStorage.setItem('welcome_completed', 'true');
+            // TODO: 后续在这里启动引导流程
+            showToast('欢迎使用观观体测！');
+        }
+
+        // Skip welcome
+        function skipWelcome() {
+            document.getElementById('welcome-overlay').classList.remove('active');
+            localStorage.setItem('welcome_completed', 'true');
         }
 
         function showStep(step) {
