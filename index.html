@@ -3934,6 +3934,67 @@
             border-color: #f56a3a;
         }
 
+        /* Goal Bar */
+        .goal-bar {
+            display: flex;
+            align-items: center;
+            padding: 12px 20px;
+            background: #fff;
+            border-bottom: 1px solid #f0f0f0;
+        }
+
+        .goal-bar-icon {
+            font-size: 20px;
+            margin-right: 8px;
+        }
+
+        .goal-bar-text {
+            flex: 1;
+            font-size: 15px;
+            color: #333;
+        }
+
+        .goal-bar-text span {
+            font-weight: 700;
+            color: #1a1a1a;
+        }
+
+        .goal-bar-switch {
+            font-size: 14px;
+            color: #f56a3a;
+            cursor: pointer;
+            font-weight: 600;
+        }
+
+        /* Home Tabs */
+        .home-tabs {
+            display: flex;
+            padding: 12px 20px 0;
+            gap: 0;
+            background: #fff;
+        }
+
+        .home-tab {
+            flex: 1;
+            text-align: center;
+            padding: 10px 0;
+            font-size: 15px;
+            font-weight: 600;
+            color: #999;
+            cursor: pointer;
+            border-bottom: 2px solid transparent;
+            transition: all 0.2s;
+        }
+
+        .home-tab.active {
+            color: #f56a3a;
+            border-bottom-color: #f56a3a;
+        }
+
+        .home-tab-content {
+            padding: 12px 16px 80px;
+        }
+
         /* Primary sections (top 3) */
         .section-primary {
             border: 2px solid #f56a3a;
@@ -4444,392 +4505,245 @@
     </div>
 
 
-    <!-- 首页 Page -->
-    <div class="page active" id="page-home">
-        <!-- 体测提分 Section -->
-        <div class="section-card section-primary" id="section-exam">
-            <div class="section-header">
-                <span class="section-subtitle">考试必备</span>
-                <span class="section-more">更多</span>
+\1
+        <!-- Goal Display Bar -->
+        <div class="goal-bar" id="goal-bar" style="display:none">
+            <span class="goal-bar-icon" id="goal-bar-icon"></span>
+            <span class="goal-bar-text">我的目标：<span id="goal-bar-name">体测备考</span></span>
+            <span class="goal-bar-switch" onclick="openGoalSwitch()">切换 &gt;</span>
+        </div>
+
+        <!-- Tab Switcher -->
+        <div class="home-tabs">
+            <div class="home-tab active" data-tab="directed" onclick="switchHomeTab('directed')">定向练习</div>
+            <div class="home-tab" data-tab="free" onclick="switchHomeTab('free')">自由练习</div>
+        </div>
+
+        <!-- Directed Practice Content -->
+        <div class="home-tab-content" id="tab-directed">
+            <!-- 体测提分 Section -->
+            <div class="section-card" id="section-exam">
+                <div class="section-header">
+                    <span class="section-subtitle">考试必备</span>
+                    <span class="section-more">更多</span>
+                </div>
+                <div class="section-title">体测提分</div>
+                <div class="exercise-grid">
+                    <div class="exercise-card">
+                        <div class="exercise-img pink">
+                            <div class="badge">体测项目</div>
+                            <div class="illustration">
+                                <svg viewBox="0 0 120 120" fill="none"><circle cx="60" cy="30" r="12" fill="#f56a3a"/><rect x="55" y="42" width="10" height="30" rx="5" fill="#f56a3a"/><rect x="48" y="72" width="8" height="25" rx="4" fill="#f5a03a"/><rect x="64" y="72" width="8" height="25" rx="4" fill="#f5a03a"/><path d="M30 50 Q60 90 90 50" stroke="#f56a3a" stroke-width="3" fill="none" stroke-linecap="round"/><line x1="45" y1="50" x2="30" y2="65" stroke="#f56a3a" stroke-width="3" stroke-linecap="round"/><line x1="75" y1="50" x2="90" y2="65" stroke="#f56a3a" stroke-width="3" stroke-linecap="round"/></svg>
+                            </div>
+                        </div>
+                        <div class="exercise-name">1分钟跳绳</div>
+                        <div class="exercise-meta">1分钟 · 简单</div>
+                    </div>
+                    <div class="exercise-card">
+                        <div class="exercise-img pink">
+                            <div class="badge">体测项目</div>
+                            <div class="illustration">
+                                <svg viewBox="0 0 120 120" fill="none"><ellipse cx="70" cy="80" rx="30" ry="12" fill="#e8d5c4"/><circle cx="85" cy="50" r="12" fill="#333"/><path d="M60 75 Q75 55 85 55" stroke="#5ba3d9" stroke-width="14" stroke-linecap="round" fill="none"/><path d="M55 80 L75 80" stroke="#5ba3d9" stroke-width="10" stroke-linecap="round"/><path d="M75 78 L90 90" stroke="#333" stroke-width="8" stroke-linecap="round"/></svg>
+                            </div>
+                        </div>
+                        <div class="exercise-name">仰卧起坐</div>
+                        <div class="exercise-meta">1分钟 · 中等</div>
+                    </div>
+                    <div class="exercise-card">
+                        <div class="exercise-img blue">
+                            <div class="badge">体测项目</div>
+                            <div class="illustration">
+                                <svg viewBox="0 0 120 120" fill="none"><rect x="20" y="85" width="80" height="8" rx="4" fill="#e0e0e0"/><circle cx="75" cy="45" r="12" fill="#f56a3a"/><rect x="70" y="57" width="10" height="25" rx="5" fill="#5ba3d9"/><rect x="65" y="82" width="8" height="10" rx="3" fill="#333"/><rect x="77" y="82" width="8" height="10" rx="3" fill="#333"/><line x1="70" y1="62" x2="40" y2="75" stroke="#5ba3d9" stroke-width="7" stroke-linecap="round"/><line x1="80" y1="62" x2="50" y2="78" stroke="#5ba3d9" stroke-width="7" stroke-linecap="round"/><line x1="30" y1="75" x2="50" y2="75" stroke="#f5d03a" stroke-width="3" stroke-linecap="round"/></svg>
+                            </div>
+                        </div>
+                        <div class="exercise-name">坐位体前屈</div>
+                        <div class="exercise-meta">1次 · 简单</div>
+                    </div>
+                    <div class="exercise-card">
+                        <div class="exercise-img pink">
+                            <div class="badge">体测项目</div>
+                            <div class="illustration">
+                                <svg viewBox="0 0 120 120" fill="none"><circle cx="55" cy="28" r="12" fill="#f56a3a"/><rect x="50" y="40" width="10" height="25" rx="5" fill="#5ba3d9"/><rect x="44" y="65" width="8" height="20" rx="4" fill="#333" transform="rotate(-15 48 65)"/><rect x="58" y="65" width="8" height="20" rx="4" fill="#333" transform="rotate(10 62 65)"/><line x1="50" y1="48" x2="30" y2="55" stroke="#5ba3d9" stroke-width="7" stroke-linecap="round" transform="rotate(-20 40 51)"/><line x1="60" y1="48" x2="80" y2="42" stroke="#5ba3d9" stroke-width="7" stroke-linecap="round" transform="rotate(15 70 45)"/><path d="M85 35 L95 30 L90 40 Z" fill="#f5d03a"/><path d="M30 90 L90 90" stroke="#e0e0e0" stroke-width="2" stroke-dasharray="4 4"/></svg>
+                            </div>
+                        </div>
+                        <div class="exercise-name">50米跑</div>
+                        <div class="exercise-meta">1次 · 中等</div>
+                    </div>
+                </div>
             </div>
-            <div class="section-title">体测提分</div>
-            <div class="exercise-grid">
-                <!-- 1分钟跳绳 -->
-                <div class="exercise-card">
-                    <div class="exercise-img pink">
-                        <div class="badge">体测项目</div>
-                        <div class="illustration">
-                            <svg viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <circle cx="60" cy="30" r="12" fill="#f56a3a"/>
-                                <rect x="55" y="42" width="10" height="30" rx="5" fill="#f56a3a"/>
-                                <rect x="48" y="72" width="8" height="25" rx="4" fill="#f5a03a"/>
-                                <rect x="64" y="72" width="8" height="25" rx="4" fill="#f5a03a"/>
-                                <path d="M30 50 Q60 90 90 50" stroke="#f56a3a" stroke-width="3" fill="none" stroke-linecap="round"/>
-                                <line x1="45" y1="50" x2="30" y2="65" stroke="#f56a3a" stroke-width="3" stroke-linecap="round"/>
-                                <line x1="75" y1="50" x2="90" y2="65" stroke="#f56a3a" stroke-width="3" stroke-linecap="round"/>
-                            </svg>
-                        </div>
-                    </div>
-                    <div class="exercise-name">1分钟跳绳</div>
-                    <div class="exercise-meta">1分钟 · 简单</div>
+
+            <!-- 久坐救星 Section -->
+            <div class="section-card" id="section-office">
+                <div class="section-header">
+                    <span class="section-subtitle">办公室必备</span>
+                    <span class="section-more">更多</span>
                 </div>
-                <!-- 仰卧起坐 -->
-                <div class="exercise-card">
-                    <div class="exercise-img pink">
-                        <div class="badge">体测项目</div>
-                        <div class="illustration">
-                            <svg viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <ellipse cx="70" cy="80" rx="30" ry="12" fill="#e8d5c4"/>
-                                <circle cx="85" cy="50" r="12" fill="#333"/>
-                                <path d="M60 75 Q75 55 85 55" stroke="#5ba3d9" stroke-width="14" stroke-linecap="round" fill="none"/>
-                                <path d="M55 80 L75 80" stroke="#5ba3d9" stroke-width="10" stroke-linecap="round"/>
-                                <path d="M75 78 L90 90" stroke="#333" stroke-width="8" stroke-linecap="round"/>
-                            </svg>
+                <div class="section-title">久坐救星</div>
+                <div class="exercise-grid">
+                    <div class="exercise-card">
+                        <div class="exercise-img blue">
+                            <div class="illustration">
+                                <svg viewBox="0 0 120 120" fill="none"><circle cx="60" cy="30" r="14" fill="#f56a3a"/><rect x="54" y="44" width="12" height="28" rx="6" fill="#5ba3d9"/><rect x="48" y="72" width="8" height="22" rx="4" fill="#333"/><rect x="64" y="72" width="8" height="22" rx="4" fill="#333"/><line x1="54" y1="50" x2="30" y2="40" stroke="#5ba3d9" stroke-width="7" stroke-linecap="round"/><line x1="66" y1="50" x2="90" y2="55" stroke="#5ba3d9" stroke-width="7" stroke-linecap="round"/><path d="M75 25 Q85 20 90 30" stroke="#f56a3a" stroke-width="2" fill="none" stroke-linecap="round"/><path d="M80 22 Q92 18 95 28" stroke="#f56a3a" stroke-width="2" fill="none" stroke-linecap="round" opacity="0.5"/></svg>
+                            </div>
                         </div>
+                        <div class="exercise-name">颈部拉伸</div>
+                        <div class="exercise-meta">2分钟 · 简单</div>
                     </div>
-                    <div class="exercise-name">仰卧起坐</div>
-                    <div class="exercise-meta">1分钟 · 中等</div>
+                    <div class="exercise-card">
+                        <div class="exercise-img pink">
+                            <div class="illustration">
+                                <svg viewBox="0 0 120 120" fill="none"><circle cx="60" cy="30" r="12" fill="#f56a3a"/><rect x="55" y="42" width="10" height="28" rx="5" fill="#5ba3d9"/><rect x="48" y="70" width="8" height="22" rx="4" fill="#333"/><rect x="64" y="70" width="8" height="22" rx="4" fill="#333"/><line x1="55" y1="48" x2="30" y2="55" stroke="#5ba3d9" stroke-width="7" stroke-linecap="round"/><line x1="65" y1="48" x2="90" y2="42" stroke="#5ba3d9" stroke-width="7" stroke-linecap="round"/><path d="M25 50 Q20 40 30 35" stroke="#f56a3a" stroke-width="2" fill="none" stroke-linecap="round"/><path d="M95 38 Q100 48 90 52" stroke="#f56a3a" stroke-width="2" fill="none" stroke-linecap="round"/></svg>
+                            </div>
+                        </div>
+                        <div class="exercise-name">肩部环绕</div>
+                        <div class="exercise-meta">1分钟 · 简单</div>
+                    </div>
+                    <div class="exercise-card">
+                        <div class="exercise-img blue">
+                            <div class="illustration">
+                                <svg viewBox="0 0 120 120" fill="none"><circle cx="60" cy="28" r="12" fill="#f56a3a"/><rect x="55" y="40" width="10" height="28" rx="5" fill="#5ba3d9"/><rect x="48" y="68" width="8" height="22" rx="4" fill="#333"/><rect x="64" y="68" width="8" height="22" rx="4" fill="#333"/><line x1="55" y1="48" x2="35" y2="55" stroke="#5ba3d9" stroke-width="7" stroke-linecap="round"/><line x1="65" y1="48" x2="85" y2="40" stroke="#5ba3d9" stroke-width="7" stroke-linecap="round"/><path d="M80 35 Q90 30 85 45" stroke="#f56a3a" stroke-width="2" fill="none" stroke-linecap="round"/></svg>
+                            </div>
+                        </div>
+                        <div class="exercise-name">腰部扭转</div>
+                        <div class="exercise-meta">1分钟 · 简单</div>
+                    </div>
+                    <div class="exercise-card">
+                        <div class="exercise-img pink">
+                            <div class="illustration">
+                                <svg viewBox="0 0 120 120" fill="none"><circle cx="60" cy="25" r="12" fill="#f56a3a"/><rect x="55" y="37" width="10" height="25" rx="5" fill="#5ba3d9"/><rect x="48" y="62" width="8" height="22" rx="4" fill="#333"/><rect x="64" y="62" width="8" height="22" rx="4" fill="#333"/><line x1="55" y1="45" x2="35" y2="35" stroke="#5ba3d9" stroke-width="7" stroke-linecap="round"/><line x1="65" y1="45" x2="85" y2="35" stroke="#5ba3d9" stroke-width="7" stroke-linecap="round"/><path d="M30 100 L90 100" stroke="#e0e0e0" stroke-width="3" stroke-linecap="round"/><path d="M40 100 L40 85 L80 85 L80 100" stroke="#e0e0e0" stroke-width="2" fill="none"/></svg>
+                            </div>
+                        </div>
+                        <div class="exercise-name">起身活动</div>
+                        <div class="exercise-meta">3分钟 · 简单</div>
+                    </div>
                 </div>
-                <!-- 坐位体前屈 -->
-                <div class="exercise-card">
-                    <div class="exercise-img blue">
-                        <div class="badge">体测项目</div>
-                        <div class="illustration">
-                            <svg viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <rect x="20" y="85" width="80" height="8" rx="4" fill="#e0e0e0"/>
-                                <circle cx="75" cy="45" r="12" fill="#f56a3a"/>
-                                <rect x="70" y="57" width="10" height="25" rx="5" fill="#5ba3d9"/>
-                                <rect x="65" y="82" width="8" height="10" rx="3" fill="#333"/>
-                                <rect x="77" y="82" width="8" height="10" rx="3" fill="#333"/>
-                                <line x1="70" y1="62" x2="40" y2="75" stroke="#5ba3d9" stroke-width="7" stroke-linecap="round"/>
-                                <line x1="80" y1="62" x2="50" y2="78" stroke="#5ba3d9" stroke-width="7" stroke-linecap="round"/>
-                                <line x1="30" y1="75" x2="50" y2="75" stroke="#f5d03a" stroke-width="3" stroke-linecap="round"/>
-                            </svg>
-                        </div>
-                    </div>
-                    <div class="exercise-name">坐位体前屈</div>
-                    <div class="exercise-meta">1次 · 简单</div>
+            </div>
+
+            <!-- 减脂塑形 Section -->
+            <div class="section-card" id="section-fitness">
+                <div class="section-header">
+                    <span class="section-subtitle">燃脂瘦身</span>
+                    <span class="section-more">更多</span>
                 </div>
-                <!-- 50米跑 -->
-                <div class="exercise-card">
-                    <div class="exercise-img pink">
-                        <div class="badge">体测项目</div>
-                        <div class="illustration">
-                            <svg viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <circle cx="55" cy="28" r="12" fill="#f56a3a"/>
-                                <rect x="50" y="40" width="10" height="25" rx="5" fill="#5ba3d9"/>
-                                <rect x="44" y="65" width="8" height="20" rx="4" fill="#333" transform="rotate(-15 48 65)"/>
-                                <rect x="58" y="65" width="8" height="20" rx="4" fill="#333" transform="rotate(10 62 65)"/>
-                                <line x1="50" y1="48" x2="30" y2="55" stroke="#5ba3d9" stroke-width="7" stroke-linecap="round" transform="rotate(-20 40 51)"/>
-                                <line x1="60" y1="48" x2="80" y2="42" stroke="#5ba3d9" stroke-width="7" stroke-linecap="round" transform="rotate(15 70 45)"/>
-                                <path d="M85 35 L95 30 L90 40 Z" fill="#f5d03a"/>
-                                <path d="M30 90 L90 90" stroke="#e0e0e0" stroke-width="2" stroke-dasharray="4 4"/>
-                            </svg>
+                <div class="section-title">减脂塑形</div>
+                <div class="exercise-grid">
+                    <div class="exercise-card">
+                        <div class="exercise-img blue">
+                            <div class="illustration">
+                                <svg viewBox="0 0 120 120" fill="none"><circle cx="60" cy="28" r="12" fill="#f56a3a"/><rect x="55" y="40" width="10" height="28" rx="5" fill="#5ba3d9"/><line x1="55" y1="50" x2="25" y2="65" stroke="#5ba3d9" stroke-width="8" stroke-linecap="round"/><line x1="65" y1="50" x2="95" y2="65" stroke="#5ba3d9" stroke-width="8" stroke-linecap="round"/><line x1="57" y1="68" x2="40" y2="95" stroke="#5ba3d9" stroke-width="8" stroke-linecap="round"/><line x1="63" y1="68" x2="80" y2="95" stroke="#5ba3d9" stroke-width="8" stroke-linecap="round"/><path d="M15 55 Q30 45 25 65" stroke="#90caf9" stroke-width="3" fill="none" opacity="0.5"/><path d="M105 55 Q90 45 95 65" stroke="#90caf9" stroke-width="3" fill="none" opacity="0.5"/></svg>
+                            </div>
                         </div>
+                        <div class="exercise-name">开合跳</div>
+                        <div class="exercise-meta">1分钟 · 简单</div>
                     </div>
-                    <div class="exercise-name">50米跑</div>
-                    <div class="exercise-meta">1次 · 中等</div>
+                    <div class="exercise-card">
+                        <div class="exercise-img pink">
+                            <div class="illustration">
+                                <svg viewBox="0 0 120 120" fill="none"><circle cx="60" cy="25" r="12" fill="#f56a3a"/><rect x="55" y="37" width="10" height="28" rx="5" fill="#5ba3d9"/><rect x="48" y="65" width="8" height="20" rx="4" fill="#333"/><rect x="64" y="50" width="8" height="22" rx="4" fill="#333" transform="rotate(-30 68 50)"/><line x1="55" y1="45" x2="35" y2="35" stroke="#5ba3d9" stroke-width="6" stroke-linecap="round"/><line x1="65" y1="45" x2="85" y2="35" stroke="#5ba3d9" stroke-width="6" stroke-linecap="round"/><path d="M85 70 Q95 60 90 45" stroke="#f56a3a" stroke-width="3" fill="none" stroke-linecap="round" opacity="0.4"/></svg>
+                            </div>
+                        </div>
+                        <div class="exercise-name">高抬腿</div>
+                        <div class="exercise-meta">1分钟 · 中等</div>
+                    </div>
+                    <div class="exercise-card">
+                        <div class="exercise-img blue">
+                            <div class="illustration">
+                                <svg viewBox="0 0 120 120" fill="none"><circle cx="60" cy="35" r="12" fill="#f56a3a"/><rect x="55" y="47" width="10" height="25" rx="5" fill="#5ba3d9"/><rect x="48" y="72" width="8" height="22" rx="4" fill="#333"/><rect x="64" y="72" width="8" height="22" rx="4" fill="#333"/><line x1="55" y1="55" x2="30" y2="70" stroke="#5ba3d9" stroke-width="7" stroke-linecap="round"/><line x1="65" y1="55" x2="90" y2="70" stroke="#5ba3d9" stroke-width="7" stroke-linecap="round"/></svg>
+                            </div>
+                        </div>
+                        <div class="exercise-name">深蹲</div>
+                        <div class="exercise-meta">20次 · 中等</div>
+                    </div>
+                    <div class="exercise-card">
+                        <div class="exercise-img pink">
+                            <div class="illustration">
+                                <svg viewBox="0 0 120 120" fill="none"><circle cx="60" cy="40" r="12" fill="#f56a3a"/><path d="M45 55 Q60 50 75 55" stroke="#5ba3d9" stroke-width="12" stroke-linecap="round" fill="none"/><rect x="48" y="65" width="8" height="20" rx="4" fill="#333"/><rect x="64" y="65" width="8" height="20" rx="4" fill="#333"/><ellipse cx="60" cy="90" rx="25" ry="6" fill="#e0e0e0" opacity="0.5"/></svg>
+                            </div>
+                        </div>
+                        <div class="exercise-name">平板支撑</div>
+                        <div class="exercise-meta">30秒 · 困难</div>
+                    </div>
                 </div>
             </div>
         </div>
 
-        <!-- 久坐救星 Section -->
-        <div class="section-card section-primary" id="section-office">
-            <div class="section-header">
-                <span class="section-subtitle">办公室必备</span>
-                <span class="section-more">更多</span>
-            </div>
-            <div class="section-title">久坐救星</div>
-            <div class="exercise-grid">
-                <!-- 颈部拉伸 -->
-                <div class="exercise-card">
-                    <div class="exercise-img blue">
-                        <div class="illustration">
-                            <svg viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <circle cx="60" cy="30" r="14" fill="#f56a3a"/>
-                                <rect x="54" y="44" width="12" height="28" rx="6" fill="#5ba3d9"/>
-                                <rect x="48" y="72" width="8" height="22" rx="4" fill="#333"/>
-                                <rect x="64" y="72" width="8" height="22" rx="4" fill="#333"/>
-                                <line x1="54" y1="50" x2="30" y2="40" stroke="#5ba3d9" stroke-width="7" stroke-linecap="round"/>
-                                <line x1="66" y1="50" x2="90" y2="55" stroke="#5ba3d9" stroke-width="7" stroke-linecap="round"/>
-                                <path d="M75 25 Q85 20 90 30" stroke="#f56a3a" stroke-width="2" fill="none" stroke-linecap="round"/>
-                                <path d="M80 22 Q92 18 95 28" stroke="#f56a3a" stroke-width="2" fill="none" stroke-linecap="round" opacity="0.5"/>
-                            </svg>
-                        </div>
-                    </div>
-                    <div class="exercise-name">颈部拉伸</div>
-                    <div class="exercise-meta">2分钟 · 简单</div>
+        <!-- Free Practice Content -->
+        <div class="home-tab-content" id="tab-free" style="display:none">
+            <!-- 计数打卡 Section -->
+            <div class="section-card" id="section-counting">
+                <div class="section-header">
+                    <span class="section-subtitle">计数打卡</span>
+                    <span class="section-more">更多</span>
                 </div>
-                <!-- 肩部环绕 -->
-                <div class="exercise-card">
-                    <div class="exercise-img pink">
-                        <div class="illustration">
-                            <svg viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <circle cx="60" cy="30" r="12" fill="#f56a3a"/>
-                                <rect x="55" y="42" width="10" height="28" rx="5" fill="#5ba3d9"/>
-                                <rect x="48" y="70" width="8" height="22" rx="4" fill="#333"/>
-                                <rect x="64" y="70" width="8" height="22" rx="4" fill="#333"/>
-                                <line x1="55" y1="48" x2="30" y2="55" stroke="#5ba3d9" stroke-width="7" stroke-linecap="round"/>
-                                <line x1="65" y1="48" x2="90" y2="42" stroke="#5ba3d9" stroke-width="7" stroke-linecap="round"/>
-                                <path d="M25 50 Q20 40 30 35" stroke="#f56a3a" stroke-width="2" fill="none" stroke-linecap="round"/>
-                                <path d="M95 38 Q100 48 90 52" stroke="#f56a3a" stroke-width="2" fill="none" stroke-linecap="round"/>
-                            </svg>
+                <div class="section-title">解锁1分钟运动新纪录</div>
+                <div class="exercise-grid">
+                    <div class="exercise-card">
+                        <div class="exercise-img pink">
+                            <div class="badge">体测项目</div>
+                            <div class="illustration">
+                                <svg viewBox="0 0 120 120" fill="none"><circle cx="60" cy="30" r="12" fill="#f56a3a"/><rect x="55" y="42" width="10" height="30" rx="5" fill="#f56a3a"/><rect x="48" y="72" width="8" height="25" rx="4" fill="#f5a03a"/><rect x="64" y="72" width="8" height="25" rx="4" fill="#f5a03a"/><path d="M30 50 Q60 90 90 50" stroke="#f56a3a" stroke-width="3" fill="none" stroke-linecap="round"/><line x1="45" y1="50" x2="30" y2="65" stroke="#f56a3a" stroke-width="3" stroke-linecap="round"/><line x1="75" y1="50" x2="90" y2="65" stroke="#f56a3a" stroke-width="3" stroke-linecap="round"/></svg>
+                            </div>
                         </div>
+                        <div class="exercise-name">1分钟跳绳</div>
+                        <div class="exercise-meta">1分钟 · 简单</div>
                     </div>
-                    <div class="exercise-name">肩部环绕</div>
-                    <div class="exercise-meta">1分钟 · 简单</div>
-                </div>
-                <!-- 腰部扭转 -->
-                <div class="exercise-card">
-                    <div class="exercise-img blue">
-                        <div class="illustration">
-                            <svg viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <circle cx="60" cy="28" r="12" fill="#f56a3a"/>
-                                <rect x="55" y="40" width="10" height="28" rx="5" fill="#5ba3d9"/>
-                                <rect x="48" y="68" width="8" height="22" rx="4" fill="#333"/>
-                                <rect x="64" y="68" width="8" height="22" rx="4" fill="#333"/>
-                                <line x1="55" y1="48" x2="35" y2="55" stroke="#5ba3d9" stroke-width="7" stroke-linecap="round"/>
-                                <line x1="65" y1="48" x2="85" y2="40" stroke="#5ba3d9" stroke-width="7" stroke-linecap="round"/>
-                                <path d="M80 35 Q90 30 85 45" stroke="#f56a3a" stroke-width="2" fill="none" stroke-linecap="round"/>
-                            </svg>
+                    <div class="exercise-card">
+                        <div class="exercise-img pink">
+                            <div class="badge">体测项目</div>
+                            <div class="illustration">
+                                <svg viewBox="0 0 120 120" fill="none"><ellipse cx="70" cy="80" rx="30" ry="12" fill="#e8d5c4"/><circle cx="85" cy="50" r="12" fill="#333"/><path d="M60 75 Q75 55 85 55" stroke="#5ba3d9" stroke-width="14" stroke-linecap="round" fill="none"/><path d="M55 80 L75 80" stroke="#5ba3d9" stroke-width="10" stroke-linecap="round"/><path d="M75 78 L90 90" stroke="#333" stroke-width="8" stroke-linecap="round"/></svg>
+                            </div>
                         </div>
+                        <div class="exercise-name">仰卧起坐</div>
+                        <div class="exercise-meta">1分钟 · 中等</div>
                     </div>
-                    <div class="exercise-name">腰部扭转</div>
-                    <div class="exercise-meta">1分钟 · 简单</div>
-                </div>
-                <!-- 起身活动 -->
-                <div class="exercise-card">
-                    <div class="exercise-img pink">
-                        <div class="illustration">
-                            <svg viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <circle cx="60" cy="25" r="12" fill="#f56a3a"/>
-                                <rect x="55" y="37" width="10" height="25" rx="5" fill="#5ba3d9"/>
-                                <rect x="48" y="62" width="8" height="22" rx="4" fill="#333"/>
-                                <rect x="64" y="62" width="8" height="22" rx="4" fill="#333"/>
-                                <line x1="55" y1="45" x2="35" y2="35" stroke="#5ba3d9" stroke-width="7" stroke-linecap="round"/>
-                                <line x1="65" y1="45" x2="85" y2="35" stroke="#5ba3d9" stroke-width="7" stroke-linecap="round"/>
-                                <path d="M30 100 L90 100" stroke="#e0e0e0" stroke-width="3" stroke-linecap="round"/>
-                                <path d="M40 100 L40 85 L80 85 L80 100" stroke="#e0e0e0" stroke-width="2" fill="none"/>
-                            </svg>
+                    <div class="exercise-card">
+                        <div class="exercise-img blue">
+                            <div class="illustration">
+                                <svg viewBox="0 0 120 120" fill="none"><polygon points="30,80 60,30 90,80" fill="#b8d8f0" opacity="0.5"/><polygon points="45,80 60,50 75,80" fill="#90c8e8" opacity="0.6"/><circle cx="60" cy="45" r="10" fill="#f5a03a"/><rect x="54" y="55" width="12" height="20" rx="4" fill="#5ba3d9"/><rect x="50" y="75" width="8" height="15" rx="3" fill="#333"/><rect x="62" y="75" width="8" height="15" rx="3" fill="#333"/><rect x="52" y="92" width="16" height="12" rx="3" fill="#4caf50"/><text x="60" y="101" text-anchor="middle" fill="#fff" font-size="8">✓</text></svg>
+                            </div>
                         </div>
+                        <div class="exercise-name">收腹跳</div>
+                        <div class="exercise-meta">30秒 · 中等</div>
                     </div>
-                    <div class="exercise-name">起身活动</div>
-                    <div class="exercise-meta">3分钟 · 简单</div>
+                    <div class="exercise-card">
+                        <div class="exercise-img blue">
+                            <div class="illustration">
+                                <svg viewBox="0 0 120 120" fill="none"><circle cx="60" cy="30" r="12" fill="#333"/><rect x="55" y="42" width="10" height="25" rx="5" fill="#f5d03a"/><rect x="48" y="67" width="8" height="22" rx="4" fill="#f56a3a"/><rect x="64" y="55" width="8" height="22" rx="4" fill="#f56a3a" transform="rotate(-20 68 55)"/><path d="M80 40 Q90 50 85 65" stroke="#4caf50" stroke-width="3" fill="none" stroke-linecap="round"/><path d="M82 42 Q95 48 88 62" stroke="#f56a3a" stroke-width="2" fill="none" stroke-linecap="round"/><path d="M75 70 Q85 55 90 45" stroke="#90caf9" stroke-width="4" fill="none" stroke-linecap="round" opacity="0.5"/></svg>
+                            </div>
+                        </div>
+                        <div class="exercise-name">踢毽子</div>
+                        <div class="exercise-meta">1分钟 · 简单</div>
+                    </div>
                 </div>
             </div>
-        </div>
 
-        <!-- 减脂塑形 Section -->
-        <div class="section-card section-primary" id="section-fitness">
-            <div class="section-header">
-                <span class="section-subtitle">燃脂瘦身</span>
-                <span class="section-more">更多</span>
-            </div>
-            <div class="section-title">减脂塑形</div>
-            <div class="exercise-grid">
-                <!-- 开合跳 -->
-                <div class="exercise-card">
-                    <div class="exercise-img blue">
-                        <div class="illustration">
-                            <svg viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <circle cx="60" cy="28" r="12" fill="#f56a3a"/>
-                                <rect x="55" y="40" width="10" height="28" rx="5" fill="#5ba3d9"/>
-                                <line x1="55" y1="50" x2="25" y2="65" stroke="#5ba3d9" stroke-width="8" stroke-linecap="round"/>
-                                <line x1="65" y1="50" x2="95" y2="65" stroke="#5ba3d9" stroke-width="8" stroke-linecap="round"/>
-                                <line x1="57" y1="68" x2="40" y2="95" stroke="#5ba3d9" stroke-width="8" stroke-linecap="round"/>
-                                <line x1="63" y1="68" x2="80" y2="95" stroke="#5ba3d9" stroke-width="8" stroke-linecap="round"/>
-                                <path d="M15 55 Q30 45 25 65" stroke="#90caf9" stroke-width="3" fill="none" opacity="0.5"/>
-                                <path d="M105 55 Q90 45 95 65" stroke="#90caf9" stroke-width="3" fill="none" opacity="0.5"/>
-                            </svg>
-                        </div>
-                    </div>
-                    <div class="exercise-name">开合跳</div>
-                    <div class="exercise-meta">1分钟 · 简单</div>
+            <!-- 体能训练 Section -->
+            <div class="section-card" id="section-fitness-train">
+                <div class="section-header">
+                    <span class="section-subtitle">全面提升</span>
+                    <span class="section-more">更多</span>
                 </div>
-                <!-- 高抬腿 -->
-                <div class="exercise-card">
-                    <div class="exercise-img pink">
-                        <div class="illustration">
-                            <svg viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <circle cx="60" cy="25" r="12" fill="#f56a3a"/>
-                                <rect x="55" y="37" width="10" height="28" rx="5" fill="#5ba3d9"/>
-                                <rect x="48" y="65" width="8" height="20" rx="4" fill="#333"/>
-                                <rect x="64" y="50" width="8" height="22" rx="4" fill="#333" transform="rotate(-30 68 50)"/>
-                                <line x1="55" y1="45" x2="35" y2="35" stroke="#5ba3d9" stroke-width="6" stroke-linecap="round"/>
-                                <line x1="65" y1="45" x2="85" y2="35" stroke="#5ba3d9" stroke-width="6" stroke-linecap="round"/>
-                                <path d="M85 70 Q95 60 90 45" stroke="#f56a3a" stroke-width="3" fill="none" stroke-linecap="round" opacity="0.4"/>
-                            </svg>
+                <div class="section-title">体能训练</div>
+                <div class="exercise-grid">
+                    <div class="exercise-card">
+                        <div class="exercise-img blue">
+                            <div class="illustration">
+                                <svg viewBox="0 0 120 120" fill="none"><circle cx="60" cy="35" r="12" fill="#f56a3a"/><rect x="55" y="47" width="10" height="25" rx="5" fill="#5ba3d9"/><rect x="48" y="72" width="8" height="22" rx="4" fill="#333"/><rect x="64" y="72" width="8" height="22" rx="4" fill="#333"/><line x1="55" y1="55" x2="30" y2="70" stroke="#5ba3d9" stroke-width="7" stroke-linecap="round"/><line x1="65" y1="55" x2="90" y2="70" stroke="#5ba3d9" stroke-width="7" stroke-linecap="round"/></svg>
+                            </div>
                         </div>
+                        <div class="exercise-name">深蹲</div>
+                        <div class="exercise-meta">20次 · 中等</div>
                     </div>
-                    <div class="exercise-name">高抬腿</div>
-                    <div class="exercise-meta">1分钟 · 中等</div>
-                </div>
-                <!-- 深蹲 -->
-                <div class="exercise-card">
-                    <div class="exercise-img blue">
-                        <div class="illustration">
-                            <svg viewBox="0 0 120 120" fill="none">
-                                <circle cx="60" cy="35" r="12" fill="#f56a3a"/>
-                                <rect x="55" y="47" width="10" height="25" rx="5" fill="#5ba3d9"/>
-                                <rect x="48" y="72" width="8" height="22" rx="4" fill="#333"/>
-                                <rect x="64" y="72" width="8" height="22" rx="4" fill="#333"/>
-                                <line x1="55" y1="55" x2="30" y2="70" stroke="#5ba3d9" stroke-width="7" stroke-linecap="round"/>
-                                <line x1="65" y1="55" x2="90" y2="70" stroke="#5ba3d9" stroke-width="7" stroke-linecap="round"/>
-                            </svg>
+                    <div class="exercise-card">
+                        <div class="exercise-img pink">
+                            <div class="illustration">
+                                <svg viewBox="0 0 120 120" fill="none"><circle cx="60" cy="40" r="12" fill="#333"/><path d="M45 55 Q60 50 75 55" stroke="#5ba3d9" stroke-width="12" stroke-linecap="round" fill="none"/><rect x="48" y="65" width="8" height="20" rx="4" fill="#5ba3d9"/><rect x="64" y="65" width="8" height="20" rx="4" fill="#5ba3d9"/><ellipse cx="60" cy="90" rx="25" ry="6" fill="#e0e0e0" opacity="0.5"/></svg>
+                            </div>
                         </div>
+                        <div class="exercise-name">平板支撑</div>
+                        <div class="exercise-meta">30秒 · 困难</div>
                     </div>
-                    <div class="exercise-name">深蹲</div>
-                    <div class="exercise-meta">20次 · 中等</div>
-                </div>
-                <!-- 平板支撑 -->
-                <div class="exercise-card">
-                    <div class="exercise-img pink">
-                        <div class="illustration">
-                            <svg viewBox="0 0 120 120" fill="none">
-                                <circle cx="60" cy="40" r="12" fill="#f56a3a"/>
-                                <path d="M45 55 Q60 50 75 55" stroke="#5ba3d9" stroke-width="12" stroke-linecap="round" fill="none"/>
-                                <rect x="48" y="65" width="8" height="20" rx="4" fill="#333"/>
-                                <rect x="64" y="65" width="8" height="20" rx="4" fill="#333"/>
-                                <ellipse cx="60" cy="90" rx="25" ry="6" fill="#e0e0e0" opacity="0.5"/>
-                            </svg>
-                        </div>
-                    </div>
-                    <div class="exercise-name">平板支撑</div>
-                    <div class="exercise-meta">30秒 · 困难</div>
-                </div>
-            </div>
-        </div>
-
-        <!-- 计数打卡 Section -->
-        <div class="section-card section-free" id="section-counting">
-            <div class="free-practice-header">
-                <span class="free-practice-title">自由练习</span>
-                <span class="section-more">全部项目</span>
-            </div>
-            <div class="section-header">
-                <span class="section-subtitle">计数打卡</span>
-                <span class="section-more">更多</span>
-            </div>
-            <div class="section-title">解锁1分钟运动新纪录</div>
-            <div class="exercise-grid">
-                <!-- 1分钟跳绳 -->
-                <div class="exercise-card">
-                    <div class="exercise-img pink">
-                        <div class="badge">体测项目</div>
-                        <div class="illustration">
-                            <svg viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <circle cx="60" cy="30" r="12" fill="#f56a3a"/>
-                                <rect x="55" y="42" width="10" height="30" rx="5" fill="#f56a3a"/>
-                                <rect x="48" y="72" width="8" height="25" rx="4" fill="#f5a03a"/>
-                                <rect x="64" y="72" width="8" height="25" rx="4" fill="#f5a03a"/>
-                                <path d="M30 50 Q60 90 90 50" stroke="#f56a3a" stroke-width="3" fill="none" stroke-linecap="round"/>
-                                <line x1="45" y1="50" x2="30" y2="65" stroke="#f56a3a" stroke-width="3" stroke-linecap="round"/>
-                                <line x1="75" y1="50" x2="90" y2="65" stroke="#f56a3a" stroke-width="3" stroke-linecap="round"/>
-                            </svg>
-                        </div>
-                    </div>
-                    <div class="exercise-name">1分钟跳绳</div>
-                    <div class="exercise-meta">1分钟 · 简单</div>
-                </div>
-                <!-- 仰卧起坐 -->
-                <div class="exercise-card">
-                    <div class="exercise-img pink">
-                        <div class="badge">体测项目</div>
-                        <div class="illustration">
-                            <svg viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <ellipse cx="70" cy="80" rx="30" ry="12" fill="#e8d5c4"/>
-                                <circle cx="85" cy="50" r="12" fill="#333"/>
-                                <path d="M60 75 Q75 55 85 55" stroke="#5ba3d9" stroke-width="14" stroke-linecap="round" fill="none"/>
-                                <path d="M55 80 L75 80" stroke="#5ba3d9" stroke-width="10" stroke-linecap="round"/>
-                                <path d="M75 78 L90 90" stroke="#333" stroke-width="8" stroke-linecap="round"/>
-                            </svg>
-                        </div>
-                    </div>
-                    <div class="exercise-name">仰卧起坐</div>
-                    <div class="exercise-meta">1分钟 · 中等</div>
-                </div>
-                <!-- 收腹跳 -->
-                <div class="exercise-card">
-                    <div class="exercise-img blue">
-                        <div class="illustration">
-                            <svg viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <polygon points="30,80 60,30 90,80" fill="#b8d8f0" opacity="0.5"/>
-                                <polygon points="45,80 60,50 75,80" fill="#90c8e8" opacity="0.6"/>
-                                <circle cx="60" cy="45" r="10" fill="#f5a03a"/>
-                                <rect x="54" y="55" width="12" height="20" rx="4" fill="#5ba3d9"/>
-                                <rect x="50" y="75" width="8" height="15" rx="3" fill="#333"/>
-                                <rect x="62" y="75" width="8" height="15" rx="3" fill="#333"/>
-                                <rect x="52" y="92" width="16" height="12" rx="3" fill="#4caf50"/>
-                                <text x="60" y="101" text-anchor="middle" fill="#fff" font-size="8">✓</text>
-                            </svg>
-                        </div>
-                    </div>
-                    <div class="exercise-name">收腹跳</div>
-                    <div class="exercise-meta">30秒 · 中等</div>
-                </div>
-                <!-- 踢毽子 -->
-                <div class="exercise-card">
-                    <div class="exercise-img blue">
-                        <div class="illustration">
-                            <svg viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <circle cx="60" cy="30" r="12" fill="#333"/>
-                                <rect x="55" y="42" width="10" height="25" rx="5" fill="#f5d03a"/>
-                                <rect x="48" y="67" width="8" height="22" rx="4" fill="#f56a3a"/>
-                                <rect x="64" y="55" width="8" height="22" rx="4" fill="#f56a3a" transform="rotate(-20 68 55)"/>
-                                <path d="M80 40 Q90 50 85 65" stroke="#4caf50" stroke-width="3" fill="none" stroke-linecap="round"/>
-                                <path d="M82 42 Q95 48 88 62" stroke="#f56a3a" stroke-width="2" fill="none" stroke-linecap="round"/>
-                                <path d="M75 70 Q85 55 90 45" stroke="#90caf9" stroke-width="4" fill="none" stroke-linecap="round" opacity="0.5"/>
-                            </svg>
-                        </div>
-                    </div>
-                    <div class="exercise-name">踢毽子</div>
-                    <div class="exercise-meta">1分钟 · 简单</div>
-                </div>
-            </div>
-        </div>
-
-        <!-- 体能训练 Section -->
-        <div class="section-card section-free" id="section-fitness-train">
-            <div class="free-practice-header">
-                <span class="free-practice-title">自由练习</span>
-                <span class="section-more">全部项目</span>
-            </div>
-            <div class="section-header">
-                <span class="section-subtitle">全面提升</span>
-                <span class="section-more">更多</span>
-            </div>
-            <div class="section-title">体能训练</div>
-            <div class="exercise-grid">
-                <div class="exercise-card">
-                    <div class="exercise-img blue">
-                        <div class="illustration">
-                            <svg viewBox="0 0 120 120" fill="none">
-                                <circle cx="60" cy="35" r="12" fill="#f56a3a"/>
-                                <rect x="55" y="47" width="10" height="25" rx="5" fill="#5ba3d9"/>
-                                <rect x="48" y="72" width="8" height="22" rx="4" fill="#333"/>
-                                <rect x="64" y="72" width="8" height="22" rx="4" fill="#333"/>
-                                <line x1="55" y1="55" x2="30" y2="70" stroke="#5ba3d9" stroke-width="7" stroke-linecap="round"/>
-                                <line x1="65" y1="55" x2="90" y2="70" stroke="#5ba3d9" stroke-width="7" stroke-linecap="round"/>
-                            </svg>
-                        </div>
-                    </div>
-                    <div class="exercise-name">深蹲</div>
-                    <div class="exercise-meta">20次 · 中等</div>
-                </div>
-                <div class="exercise-card">
-                    <div class="exercise-img pink">
-                        <div class="illustration">
-                            <svg viewBox="0 0 120 120" fill="none">
-                                <circle cx="60" cy="40" r="12" fill="#333"/>
-                                <path d="M45 55 Q60 50 75 55" stroke="#5ba3d9" stroke-width="12" stroke-linecap="round" fill="none"/>
-                                <rect x="48" y="65" width="8" height="20" rx="4" fill="#5ba3d9"/>
-                                <rect x="64" y="65" width="8" height="20" rx="4" fill="#5ba3d9"/>
-                                <ellipse cx="60" cy="90" rx="25" ry="6" fill="#e0e0e0" opacity="0.5"/>
-                            </svg>
-                        </div>
-                    </div>
-                    <div class="exercise-name">平板支撑</div>
-                    <div class="exercise-meta">30秒 · 困难</div>
                 </div>
             </div>
         </div>
@@ -5696,7 +5610,42 @@
         // Selected goal from profile
         let selectedGoal = localStorage.getItem('user_goal') || '';
 
-        // Reorder home sections based on user goal
+        // Switch home tab (directed / free)
+        function switchHomeTab(tab) {
+            document.querySelectorAll('.home-tab').forEach(t => t.classList.remove('active'));
+            document.querySelector('.home-tab[data-tab="' + tab + '"]').classList.add('active');
+            document.getElementById('tab-directed').style.display = tab === 'directed' ? 'block' : 'none';
+            document.getElementById('tab-free').style.display = tab === 'free' ? 'block' : 'none';
+        }
+
+        // Update goal bar display
+        function updateGoalBar() {
+            const goal = localStorage.getItem('user_goal') || '';
+            const goalBar = document.getElementById('goal-bar');
+            const goalName = document.getElementById('goal-bar-name');
+            const goalIcon = document.getElementById('goal-bar-icon');
+            
+            const goalMap = {
+                'exam': { name: '体测备考', icon: '🎯' },
+                'office': { name: '办公室放松', icon: '🧘' },
+                'fitness': { name: '减脂塑形', icon: '🔥' }
+            };
+            
+            if (goal && goalMap[goal]) {
+                goalBar.style.display = 'flex';
+                goalName.textContent = goalMap[goal].name;
+                goalIcon.textContent = goalMap[goal].icon;
+            } else {
+                goalBar.style.display = 'none';
+            }
+        }
+
+        // Open goal switch (go back to profile)
+        function openGoalSwitch() {
+            document.getElementById('profile-overlay').classList.add('active');
+        }
+
+        // Reorder home sections based on user goal (legacy, kept for compatibility)
         function reorderHomeSections() {
             const homePage = document.getElementById('page-home');
             const goal = localStorage.getItem('user_goal') || '';
@@ -5804,7 +5753,7 @@
             if (selectedGoal) {
                 localStorage.setItem('user_goal', selectedGoal);
             }
-            reorderHomeSections();
+            updateGoalBar();
             showToast('欢迎使用观观体测！');
         }
 
@@ -5936,7 +5885,7 @@
                 window.scrollTo(0, 0);
                 // Reorder sections when switching to home
                 if (tab.dataset.page === 'home') {
-                    reorderHomeSections();
+                    updateGoalBar();
                 }
             });
         });
