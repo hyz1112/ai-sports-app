@@ -3970,6 +3970,104 @@
             font-weight: 500;
         }
 
+        /* Goal Switcher Modal */
+        .goal-switcher-overlay {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(0,0,0,0.4);
+            z-index: 3000;
+            align-items: flex-end;
+            justify-content: center;
+        }
+
+        .goal-switcher-overlay.active {
+            display: flex;
+        }
+
+        .goal-switcher-modal {
+            background: #fff;
+            border-radius: 20px 20px 0 0;
+            width: 100%;
+            max-width: 430px;
+            padding: 24px 20px 32px;
+            animation: slideUp 0.3s ease;
+        }
+
+        @keyframes slideUp {
+            from { transform: translateY(100%); }
+            to { transform: translateY(0); }
+        }
+
+        .goal-switcher-title {
+            font-size: 17px;
+            font-weight: 700;
+            text-align: center;
+            margin-bottom: 20px;
+            color: #1a1a1a;
+        }
+
+        .goal-switcher-list {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .goal-switcher-item {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            padding: 16px;
+            background: #f8f9fa;
+            border-radius: 14px;
+            cursor: pointer;
+            transition: all 0.2s;
+            border: 2px solid transparent;
+        }
+
+        .goal-switcher-item:active {
+            background: #f0f0f0;
+        }
+
+        .goal-switcher-item.active {
+            border-color: #f56a3a;
+            background: #fff5f0;
+        }
+
+        .goal-switcher-icon {
+            font-size: 28px;
+            width: 44px;
+            height: 44px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #fff;
+            border-radius: 12px;
+            flex-shrink: 0;
+        }
+
+        .goal-switcher-name {
+            font-size: 15px;
+            font-weight: 700;
+            color: #1a1a1a;
+        }
+
+        .goal-switcher-desc {
+            font-size: 12px;
+            color: #999;
+            margin-top: 2px;
+        }
+
+        .goal-switcher-cancel {
+            text-align: center;
+            padding: 14px;
+            margin-top: 16px;
+            font-size: 15px;
+            color: #666;
+            cursor: pointer;
+            border-top: 1px solid #f0f0f0;
+        }
+
         /* Home Tabs - Keep style */
         .home-tabs {
             display: flex;
@@ -4750,6 +4848,37 @@
             </div>
         </div>
     </div>
+    </div>
+
+    <!-- Goal Switcher Modal -->
+    <div class="goal-switcher-overlay" id="goal-switcher" onclick="closeGoalSwitch()">
+        <div class="goal-switcher-modal" onclick="event.stopPropagation()">
+            <div class="goal-switcher-title">切换目标</div>
+            <div class="goal-switcher-list">
+                <div class="goal-switcher-item" onclick="switchGoal('exam')">
+                    <span class="goal-switcher-icon">🎯</span>
+                    <div>
+                        <div class="goal-switcher-name">体测备考</div>
+                        <div class="goal-switcher-desc">跳绳/仰卧起坐专项</div>
+                    </div>
+                </div>
+                <div class="goal-switcher-item" onclick="switchGoal('office')">
+                    <span class="goal-switcher-icon">🧘</span>
+                    <div>
+                        <div class="goal-switcher-name">办公室放松</div>
+                        <div class="goal-switcher-desc">每天3分钟缓解疲劳</div>
+                    </div>
+                </div>
+                <div class="goal-switcher-item" onclick="switchGoal('fitness')">
+                    <span class="goal-switcher-icon"></span>
+                    <div>
+                        <div class="goal-switcher-name">减脂塑形</div>
+                        <div class="goal-switcher-desc">14天科学燃脂计划</div>
+                    </div>
+                </div>
+            </div>
+            <div class="goal-switcher-cancel" onclick="closeGoalSwitch()">取消</div>
+        </div>
     </div>
 
     <!-- 计划 Page -->
@@ -5656,9 +5785,32 @@
             }
         }
 
-        // Open goal switch (go back to profile)
+        // Open goal switcher modal
         function openGoalSwitch() {
-            document.getElementById('profile-overlay').classList.add('active');
+            const overlay = document.getElementById('goal-switcher');
+            overlay.classList.add('active');
+            // Highlight current goal
+            const currentGoal = localStorage.getItem('user_goal') || '';
+            document.querySelectorAll('.goal-switcher-item').forEach(item => {
+                item.classList.remove('active');
+            });
+            const items = document.querySelectorAll('.goal-switcher-item');
+            const goalIndex = { 'exam': 0, 'office': 1, 'fitness': 2 };
+            if (currentGoal && goalIndex[currentGoal] !== undefined) {
+                items[goalIndex[currentGoal]].classList.add('active');
+            }
+        }
+
+        // Close goal switcher modal
+        function closeGoalSwitch() {
+            document.getElementById('goal-switcher').classList.remove('active');
+        }
+
+        // Switch goal from modal
+        function switchGoal(goal) {
+            localStorage.setItem('user_goal', goal);
+            closeGoalSwitch();
+            updateGoalBar();
         }
 
         // Reorder home sections based on user goal (legacy, kept for compatibility)
