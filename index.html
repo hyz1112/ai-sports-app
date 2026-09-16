@@ -4502,14 +4502,6 @@
     </div>
 
 
-\1
-        <!-- Goal Display Bar -->
-        <div class="goal-bar" id="goal-bar" style="display:none">
-            <span class="goal-bar-icon" id="goal-bar-icon"></span>
-            <span class="goal-bar-text">我的目标：<span id="goal-bar-name">体测备考</span></span>
-            <span class="goal-bar-switch" onclick="openGoalSwitch()">切换 &gt;</span>
-        </div>
-
         <!-- Tab Switcher -->
         <div class="home-tabs">
             <div class="home-tab active" data-tab="directed" onclick="switchHomeTab('directed')">定向练习</div>
@@ -4518,6 +4510,12 @@
 
         <!-- Directed Practice Content -->
         <div class="home-tab-content" id="tab-directed">
+            <!-- Goal Display Bar (only in directed tab) -->
+            <div class="goal-bar" id="goal-bar" style="display:none">
+                <span class="goal-bar-icon" id="goal-bar-icon"></span>
+                <span class="goal-bar-text">我的目标：<span id="goal-bar-name">体测备考</span></span>
+                <span class="goal-bar-switch" onclick="openGoalSwitch()">切换 &gt;</span>
+            </div>
             <!-- 体测提分 Section -->
             <div class="section-card" id="section-exam">
                 <div class="section-header">
