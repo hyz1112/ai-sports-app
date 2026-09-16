@@ -5619,6 +5619,7 @@
             document.querySelector('.home-tab[data-tab="' + tab + '"]').classList.add('active');
             document.getElementById('tab-directed').style.display = tab === 'directed' ? 'block' : 'none';
             document.getElementById('tab-free').style.display = tab === 'free' ? 'block' : 'none';
+            if (tab === 'directed') updateGoalBar();
         }
 
         // Update goal bar display
@@ -5629,17 +5630,29 @@
             const goalIcon = document.getElementById('goal-bar-icon');
             
             const goalMap = {
-                'exam': { name: '体测备考', icon: '🎯' },
-                'office': { name: '办公室放松', icon: '🧘' },
-                'fitness': { name: '减脂塑形', icon: '🔥' }
+                'exam': { name: '体测备考', icon: '', section: 'section-exam' },
+                'office': { name: '办公室放松', icon: '🧘', section: 'section-office' },
+                'fitness': { name: '减脂塑形', icon: '🔥', section: 'section-fitness' }
             };
+            
+            const allSections = ['section-exam', 'section-office', 'section-fitness'];
             
             if (goal && goalMap[goal]) {
                 goalBar.style.display = 'flex';
                 goalName.textContent = goalMap[goal].name;
                 goalIcon.textContent = goalMap[goal].icon;
+                // Show only the matching section, hide others
+                allSections.forEach(id => {
+                    const el = document.getElementById(id);
+                    if (el) el.style.display = id === goalMap[goal].section ? 'block' : 'none';
+                });
             } else {
                 goalBar.style.display = 'none';
+                // Show all sections
+                allSections.forEach(id => {
+                    const el = document.getElementById(id);
+                    if (el) el.style.display = 'block';
+                });
             }
         }
 
