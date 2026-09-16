@@ -3934,60 +3934,57 @@
             border-color: #f56a3a;
         }
 
-        /* Goal Bar */
+        /* Goal Bar - inline text, no box */
         .goal-bar {
             display: flex;
             align-items: center;
-            padding: 12px 20px;
-            background: #fff;
-            border-bottom: 1px solid #f0f0f0;
+            padding: 8px 20px 4px;
+            background: transparent;
         }
 
         .goal-bar-icon {
-            font-size: 20px;
-            margin-right: 8px;
+            font-size: 18px;
+            margin-right: 6px;
         }
 
         .goal-bar-text {
             flex: 1;
-            font-size: 15px;
-            color: #333;
+            font-size: 14px;
+            color: #666;
         }
 
         .goal-bar-text span {
-            font-weight: 700;
-            color: #1a1a1a;
+            font-weight: 600;
+            color: #333;
         }
 
         .goal-bar-switch {
-            font-size: 14px;
+            font-size: 13px;
             color: #f56a3a;
             cursor: pointer;
-            font-weight: 600;
+            font-weight: 500;
         }
 
-        /* Home Tabs */
+        /* Home Tabs - Keep style */
         .home-tabs {
             display: flex;
-            padding: 12px 20px 0;
-            gap: 0;
-            background: #fff;
+            padding: 8px 20px 0;
+            gap: 24px;
+            background: transparent;
         }
 
         .home-tab {
-            flex: 1;
-            text-align: center;
-            padding: 10px 0;
-            font-size: 15px;
-            font-weight: 600;
+            font-size: 17px;
+            font-weight: 700;
             color: #999;
             cursor: pointer;
-            border-bottom: 2px solid transparent;
+            padding-bottom: 8px;
+            border-bottom: 3px solid transparent;
             transition: all 0.2s;
         }
 
         .home-tab.active {
-            color: #f56a3a;
+            color: #1a1a1a;
             border-bottom-color: #f56a3a;
         }
 
