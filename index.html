@@ -3934,6 +3934,39 @@
             border-color: #f56a3a;
         }
 
+        /* Weight control */
+        .weight-control {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .weight-btn {
+            width: 36px;
+            height: 36px;
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+            background: #fff;
+            font-size: 12px;
+            font-weight: 600;
+            color: #f56a3a;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .weight-btn:active {
+            background: #f5f5f5;
+        }
+
+        .weight-input {
+            flex: 1;
+            text-align: center;
+            min-width: 0;
+        }
+
         .goal-cards {
             display: flex;
             flex-direction: column;
@@ -4368,7 +4401,7 @@
                     <div class="profile-label">性别</div>
                     <div class="gender-cards">
                         <div class="gender-card" onclick="selectProfileGender('male', this)">
-                            <div class="gender-card-icon"></div>
+                            <div class="gender-card-icon">👦</div>
                             <div class="gender-card-text">男</div>
                         </div>
                         <div class="gender-card" onclick="selectProfileGender('female', this)">
@@ -4391,7 +4424,11 @@
                         </div>
                         <div class="profile-col">
                             <div class="profile-label">体重(kg)</div>
-                            <input type="number" class="profile-input-small" id="input-weight" placeholder="55">
+                            <div class="weight-control">
+                                <button class="weight-btn" onclick="adjustWeight(-0.5)">-0.5</button>
+                                <input type="number" class="profile-input-small weight-input" id="input-weight" placeholder="55" step="0.5">
+                                <button class="weight-btn" onclick="adjustWeight(0.5)">+0.5</button>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -5547,6 +5584,16 @@
         function selectProfileGender(gender, el) {
             document.querySelectorAll('.gender-card').forEach(c => c.classList.remove('active'));
             el.classList.add('active');
+        }
+
+        // Adjust weight by delta
+        function adjustWeight(delta) {
+            const input = document.getElementById('input-weight');
+            let val = parseFloat(input.value) || 55;
+            val = Math.round((val + delta) * 10) / 10;
+            if (val < 30) val = 30;
+            if (val > 200) val = 200;
+            input.value = val;
         }
 
         // Profile goal selection
