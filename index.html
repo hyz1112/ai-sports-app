@@ -3934,6 +3934,39 @@
             border-color: #f56a3a;
         }
 
+        /* Primary sections (top 3) */
+        .section-primary {
+            border: 2px solid #f56a3a;
+            border-radius: 16px;
+            background: linear-gradient(135deg, #fff5f0 0%, #fff 100%);
+            margin-bottom: 16px;
+        }
+
+        .section-primary .section-subtitle {
+            color: #f56a3a;
+            font-weight: 700;
+        }
+
+        /* Free practice sections (bottom) */
+        .section-free {
+            background: #f8f9fa;
+            border-radius: 16px;
+            margin-bottom: 16px;
+        }
+
+        .free-practice-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 16px 20px 8px;
+        }
+
+        .free-practice-title {
+            font-size: 18px;
+            font-weight: 800;
+            color: #1a1a1a;
+        }
+
         .goal-cards {
             display: flex;
             flex-direction: column;
@@ -4438,7 +4471,7 @@
     <!-- 首页 Page -->
     <div class="page active" id="page-home">
         <!-- 体测提分 Section -->
-        <div class="section-card">
+        <div class="section-card section-primary" id="section-exam">
             <div class="section-header">
                 <span class="section-subtitle">考试必备</span>
                 <span class="section-more">更多</span>
@@ -4525,7 +4558,7 @@
         </div>
 
         <!-- 久坐救星 Section -->
-        <div class="section-card">
+        <div class="section-card section-primary" id="section-office">
             <div class="section-header">
                 <span class="section-subtitle">办公室必备</span>
                 <span class="section-more">更多</span>
@@ -4611,7 +4644,7 @@
         </div>
 
         <!-- 减脂塑形 Section -->
-        <div class="section-card">
+        <div class="section-card section-primary" id="section-fitness">
             <div class="section-header">
                 <span class="section-subtitle">燃脂瘦身</span>
                 <span class="section-more">更多</span>
@@ -4692,7 +4725,11 @@
         </div>
 
         <!-- 计数打卡 Section -->
-        <div class="section-card">
+        <div class="section-card section-free" id="section-counting">
+            <div class="free-practice-header">
+                <span class="free-practice-title">自由练习</span>
+                <span class="section-more">全部项目</span>
+            </div>
             <div class="section-header">
                 <span class="section-subtitle">计数打卡</span>
                 <span class="section-more">更多</span>
@@ -4776,7 +4813,11 @@
         </div>
 
         <!-- 体能训练 Section -->
-        <div class="section-card">
+        <div class="section-card section-free" id="section-fitness-train">
+            <div class="free-practice-header">
+                <span class="free-practice-title">自由练习</span>
+                <span class="section-more">全部项目</span>
+            </div>
             <div class="section-header">
                 <span class="section-subtitle">全面提升</span>
                 <span class="section-more">更多</span>
@@ -5676,6 +5717,52 @@
             }
         }
 
+        // Selected goal from profile
+        let selectedGoal = localStorage.getItem('user_goal') || '';
+
+        // Reorder home sections based on user goal
+        function reorderHomeSections() {
+            const homePage = document.getElementById('page-home');
+            const goal = localStorage.getItem('user_goal') || '';
+            
+            const sectionMap = {
+                'exam': 'section-exam',
+                'office': 'section-office',
+                'fitness': 'section-fitness'
+            };
+            
+            const primaryIds = ['section-exam', 'section-office', 'section-fitness'];
+            const freeIds = ['section-counting', 'section-fitness-train'];
+            
+            // Remove all sections
+            const sections = {};
+            primaryIds.forEach(id => {
+                const el = document.getElementById(id);
+                if (el) sections[id] = el;
+            });
+            freeIds.forEach(id => {
+                const el = document.getElementById(id);
+                if (el) sections[id] = el;
+            });
+            
+            // Determine order: selected goal first, then others
+            let orderedPrimary = [];
+            if (goal && sectionMap[goal] && sections[sectionMap[goal]]) {
+                orderedPrimary.push(sections[sectionMap[goal]]);
+            }
+            primaryIds.forEach(id => {
+                if (sections[id] && (!goal || sectionMap[goal] !== id)) {
+                    orderedPrimary.push(sections[id]);
+                }
+            });
+            
+            // Append in order: primary sections first, then free practice
+            orderedPrimary.forEach(el => homePage.appendChild(el));
+            freeIds.forEach(id => {
+                if (sections[id]) homePage.appendChild(sections[id]);
+            });
+        }
+
         // Check if first time user
         function checkFirstTime() {
             // 暂时每次都显示欢迎页，方便查看设计效果
@@ -5717,6 +5804,7 @@
         function selectProfileGoal(goal, el) {
             document.querySelectorAll('.goal-card').forEach(c => c.classList.remove('active'));
             el.classList.add('active');
+            selectedGoal = goal;
             
             // Show grade section if exam goal
             const gradeSection = document.getElementById('grade-section');
@@ -5737,6 +5825,10 @@
         function completeProfile() {
             document.getElementById('profile-overlay').classList.remove('active');
             localStorage.setItem('welcome_completed', 'true');
+            if (selectedGoal) {
+                localStorage.setItem('user_goal', selectedGoal);
+            }
+            reorderHomeSections();
             showToast('欢迎使用观观体测！');
         }
 
@@ -5866,6 +5958,10 @@
                 }
                 tabBar.style.display = 'flex';
                 window.scrollTo(0, 0);
+                // Reorder sections when switching to home
+                if (tab.dataset.page === 'home') {
+                    reorderHomeSections();
+                }
             });
         });
 
