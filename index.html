@@ -4068,6 +4068,61 @@
             border-top: 1px solid #f0f0f0;
         }
 
+        /* Plan CTA Card */
+        .plan-cta-card {
+            display: flex;
+            align-items: center;
+            margin: 16px 16px 80px;
+            padding: 18px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 16px;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+
+        .plan-cta-card:active {
+            transform: scale(0.98);
+        }
+
+        .plan-cta-left {
+            margin-right: 14px;
+        }
+
+        .plan-cta-icon {
+            width: 48px;
+            height: 48px;
+            background: rgba(255,255,255,0.2);
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+        }
+
+        .plan-cta-content {
+            flex: 1;
+        }
+
+        .plan-cta-title {
+            font-size: 15px;
+            font-weight: 700;
+            color: #fff;
+            margin-bottom: 3px;
+        }
+
+        .plan-cta-desc {
+            font-size: 12px;
+            color: rgba(255,255,255,0.8);
+        }
+
+        .plan-cta-arrow {
+            font-size: 13px;
+            color: rgba(255,255,255,0.9);
+            font-weight: 600;
+            white-space: nowrap;
+            margin-left: 8px;
+        }
+
         /* Home Tabs - Keep style */
         .home-tabs {
             display: flex;
@@ -4765,10 +4820,21 @@
                     </div>
                 </div>
             </div>
+        <!-- Plan CTA Card (inside directed tab) -->
+        <div class="plan-cta-card" onclick="goToPlan()">
+            <div class="plan-cta-left">
+                <div class="plan-cta-icon">📅</div>
+            </div>
+            <div class="plan-cta-content">
+                <div class="plan-cta-title">AI 已为你定制专属计划</div>
+                <div class="plan-cta-desc">根据你的目标和体能，生成每日训练安排</div>
+            </div>
+            <div class="plan-cta-arrow">查看计划 &gt;</div>
         </div>
+    </div>
 
-        <!-- Free Practice Content -->
-        <div class="home-tab-content" id="tab-free" style="display:none">
+    <!-- Free Practice Content -->
+    <div class="home-tab-content" id="tab-free" style="display:none">
             <!-- 计数打卡 Section -->
             <div class="section-card" id="section-counting">
                 <div class="section-header">
@@ -5783,6 +5849,16 @@
                     if (el) el.style.display = 'block';
                 });
             }
+        }
+
+        // Go to plan page
+        function goToPlan() {
+            document.querySelectorAll('.tab-item').forEach(t => t.classList.remove('active'));
+            document.querySelector('.tab-item[data-page="plan"]').classList.add('active');
+            document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+            document.getElementById('page-plan').classList.add('active');
+            document.getElementById('main-tab-bar').style.display = 'flex';
+            window.scrollTo(0, 0);
         }
 
         // Open goal switcher modal
