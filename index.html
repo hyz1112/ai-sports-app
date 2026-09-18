@@ -5807,6 +5807,7 @@
 
         // Selected goal from profile
         let selectedGoal = localStorage.getItem('user_goal') || '';
+        let selectedProfileGender = '';
 
         // Switch home tab (directed / free)
         function switchHomeTab(tab) {
@@ -5967,6 +5968,7 @@
         function selectProfileGender(gender, el) {
             document.querySelectorAll('.gender-card').forEach(c => c.classList.remove('active'));
             el.classList.add('active');
+            selectedProfileGender = gender;
         }
 
         // Profile goal selection
@@ -5992,10 +5994,26 @@
 
         // Complete profile
         function completeProfile() {
+            // Validation: if exam goal, require gender and grade
+            if (selectedGoal === 'exam') {
+                if (!selectedProfileGender) {
+                    showToast('请选择性别');
+                    return;
+                }
+                const activeGrade = document.querySelector('.grade-option.active');
+                if (!activeGrade) {
+                    showToast('请选择年级');
+                    return;
+                }
+            }
+
             document.getElementById('profile-overlay').classList.remove('active');
             localStorage.setItem('welcome_completed', 'true');
             if (selectedGoal) {
                 localStorage.setItem('user_goal', selectedGoal);
+            }
+            if (selectedProfileGender) {
+                localStorage.setItem('user_gender', selectedProfileGender);
             }
             updateGoalBar();
             showToast('欢迎使用观观体测！');
