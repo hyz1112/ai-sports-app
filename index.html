@@ -5993,7 +5993,12 @@
         }
 
         // Complete profile
+        let profileSubmitting = false;
         function completeProfile() {
+            if (profileSubmitting) return;
+            profileSubmitting = true;
+            setTimeout(() => { profileSubmitting = false; }, 1500);
+
             // Validation: if exam goal, require gender and grade
             if (selectedGoal === 'exam') {
                 if (!selectedProfileGender) {
